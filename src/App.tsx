@@ -45,7 +45,7 @@ function App() {
   const location = useLocation();
   
   // For now, skip onboarding entirely to debug the main app
-  console.log("Rendering App component with routes");
+  console.log("Rendering App component with routes - v2");
   console.log("Current location:", location.pathname);
 
   return (
