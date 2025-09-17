@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { 
   OrbitControls, 
-  Environment, 
   PerspectiveCamera,
   useGLTF,
   Sky
@@ -347,19 +346,6 @@ export const Mountain3D: React.FC<Mountain3DProps> = ({
         <WeatherEffects timeOfDay={timeOfDay} weatherCondition={weatherCondition} />
         
         {/* Enhanced Environment lighting */}
-        <Environment 
-          preset={
-            timeOfDay === 'dawn' ? 'dawn' :
-            timeOfDay === 'day' ? 'sunset' :
-            timeOfDay === 'dusk' ? 'sunset' :
-            'night'
-          }
-          background={false}
-        />
-        
-        {/* Journey animations removed as requested by user */}
-
-        {/* Enhanced lighting for realism */}
         <ambientLight intensity={0.4} />
         <directionalLight 
           position={[50, 50, 20]} 

@@ -1,3 +1,4 @@
+@import './calendar.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -156,8 +157,6 @@ h6 {
   animation: pulse 2s infinite;
 }
 
-/* Import custom styles */
-@import './calendar.css';
 
 /* Mobile Optimizations */
 @media (max-width: 768px) {
