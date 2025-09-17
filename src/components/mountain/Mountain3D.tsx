@@ -229,7 +229,7 @@ function TerrainBase() {
 }
 
 // Main mountain component with environment
-export const Mountain3D: React.FC<Mountain3DProps> = ({
+export const Mountain3D: React.FC<Mountain3DProps> = React.memo(({
   timeOfDay: forcedTimeOfDay,
   weatherCondition = 'clear',
   className,
@@ -245,19 +245,7 @@ export const Mountain3D: React.FC<Mountain3DProps> = ({
   onPlottingComplete,
   onJourneyComplete
 }) => {
-  // Log props for debugging
-  console.log("Rendering Mountain3D component");
-  console.log("Props:", { 
-    timeOfDay: forcedTimeOfDay, 
-    weatherCondition, 
-    blurred, 
-    progressPercentage,
-    showFriends,
-    interactive,
-    alwaysShowIndicators,
-    showPlottingAnimation,
-    showJourneyAnimation
-  });
+  // Props debugging removed to prevent console spam
   
   // Call plotting complete callback after a delay to simulate plotting animation
   useEffect(() => {
@@ -364,6 +352,6 @@ export const Mountain3D: React.FC<Mountain3DProps> = ({
       </Canvas>
     </div>
   );
-}
+});
 
 export default Mountain3D;

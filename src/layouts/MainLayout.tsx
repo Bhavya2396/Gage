@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import MountainBackground from '@/components/backgrounds/MountainBackground';
 import Logo from '@/components/ui/Logo';
@@ -48,9 +48,9 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children, isMountainFocu
   const shouldBlurMountain = !(['/mountain', '/friends', '/calendar'].includes(location.pathname));
 
   // Handle mountain focus change
-  const handleMountainFocus = () => {
+  const handleMountainFocus = useCallback(() => {
     setIsMountainFocused(!isMountainFocused);
-  };
+  }, [isMountainFocused]);
 
   return (
     <div className="fixed inset-0 w-screen h-screen mobile-full-height overflow-hidden bg-bg-primary">

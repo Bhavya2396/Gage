@@ -14,7 +14,7 @@ interface MountainBackgroundProps {
   timeOfDay?: 'dawn' | 'day' | 'dusk' | 'night';
 }
 
-export const MountainBackground: React.FC<MountainBackgroundProps> = ({
+export const MountainBackground: React.FC<MountainBackgroundProps> = React.memo(({
   children,
   blurred = true,
   focusable = false,
@@ -24,8 +24,6 @@ export const MountainBackground: React.FC<MountainBackgroundProps> = ({
   onFocus,
   timeOfDay
 }) => {
-  console.log("Rendering MountainBackground component");
-  console.log("Props:", { blurred, focusable, progressPercentage, showFriends, timeOfDay });
   const [isFocused, setIsFocused] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -109,6 +107,6 @@ export const MountainBackground: React.FC<MountainBackgroundProps> = ({
       )}
     </div>
   );
-};
+});
 
 export default MountainBackground;
