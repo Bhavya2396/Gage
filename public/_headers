@@ -1,0 +1,19 @@
+# Headers for all routes
+/*
+  X-Content-Type-Options: nosniff
+
+# JavaScript files
+/*.js
+  Content-Type: application/javascript
+
+# CSS files
+/*.css
+  Content-Type: text/css
+
+# GLB files
+/*.glb
+  Content-Type: model/gltf-binary
+
+# SVG files
+/*.svg
+  Content-Type: image/svg+xml
