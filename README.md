@@ -63,24 +63,6 @@ npm run dev
 
 4. Open your browser and navigate to `http://localhost:5173` (Vite's default port)
 
-### Deployment
-
-The application is configured for deployment on Vercel:
-
-1. Install the Vercel CLI (optional)
-```bash
-npm install -g vercel
-```
-
-2. Deploy to Vercel
-```bash
-# Using Vercel CLI
-vercel
-
-# Or through the Vercel dashboard
-# Push your code to GitHub and import the repository in the Vercel dashboard
-```
-
 ## Project Structure
 
 ```

@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 export interface GlassCardProps {
   children: ReactNode;
   className?: string;
-  variant?: 'default' | 'highlight' | 'muted' | 'accent' | 'translucent';
+  variant?: 'default' | 'highlight' | 'muted' | 'accent';
   size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
   onClick?: () => void;
   animate?: boolean;
@@ -32,7 +32,6 @@ export const GlassCard: React.FC<GlassCardProps> = ({
     highlight: 'bg-glass border-accent-primary/30',
     muted: 'bg-glass/50 border-glass-border/50',
     accent: 'bg-glass border-accent-primary',
-    translucent: 'bg-glass/30 border-glass-border/30 backdrop-blur-sm',
   };
 
   // Define size styles with responsive padding

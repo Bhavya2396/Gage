@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import MainLayout from '@/layouts/MainLayout';
 import GlassCard from '@/components/ui/GlassCard';
-import TranslucentOverlay from '@/components/ui/TranslucentOverlay';
 import { 
   ChevronLeft, 
   Heart, 
@@ -239,7 +238,7 @@ const ComparisonCard: React.FC<{
   const isNeutral = difference === 0;
   
   return (
-    <GlassCard variant="translucent" size="md" className="w-full overflow-hidden">
+    <GlassCard size="md" className="w-full overflow-hidden">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center overflow-hidden">
           <div className="p-2 rounded-full bg-glass-highlight mr-2 flex-shrink-0">
@@ -525,7 +524,7 @@ const HealthTrendsPage: React.FC = () => {
         
         {/* Main chart card */}
         <motion.div variants={itemVariants} initial="hidden" animate="visible">
-          <GlassCard variant="translucent" size="full" className="mb-6 overflow-hidden">
+          <GlassCard size="full" className="mb-6 overflow-hidden">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-medium text-alpine-mist">{currentMetric.title}</h2>
               <div 
@@ -624,7 +623,7 @@ const HealthTrendsPage: React.FC = () => {
           
           {/* Overall health score */}
           <motion.div variants={itemVariants}>
-            <GlassCard variant="translucent" size="full" className="overflow-hidden">
+            <GlassCard size="full" className="overflow-hidden">
               <h3 className="text-base font-medium text-alpine-mist mb-4">Overall Health Score</h3>
               <div className="flex items-center justify-center mb-4 overflow-hidden">
                 <CircularGauge

@@ -7,10 +7,22 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+.pnp
+.pnp.js
+
+# Testing
+coverage
+*.lcov
+.nyc_output
+
+# Build
 dist
 dist-ssr
 *.local
+build
+out
 
 # Editor directories and files
 .vscode/*
@@ -30,14 +42,14 @@ dist-ssr
 .env.test.local
 .env.production.local
 
-# Vercel
+# Misc
+.cache
+.project
+.settings
+.tmproj
+*.esproj
+nbproject
+*.sublime-project
+*.sublime-workspace
 .vercel
-.vercelignore
-
-# Build artifacts
-build/
-out/
-.next/
-
-# Duplicate GLB files (keep only the ones in public/models)
-/*.glb
+.netlify

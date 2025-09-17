@@ -11,24 +11,5 @@ export default defineConfig({
     },
   },
   assetsInclude: ['**/*.glb'],
-  build: {
-    outDir: 'dist',
-    assetsDir: 'assets',
-    emptyOutDir: true,
-    minify: true,
-    sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom', 'react-router-dom'],
-          three: ['three'],
-          'react-three': ['@react-three/fiber', '@react-three/drei'],
-        },
-        entryFileNames: 'assets/[name]-[hash].js',
-        chunkFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash].[ext]'
-      }
-    }
-  }
 })
 

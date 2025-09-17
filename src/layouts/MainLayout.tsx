@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import MountainBackground from '@/components/backgrounds/MountainBackground';
 import Logo from '@/components/ui/Logo';
-import TranslucentOverlay from '@/components/ui/TranslucentOverlay';
 import { cn } from '@/lib/utils';
 
 interface MainLayoutProps {
@@ -76,17 +75,13 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children, isMountainFocu
             <Logo size="xl" variant="glow" />
           </div>
           
-          {/* Main Content - Full height scrollable container with translucent overlay */}
-          <TranslucentOverlay 
-            opacity={0.15} 
-            blur={2}
-            className={cn(
-              'content-container min-h-full rounded-lg',
-              isMobile ? 'p-3 pt-16 pb-24' : 'p-4 pt-16 pb-24' // Add padding top for logo and bottom for navigation
-            )}
-          >
+          {/* Main Content - Full height scrollable container */}
+          <div className={cn(
+            'content-container min-h-full',
+            isMobile ? 'p-3 pt-16 pb-24' : 'p-4 pt-16 pb-24' // Add padding top for logo and bottom for navigation
+          )}>
             {children}
-          </TranslucentOverlay>
+          </div>
         </div>
       </MountainBackground>
 
