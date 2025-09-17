@@ -188,6 +188,8 @@ function ResponsiveCamera() {
         target={[0, 35, 0]} // Target much higher up on the mountain to hide ground
         rotateSpeed={0.5} // Slower manual rotation for better control
         zoomSpeed={0.5} // Slower zoom for better control
+        enableDamping={true} // Smooth camera movements
+        dampingFactor={0.05} // Lower damping for smoother feel
       />
     </>
   );
@@ -289,9 +291,9 @@ export const Mountain3D: React.FC<Mountain3DProps> = React.memo(({
     <div className={`relative w-full h-full ${className || ''}`}>
       <Canvas 
         shadows
-        frameloop="demand" 
-        dpr={[1, 2]} // Limit DPR for better performance
-        performance={{ min: 0.5 }} // Allow performance scaling
+        frameloop="always" 
+        dpr={[1, 1.5]} // Lower DPR for better performance
+        performance={{ min: 0.5, max: 1 }} // Allow performance scaling with max limit
         gl={{ 
           powerPreference: "high-performance",
           antialias: true,
