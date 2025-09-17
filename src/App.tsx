@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { 
   Routes, 
   Route, 
@@ -42,53 +42,11 @@ const InsightsPage = lazy(() => import('./pages/InsightsPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 function App() {
-  const [isOnboarded, setIsOnboarded] = useState<boolean | null>(null);
-  const location = useLocation(); // Move useLocation hook to the top level
+  const location = useLocation();
   
-  // Check if user has completed onboarding
-  useEffect(() => {
-    // Check localStorage for onboarding status
-    const storedOnboardingStatus = localStorage.getItem('onboardingComplete');
-    console.log("Onboarding status from localStorage:", storedOnboardingStatus);
-    
-    // Set the onboarding state based on localStorage
-    const onboardingComplete = storedOnboardingStatus === 'true';
-    console.log("Setting isOnboarded to:", onboardingComplete);
-    setIsOnboarded(onboardingComplete);
-    
-    // Listen for storage changes (in case onboarding is completed in another tab)
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'onboardingComplete') {
-        console.log("onboardingComplete changed in storage:", e.newValue);
-        setIsOnboarded(e.newValue === 'true');
-      }
-    };
-    
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
-  }, []);
-  
-  // For development purposes - force onboarding state
-  // Set to true to force onboarding flow, false to skip to main app
-  // Note: This overrides localStorage settings for testing purposes
-  const forceOnboarding = false;
-  
-  // Loading state while checking onboarding status
-  if (isOnboarded === null && !forceOnboarding) {
-    return <LoadingScreen />;
-  }
-  
-  // For development, we'll consider the user as onboarded
-  // Force onboarding to false if explicitly set, otherwise use localStorage value
-  const effectiveOnboardingState = forceOnboarding ? false : (isOnboarded ?? false);
-  
-  // Log onboarding state for debugging
-  console.log("Effective onboarding state:", effectiveOnboardingState);
-  
-  // Add more detailed logging
+  // For now, skip onboarding entirely to debug the main app
   console.log("Rendering App component with routes");
   console.log("Current location:", location.pathname);
-  console.log("Onboarding state:", effectiveOnboardingState);
 
   return (
     <Suspense fallback={<LoadingScreen />}>
@@ -107,11 +65,9 @@ function App() {
           
           {/* Main App Routes */}
           <Route path="/" element={
-            effectiveOnboardingState ? 
-              <PageTransition>
-                <HomePage />
-              </PageTransition> : 
-              <Navigate to="/onboarding/welcome" replace />
+            <PageTransition>
+              <HomePage />
+            </PageTransition>
           } />
           <Route path="/slide" element={<PageTransition><SlideHomePage /></PageTransition>} />
           <Route path="/health" element={<PageTransition><HealthDashboardPage /></PageTransition>} />
