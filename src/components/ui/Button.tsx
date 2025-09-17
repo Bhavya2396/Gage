@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'icon';
   fullWidth?: boolean;
   icon?: React.ReactNode;
   iconPosition?: 'left' | 'right';
@@ -37,6 +37,7 @@ export const Button: React.FC<ButtonProps> = ({
     sm: 'text-xs py-2 px-3',
     md: 'text-sm py-2.5 px-4',
     lg: 'text-base py-3 px-5',
+    icon: 'p-2',
   };
 
   // Base component with conditional motion wrapper
