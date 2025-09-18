@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import GlassCard from '@/components/ui/GlassCard';
 import Button from '@/components/ui/Button';
-import Mountain3D from '@/components/mountain/Mountain3D';
+import LightweightMountain from '@/components/mountain/LightweightMountain';
 import { BarChart2 } from 'lucide-react';
 
 // Workout frequency slider component
@@ -106,11 +106,12 @@ const ActivityScreen: React.FC = () => {
   
   return (
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-      {/* Wireframe Mountain Background - with topographical lines */}
+      {/* Lightweight Mountain Background */}
       <div className="absolute inset-0 z-0">
-        <Mountain3D 
-          progressPercentage={0}
+        <LightweightMountain 
+          progressPercentage={20}
           blurred={false}
+          timeOfDay="day"
         />
       </div>
       

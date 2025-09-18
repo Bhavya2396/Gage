@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import Mountain3D from '@/components/mountain/Mountain3D';
+import MountainLoader from '@/components/mountain/MountainLoader';
 import { useActivityPoints } from '@/contexts/ActivityPointsContext';
 
 const CompleteScreen: React.FC = () => {
@@ -17,7 +17,7 @@ const CompleteScreen: React.FC = () => {
   useEffect(() => {
     const timeline = [
       { stage: 1, delay: 1000 },   // Dissolve card into particles
-      { stage: 2, delay: 3000 },   // Mountain transforms to 3D (handled by Mountain3D)
+      { stage: 2, delay: 3000 },   // Mountain transforms to 3D (handled by MountainLoader)
     ];
     
     let timeout: NodeJS.Timeout;
@@ -112,14 +112,16 @@ const CompleteScreen: React.FC = () => {
     <div className="fixed inset-0 w-full h-screen mobile-full-height flex items-center justify-center overflow-hidden">
       {/* Mountain Background - with plotting and journey animations */}
       <div className="absolute inset-0 z-0">
-        <Mountain3D 
-          progressPercentage={10} // Initial progress
+        <MountainLoader
+          progressPercentage={80} // Near completion
           blurred={false}
           interactive={false}
           showPlottingAnimation={animationStage >= 2}
           showJourneyAnimation={showJourneyAnimation}
           onPlottingComplete={handlePlottingComplete}
           onJourneyComplete={handleJourneyComplete}
+          use3D={true} // Always use 3D for the final screen
+          timeOfDay="dawn" // Beautiful dawn lighting for completion
         />
       </div>
       
