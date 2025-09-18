@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Mountain } from 'lucide-react';
-import Mountain3D from '@/components/mountain/Mountain3D';
+import LightweightMountain from '@/components/mountain/LightweightMountain';
 import GlassCard from '@/components/ui/GlassCard';
 import Button from '@/components/ui/Button';
 
@@ -11,10 +11,9 @@ const NotFoundPage: React.FC = () => {
     <div className="w-full h-full flex flex-col items-center justify-center relative">
       {/* Background mountain */}
       <div className="absolute inset-0 z-0">
-        <Mountain3D 
+        <LightweightMountain 
           progressPercentage={50}
           blurred={true}
-          interactive={false}
           timeOfDay="night"
         />
       </div>

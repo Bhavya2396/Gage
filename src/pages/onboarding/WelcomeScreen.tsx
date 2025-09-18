@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import GlassCard from '@/components/ui/GlassCard';
 import Button from '@/components/ui/Button';
-import Mountain3D from '@/components/mountain/Mountain3D';
+import LightweightMountain from '@/components/mountain/LightweightMountain';
 
 const WelcomeScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -14,11 +14,12 @@ const WelcomeScreen: React.FC = () => {
   
   return (
     <div className="relative w-full h-screen flex items-center justify-center overflow-hidden mobile-full-height">
-      {/* Wireframe Mountain Background */}
+      {/* Lightweight Mountain Background */}
       <div className="absolute inset-0 z-0">
-        <Mountain3D 
+        <LightweightMountain 
           progressPercentage={0}
           blurred={false}
+          timeOfDay="dawn"
         />
       </div>
       

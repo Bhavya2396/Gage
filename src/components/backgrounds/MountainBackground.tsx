@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Mountain3D from '@/components/mountain/Mountain3D';
+import MountainLoader from '@/components/mountain/MountainLoader';
 import { cn } from '@/lib/utils';
 
 interface MountainBackgroundProps {
@@ -58,13 +58,16 @@ export const MountainBackground: React.FC<MountainBackgroundProps> = React.memo(
         className="absolute inset-0 w-full h-full cursor-pointer" 
         onClick={handleFocus}
       >
-        <Mountain3D
+        <MountainLoader
           blurred={false} // Never blur the mountain
           interactive={isFocused}
           progressPercentage={progressPercentage}
           showFriends={showFriends}
           timeOfDay={timeOfDay}
           alwaysShowIndicators={true}
+          use3D={isFocused} // Only load 3D when focused
+          autoUpgradeTo3D={!isFocused} // Auto-upgrade after 3 seconds if not focused
+          autoUpgradeDelay={3000}
         />
       </div>
       
