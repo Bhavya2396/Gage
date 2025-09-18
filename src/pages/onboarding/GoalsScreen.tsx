@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import GlassCard from '@/components/ui/GlassCard';
 import Button from '@/components/ui/Button';
-import LightweightMountain from '@/components/mountain/LightweightMountain';
+import MountainLoader from '@/components/mountain/MountainLoader';
 import { Flag, Calendar, Target } from 'lucide-react';
 import { useActivityPoints } from '@/contexts/ActivityPointsContext';
 
@@ -326,12 +326,14 @@ const GoalsScreen: React.FC = () => {
 
   return (
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-      {/* Lightweight Mountain Background */}
+      {/* 3D Mountain Background with progressive loading */}
       <div className="absolute inset-0 z-0">
-        <LightweightMountain 
+        <MountainLoader 
           progressPercentage={60}
           blurred={false}
           timeOfDay="day"
+          use3D={true}
+          autoUpgradeTo3D={false}
         />
       </div>
       

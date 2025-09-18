@@ -2,7 +2,7 @@ import React, { lazy, Suspense, useState } from 'react';
 import LightweightMountain from './LightweightMountain';
 
 // Lazy load the heavy Mountain3D component
-const Mountain3D = lazy(() => import('./Mountain3D').then(module => ({ default: module.Mountain3D })));
+const Mountain3D = lazy(() => import('./Mountain3D'));
 
 interface MountainLoaderProps {
   progressPercentage?: number;
