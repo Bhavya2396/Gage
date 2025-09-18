@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import PageTransition from './components/ui/PageTransition';
+import { isOnboardingComplete } from './utils/onboarding';
 
 // Loading component for suspense fallback
 const LoadingScreen = () => (
@@ -44,9 +45,13 @@ const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 function App() {
   const location = useLocation();
   
-  // For now, skip onboarding entirely to debug the main app
   console.log("Rendering App component with routes - v2");
   console.log("Current location:", location.pathname);
+  
+  // Check if user has completed onboarding
+  const hasCompletedOnboarding = isOnboardingComplete();
+  
+  console.log("Onboarding status:", hasCompletedOnboarding ? "Complete" : "Not complete");
 
   return (
     <Suspense fallback={<LoadingScreen />}>
@@ -65,9 +70,13 @@ function App() {
           
           {/* Main App Routes */}
           <Route path="/" element={
-            <PageTransition>
-              <HomePage />
-            </PageTransition>
+            hasCompletedOnboarding ? (
+              <PageTransition>
+                <HomePage />
+              </PageTransition>
+            ) : (
+              <Navigate to="/onboarding/welcome" replace />
+            )
           } />
           <Route path="/slide" element={<PageTransition><SlideHomePage /></PageTransition>} />
           <Route path="/health" element={<PageTransition><HealthDashboardPage /></PageTransition>} />
