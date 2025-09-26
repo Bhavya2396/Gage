@@ -7,9 +7,9 @@ import {
   Sky
 } from '@react-three/drei';
 import * as THREE from 'three';
-// import { useActivityPoints } from '@/contexts/ActivityPointsContext';
 import { getTimeOfDay } from '@/lib/utils';
 import WeatherEffects from './WeatherEffects';
+import { useResponsive } from '@/hooks/useResponsive';
 
 interface Mountain3DProps {
   progressPercentage?: number;
@@ -26,11 +26,18 @@ interface Mountain3DProps {
   onJourneyComplete?: () => void;
 }
 
-// Create a mountain mesh using the GLB model
+/**
+ * MountainModel - Loads and renders the 3D mountain model
+ * Includes fallback rendering and proper error handling
+ */
 function MountainModel() {
   const mountainRef = useRef<THREE.Group>(null);
   const [modelLoadError, setModelLoadError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  
+  // Standardize on a single model path and preload it
+  const MODEL_PATH = '/models/mountainpeak.glb';
+  useGLTF.preload(MODEL_PATH);
   
   // Create a fallback mesh in case model loading fails
   const FallbackMesh = () => (
@@ -39,10 +46,6 @@ function MountainModel() {
       <meshStandardMaterial color="#4A6FA5" roughness={0.8} />
     </mesh>
   );
-
-  // Standardize on a single model path and preload it
-  const MODEL_PATH = '/mountainpeak.glb';
-  useGLTF.preload(MODEL_PATH);
   
   // Load the model with proper error handling
   const { scene: modelScene } = useGLTF(MODEL_PATH, undefined, undefined, (error) => {
@@ -114,12 +117,15 @@ function MountainModel() {
   );
 }
 
-// Enhanced responsive camera that adapts to screen size with journey animation
+/**
+ * ResponsiveCamera - Handles camera positioning and movement
+ * Adapts to screen size and provides smooth animation
+ */
 function ResponsiveCamera() {
+  const { isMobile } = useResponsive();
   const { size } = useThree();
   const cameraRef = useRef<THREE.PerspectiveCamera>(null);
   const positionRef = useRef<THREE.Vector3>(new THREE.Vector3());
-  const isMobile = size.width < 768;
   
   // Position camera to zoom in and hide ground while keeping mountain peak near logo
   const initialPosition = isMobile ? [0, 45, 80] : [0, 40, 70];
@@ -132,8 +138,8 @@ function ResponsiveCamera() {
     lastUpdate: 0,
     angle: 0,
     radius: isMobile ? 80 : 70, // Adjusted radius for proper framing
-    height: isMobile ? 45 : 40,  // Increased height significantly to hide ground
-    rotationSpeed: 0.0005 // Extremely slow rotation speed as requested by user
+    height: isMobile ? 45 : 40,  // Increased height to hide ground
+    rotationSpeed: 0.0005 // Extremely slow rotation speed
   });
   
   // Update animation parameters when screen size changes
@@ -147,7 +153,7 @@ function ResponsiveCamera() {
     if (cameraRef.current) {
       const params = cameraAnimationRef.current;
       
-      // Use fixed time increments instead of clock for smoother animation
+      // Use fixed time increments for smoother animation
       params.angle += params.rotationSpeed;
       
       // Calculate new position using refs to avoid React state updates
@@ -175,33 +181,34 @@ function ResponsiveCamera() {
         onUpdate={(self) => self.updateProjectionMatrix()}
       />
       
-      {/* Controls with position to match reference image - optimized for smoother rotation */}
+      {/* Controls with position to match reference image */}
       <OrbitControls 
         enablePan={false}
         enableZoom={true}
         enableRotate={true}
-        autoRotate={false} // Disable auto-rotation as we're handling it manually
-        minPolarAngle={Math.PI / 6} // More restricted upward angle to prevent seeing below mountain
-        maxPolarAngle={Math.PI / 3} // More restricted downward angle to keep focus on upper mountain
-        minDistance={65} // Minimum zoom distance to prevent seeing ground
-        maxDistance={100} // Maximum zoom distance
-        target={[0, 35, 0]} // Target much higher up on the mountain to hide ground
-        rotateSpeed={0.5} // Slower manual rotation for better control
-        zoomSpeed={0.5} // Slower zoom for better control
-        enableDamping={true} // Smooth camera movements
-        dampingFactor={0.05} // Lower damping for smoother feel
+        autoRotate={false}
+        minPolarAngle={Math.PI / 6}
+        maxPolarAngle={Math.PI / 3}
+        minDistance={65}
+        maxDistance={100}
+        target={[0, 35, 0]}
+        rotateSpeed={0.5}
+        zoomSpeed={0.5}
+        enableDamping={true}
+        dampingFactor={0.05}
       />
     </>
   );
 }
 
-// Animation components removed as requested by user
-
-// Create simple grass terrain beneath the mountain - positioned lower to be out of view
+/**
+ * TerrainBase - Creates the ground beneath the mountain
+ * Positioned low to be mostly out of view
+ */
 function TerrainBase() {
   return (
     <group position={[0, -40, 0]}>
-      {/* Large grass terrain base - positioned much lower to be out of view */}
+      {/* Large grass terrain base - positioned lower to be out of view */}
       <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
         <planeGeometry args={[500, 500, 128, 128]} />
         <meshStandardMaterial 
@@ -210,7 +217,6 @@ function TerrainBase() {
           metalness={0.1}
           displacementScale={3}
           displacementBias={-1}
-          wireframe={false}
         >
         </meshStandardMaterial>
       </mesh>
@@ -230,13 +236,14 @@ function TerrainBase() {
   );
 }
 
-// Main mountain component with environment
+/**
+ * Main Mountain3D component
+ * Renders the 3D mountain scene with environment effects
+ */
 export const Mountain3D: React.FC<Mountain3DProps> = React.memo(({
   timeOfDay: forcedTimeOfDay,
   weatherCondition = 'clear',
   className,
-  // These props are used in the WelcomeScreen but not currently implemented
-  // They are kept here to maintain the interface and avoid breaking changes
   progressPercentage = 0,
   blurred = false,
   interactive = false,
@@ -247,38 +254,35 @@ export const Mountain3D: React.FC<Mountain3DProps> = React.memo(({
   onPlottingComplete,
   onJourneyComplete
 }) => {
-  // Props debugging removed to prevent console spam
-  
-  // Call plotting complete callback after a delay to simulate plotting animation
+  // Handle animation callbacks for plotting and journey animations
   useEffect(() => {
     if (showPlottingAnimation && onPlottingComplete) {
-      console.log("Starting plotting animation");
       const timer = setTimeout(() => {
-        console.log("Plotting animation complete");
         onPlottingComplete();
       }, 3000);
       return () => clearTimeout(timer);
     }
   }, [showPlottingAnimation, onPlottingComplete]);
   
-  // Call journey complete callback after a delay to simulate journey animation
   useEffect(() => {
     if (showJourneyAnimation && onJourneyComplete) {
-      console.log("Starting journey animation");
       const timer = setTimeout(() => {
-        console.log("Journey animation complete");
         onJourneyComplete();
       }, 5000);
       return () => clearTimeout(timer);
     }
   }, [showJourneyAnimation, onJourneyComplete]);
+  
+  // Time of day management
   const [timeOfDay, setTimeOfDay] = useState<'dawn' | 'day' | 'dusk' | 'night'>(
     forcedTimeOfDay || getTimeOfDay()
   );
   
   // Update time of day based on current time if not forced
   useEffect(() => {
-    if (!forcedTimeOfDay) {
+    if (forcedTimeOfDay) {
+      setTimeOfDay(forcedTimeOfDay);
+    } else {
       const interval = setInterval(() => {
         setTimeOfDay(getTimeOfDay());
       }, 60000); // Check every minute
@@ -293,22 +297,22 @@ export const Mountain3D: React.FC<Mountain3DProps> = React.memo(({
         shadows
         frameloop="always" 
         dpr={[1, 1.5]} // Lower DPR for better performance
-        performance={{ min: 0.5, max: 1 }} // Allow performance scaling with max limit
+        performance={{ min: 0.5, max: 1 }}
         gl={{ 
           powerPreference: "high-performance",
           antialias: true,
-          alpha: false, // Disable alpha for better performance
-          stencil: false, // Disable stencil for better performance
+          alpha: false,
+          stencil: false,
           depth: true
         }}
       >
-        {/* Responsive camera with better positioning */}
+        {/* Camera system */}
         <ResponsiveCamera />
         
-        {/* GLB Mountain Model */}
+        {/* Mountain model */}
         <MountainModel />
         
-        {/* New terrain base and environment elements */}
+        {/* Terrain base */}
         <TerrainBase />
         
         {/* Dynamic Sky with time-of-day changes */}
@@ -335,7 +339,7 @@ export const Mountain3D: React.FC<Mountain3DProps> = React.memo(({
         {/* Weather effects with clouds and lighting */}
         <WeatherEffects timeOfDay={timeOfDay} weatherCondition={weatherCondition} />
         
-        {/* Enhanced Environment lighting */}
+        {/* Lighting */}
         <ambientLight intensity={0.4} />
         <directionalLight 
           position={[50, 50, 20]} 
@@ -350,8 +354,17 @@ export const Mountain3D: React.FC<Mountain3DProps> = React.memo(({
           shadow-camera-bottom={-50}
         />
         <pointLight position={[0, 30, 20]} intensity={0.5} color="#FFF" />
+        
+        {/* Fog for depth */}
         <fog attach="fog" args={['#071630', 80, 200]} />
+        
+        {/* Progress path rendering would go here */}
       </Canvas>
+      
+      {/* Apply blur effect when needed */}
+      {blurred && (
+        <div className="absolute inset-0 backdrop-blur-[1px] bg-black/10 z-10" />
+      )}
     </div>
   );
 });

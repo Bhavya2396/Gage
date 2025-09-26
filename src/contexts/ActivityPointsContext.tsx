@@ -1,46 +1,21 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-
-// Define the structure for goal-specific metrics
-interface GoalMetrics {
-  category: string;
-  metrics: {
-    name: string;
-    points: number;
-    totalPoints: number;
-  }[];
-}
-
-// Define the structure for activity points
-interface ActivityPoints {
-  currentPoints: number;
-  totalPointsRequired: number;
-  goalName: string;
-  goalCategory: string;
-  targetValue: number;
-  targetUnit: string;
-  phases: {
-    name: string;
-    points: number;
-    totalPoints: number;
-    completed: boolean;
-  }[];
-  goalMetrics: GoalMetrics;
-  recentActivities: {
-    type: string;
-    description: string;
-    pointsEarned: number;
-    timestamp: Date;
-  }[];
-}
+import { 
+  ActivityPoints, 
+  ActivityRecord, 
+  GoalCategory,
+  GoalMetrics,
+  JourneyPhase 
+} from '@/types';
 
 interface ActivityPointsContextType {
   activityPoints: ActivityPoints;
   addPoints: (points: number, activityType: string, description: string) => void;
-  setGoal: (category: string, name: string, targetValue: number, targetUnit: string) => void;
+  setGoal: (category: GoalCategory, name: string, targetValue: number, targetUnit: string) => void;
   getProgressPercentage: () => number;
   getPhaseProgress: () => number;
-  getCurrentPhase: () => { name: string; points: number; totalPoints: number; completed: boolean } | undefined;
+  getCurrentPhase: () => JourneyPhase | undefined;
   getPointsRemaining: () => number;
+  resetProgress: () => void;
 }
 
 // Create the context with a default value
@@ -187,18 +162,21 @@ export const ActivityPointsProvider: React.FC<{ children: ReactNode }> = ({ chil
         });
       }
       
+      // Create activity record
+      const newActivity: ActivityRecord = {
+        type: activityType,
+        description,
+        pointsEarned: points,
+        timestamp: new Date(),
+      };
+      
       return {
         ...prev,
         currentPoints: newCurrentPoints,
         phases: updatedPhases,
         goalMetrics: updatedMetrics,
         recentActivities: [
-          {
-            type: activityType,
-            description,
-            pointsEarned: points,
-            timestamp: new Date(),
-          },
+          newActivity,
           ...prev.recentActivities.slice(0, 9), // Keep only the 10 most recent activities
         ],
       };
@@ -206,7 +184,7 @@ export const ActivityPointsProvider: React.FC<{ children: ReactNode }> = ({ chil
   };
 
   // Set a new goal
-  const setGoal = (category: string, name: string, targetValue: number, targetUnit: string) => {
+  const setGoal = (category: GoalCategory, name: string, targetValue: number, targetUnit: string) => {
     // Calculate total points required based on goal complexity
     let totalPoints = 1000; // Base points
     
@@ -255,7 +233,7 @@ export const ActivityPointsProvider: React.FC<{ children: ReactNode }> = ({ chil
       ];
     }
     
-    setActivityPoints({
+    const newActivityPoints: ActivityPoints = {
       currentPoints: 0,
       totalPointsRequired: totalPoints,
       goalName: name,
@@ -287,7 +265,9 @@ export const ActivityPointsProvider: React.FC<{ children: ReactNode }> = ({ chil
         metrics,
       },
       recentActivities: [],
-    });
+    };
+    
+    setActivityPoints(newActivityPoints);
   };
 
   // Calculate overall progress percentage
@@ -319,6 +299,20 @@ export const ActivityPointsProvider: React.FC<{ children: ReactNode }> = ({ chil
   const getPointsRemaining = () => {
     return activityPoints.totalPointsRequired - activityPoints.currentPoints;
   };
+  
+  // Reset progress for testing
+  const resetProgress = () => {
+    setActivityPoints(prev => ({
+      ...prev,
+      currentPoints: 0,
+      phases: prev.phases.map(phase => ({ ...phase, points: 0, completed: false })),
+      goalMetrics: {
+        ...prev.goalMetrics,
+        metrics: prev.goalMetrics.metrics.map(metric => ({ ...metric, points: 0 }))
+      },
+      recentActivities: [],
+    }));
+  };
 
   return (
     <ActivityPointsContext.Provider
@@ -330,6 +324,7 @@ export const ActivityPointsProvider: React.FC<{ children: ReactNode }> = ({ chil
         getPhaseProgress,
         getCurrentPhase,
         getPointsRemaining,
+        resetProgress,
       }}
     >
       {children}
@@ -345,5 +340,3 @@ export const useActivityPoints = () => {
   }
   return context;
 };
-
-

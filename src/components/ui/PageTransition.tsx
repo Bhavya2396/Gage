@@ -1,67 +1,78 @@
 import React, { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
+import { 
+  pageTransition, 
+  pageSlideLeft, 
+  pageSlideUp,
+  fadeIn,
+  scaleIn
+} from '@/design/animations';
 
 interface PageTransitionProps {
   children: ReactNode;
+  variant?: 'default' | 'slide' | 'slideUp' | 'scale' | 'none';
+  duration?: number;
 }
 
-const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
+/**
+ * PageTransition - Provides consistent page transition animations
+ * Automatically selects appropriate animation based on route or override with variant prop
+ */
+const PageTransition: React.FC<PageTransitionProps> = ({ 
+  children, 
+  variant,
+  duration = 0.3
+}) => {
   const location = useLocation();
   
-  // Different animation variants for different route patterns
+  // Determine animation based on route pattern if no variant is specified
   const getAnimationVariant = () => {
+    // If variant is explicitly provided, use it
+    if (variant === 'none') return null;
+    if (variant === 'default') return fadeIn;
+    if (variant === 'slide') return pageSlideLeft;
+    if (variant === 'slideUp') return pageSlideUp;
+    if (variant === 'scale') return scaleIn;
+    
+    // Otherwise, determine by route
     const path = location.pathname;
     
     if (path.includes('onboarding')) {
-      return {
-        initial: { opacity: 0, x: 100 },
-        animate: { opacity: 1, x: 0 },
-        exit: { opacity: 0, x: -100 }
-      };
+      return pageSlideLeft;
     } else if (path === '/workout' || path === '/workout-complete') {
-      return {
-        initial: { opacity: 0, y: 50 },
-        animate: { opacity: 1, y: 0 },
-        exit: { opacity: 0, y: -50 }
-      };
-    } else if (path === '/food') {
-      return {
-        initial: { opacity: 0, scale: 0.95 },
-        animate: { opacity: 1, scale: 1 },
-        exit: { opacity: 0, scale: 1.05 }
-      };
+      return pageSlideUp;
+    } else if (path === '/food' || path === '/nutrition') {
+      return scaleIn;
     } else if (path === '/health' || path === '/health/trends') {
-      return {
-        initial: { opacity: 0, y: -50 },
-        animate: { opacity: 1, y: 0 },
-        exit: { opacity: 0, y: 50 }
-      };
+      return pageSlideUp;
     } else if (path === '/friends') {
-      return {
-        initial: { opacity: 0, x: -100 },
-        animate: { opacity: 1, x: 0 },
-        exit: { opacity: 0, x: 100 }
-      };
+      return pageSlideLeft;
     } else {
       // Default animation for other routes
-      return {
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-        exit: { opacity: 0 }
-      };
+      return fadeIn;
     }
   };
   
-  const variant = getAnimationVariant();
+  const animationVariant = getAnimationVariant();
+  
+  // If no animation is desired, just render children
+  if (!animationVariant) {
+    return <>{children}</>;
+  }
   
   return (
     <motion.div
       key={location.pathname}
-      initial={variant.initial}
-      animate={variant.animate}
-      exit={variant.exit}
-      transition={{ type: 'tween', ease: 'easeInOut', duration: 0.3 }}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={animationVariant}
+      transition={{ 
+        type: 'tween', 
+        ease: 'easeInOut', 
+        duration
+      }}
       className="w-full h-full"
     >
       {children}
@@ -70,7 +81,3 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
 };
 
 export default PageTransition;
-
-
-
-

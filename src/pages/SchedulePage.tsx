@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import MainLayout from '@/layouts/MainLayout';
 import GlassCard from '@/components/ui/GlassCard';
 import Button from '@/components/ui/Button';
-import EnhancedTimelineVisualizer from '@/components/schedule/EnhancedTimelineVisualizer';
+// Timeline visualizer removed as requested
 import MonthCalendar from '@/components/schedule/MonthCalendar';
 import EventForm from '@/components/schedule/EventForm';
 import { 
@@ -122,7 +122,7 @@ const SchedulePage: React.FC = () => {
     }
   ]);
   const [inputValue, setInputValue] = useState('');
-  const [viewMode, setViewMode] = useState<'timeline' | 'calendar'>('timeline');
+  // Calendar is the only view mode now
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [isTyping, setIsTyping] = useState(false);
 
@@ -328,125 +328,84 @@ const SchedulePage: React.FC = () => {
           </Button>
         </motion.div>
 
-        {/* View Mode Toggle */}
+        {/* Calendar View Title */}
         <motion.div 
           className="flex justify-center mb-4"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <div className="bg-glass-background bg-opacity-30 rounded-lg p-1 flex">
-            <button
-              className={`px-4 py-1.5 rounded-lg transition-all duration-200 flex items-center ${
-                viewMode === 'timeline' 
-                  ? 'bg-cyan-primary text-bg-primary shadow-glow-sm' 
-                  : 'text-alpine-mist hover:bg-glass-highlight'
-              }`}
-              onClick={() => setViewMode('timeline')}
-            >
-              <Clock size={16} className="mr-2" />
-              Timeline
-            </button>
-            <button
-              className={`px-4 py-1.5 rounded-lg transition-all duration-200 flex items-center ${
-                viewMode === 'calendar' 
-                  ? 'bg-cyan-primary text-bg-primary shadow-glow-sm' 
-                  : 'text-alpine-mist hover:bg-glass-highlight'
-              }`}
-              onClick={() => setViewMode('calendar')}
-            >
-              <Calendar size={16} className="mr-2" />
-              Calendar
-            </button>
+          <div className="bg-glass-background bg-opacity-30 rounded-lg p-2 px-4 flex items-center">
+            <Calendar size={16} className="mr-2 text-cyan-primary" />
+            <span className="text-alpine-mist font-medium">Calendar View</span>
           </div>
         </motion.div>
 
-        {/* View Content */}
-        <AnimatePresence mode="wait">
-          {viewMode === 'timeline' ? (
-            <motion.div 
-              key="timeline"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.5 }}
-              className="mb-6"
-            >
-              <EnhancedTimelineVisualizer 
-                events={getCurrentDateEvents()} 
-                onSelectEvent={(event) => {
-                  setSelectedEvent(event);
-                  setShowEditEventForm(true);
-                }} 
-              />
-            </motion.div>
-          ) : (
-            <motion.div 
-              key="calendar"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.5 }}
-              className="mb-6"
-            >
-              <MonthCalendar 
-                selectedDate={currentDate}
-                onDateSelect={setCurrentDate}
-                events={scheduleData}
-              />
-              
-              {/* Events list for selected day in calendar view */}
-              <div className="mt-4">
-                <h3 className="text-md font-medium text-alpine-mist mb-2">Events</h3>
-                {getCurrentDateEvents().length === 0 ? (
-                  <div className="text-center py-6 text-alpine-mist/50">
-                    <Calendar size={24} className="mx-auto mb-2 opacity-50" />
-                    <p>No events scheduled for this day</p>
-                  </div>
-                ) : (
-                  <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate="visible"
-                    className="space-y-2"
-                  >
-                    {getCurrentDateEvents().map((event) => (
-                      <motion.div
-                        key={event.id}
-                        variants={itemVariants}
-                        className={`p-3 rounded-lg border-l-2 border-${event.color} bg-glass-background bg-opacity-30 cursor-pointer hover:bg-glass-highlight transition-colors duration-200`}
-                        onClick={() => {
-                          setSelectedEvent(event);
-                          setShowEditEventForm(true);
-                        }}
-                      >
-                        <div className="flex justify-between items-center">
-                          <div className="flex items-center">
-                            <div className={`p-1 rounded-full text-${event.color} mr-2`}>
-                              {getEventIcon(event.type)}
-                            </div>
-                            <div>
-                              <h4 className="text-sm font-medium text-alpine-mist">{event.title}</h4>
-                              <div className="flex items-center text-xs text-alpine-mist/70">
-                                <Clock size={12} className="mr-1" />
-                                <span>{event.time} · {event.duration >= 60 
-                                  ? `${Math.floor(event.duration / 60)}h ${event.duration % 60 > 0 ? `${event.duration % 60}m` : ''}`
-                                  : `${event.duration}m`}</span>
-                              </div>
-                            </div>
-                          </div>
-                          <button className="p-1 text-alpine-mist/50 hover:text-alpine-mist">
-                            <MoreHorizontal size={16} />
-                          </button>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                )}
+        {/* Calendar View */}
+        <motion.div 
+          key="calendar"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.5 }}
+          className="mb-6"
+        >
+          <MonthCalendar 
+            selectedDate={currentDate}
+            onDateSelect={setCurrentDate}
+            events={scheduleData}
+          />
+          
+          {/* Events list for selected day in calendar view */}
+          <div className="mt-4">
+            <h3 className="text-md font-medium text-alpine-mist mb-2">Events</h3>
+            {getCurrentDateEvents().length === 0 ? (
+              <div className="text-center py-6 text-alpine-mist/50">
+                <Calendar size={24} className="mx-auto mb-2 opacity-50" />
+                <p>No events scheduled for this day</p>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            ) : (
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                className="space-y-2"
+              >
+                {getCurrentDateEvents().map((event) => (
+                  <motion.div
+                    key={event.id}
+                    variants={itemVariants}
+                    className={`p-3 rounded-lg border-l-2 border-${event.color} bg-glass-background bg-opacity-30 cursor-pointer hover:bg-glass-highlight transition-colors duration-200`}
+                    onClick={() => {
+                      setSelectedEvent(event);
+                      setShowEditEventForm(true);
+                    }}
+                  >
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center">
+                        <div className={`p-1 rounded-full text-${event.color} mr-2`}>
+                          {getEventIcon(event.type)}
+                        </div>
+                        <div>
+                          <h4 className="text-sm font-medium text-alpine-mist">{event.title}</h4>
+                          <div className="flex items-center text-xs text-alpine-mist/70">
+                            <Clock size={12} className="mr-1" />
+                            <span>{event.time} · {event.duration >= 60 
+                              ? `${Math.floor(event.duration / 60)}h ${event.duration % 60 > 0 ? `${event.duration % 60}m` : ''}`
+                              : `${event.duration}m`}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <button className="p-1 text-alpine-mist/50 hover:text-alpine-mist">
+                        <MoreHorizontal size={16} />
+                      </button>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
+          </div>
+        </motion.div>
         
         {/* Quick Summary */}
         <motion.div 

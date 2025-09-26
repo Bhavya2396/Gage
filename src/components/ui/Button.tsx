@@ -1,18 +1,24 @@
-import React, { ButtonHTMLAttributes } from 'react';
+import React, { ButtonHTMLAttributes, forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { colors, shadows, transitions } from '@/design/tokens';
+import { buttonTap, buttonHover } from '@/design/animations';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
-  size?: 'sm' | 'md' | 'lg' | 'icon';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'glass';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon';
   fullWidth?: boolean;
   icon?: React.ReactNode;
   iconPosition?: 'left' | 'right';
+  isLoading?: boolean;
   animate?: boolean;
+  rounded?: 'full' | 'lg' | 'md' | 'none';
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   children,
   className,
   variant = 'primary',
@@ -20,57 +26,106 @@ export const Button: React.FC<ButtonProps> = ({
   fullWidth = false,
   icon,
   iconPosition = 'left',
+  isLoading = false,
   animate = true,
+  rounded = 'lg',
+  leftIcon,
+  rightIcon,
   disabled,
   ...props
-}) => {
+}, ref) => {
   // Define variant styles
   const variants = {
-    primary: 'bg-accent-primary text-bg-primary hover:bg-accent-primary/90',
-    secondary: 'bg-accent-secondary text-text-primary hover:bg-accent-secondary/90',
-    outline: 'bg-transparent border border-accent-primary text-accent-primary hover:bg-accent-primary/10',
-    ghost: 'bg-glass-background bg-opacity-70 backdrop-blur-sm text-white border border-white/30 shadow-lg hover:text-white hover:bg-glass-background hover:bg-opacity-80 hover:border-white/50',
+    primary: 'bg-gradient-to-r from-primary-cyan to-primary-teal text-white shadow-md hover:shadow-lg',
+    secondary: 'bg-glass-background border border-glass-border text-alpine-mist hover:bg-glass-highlight',
+    outline: 'bg-transparent border border-primary-cyan text-primary-cyan hover:bg-primary-cyan/10',
+    ghost: 'text-alpine-mist hover:bg-glass-background',
+    glass: 'backdrop-blur-md bg-glass-background/70 border border-glass-border text-alpine-mist hover:bg-glass-highlight/80 shadow-sm',
   };
 
   // Define size styles
   const sizes = {
-    sm: 'text-xs py-2 px-3',
-    md: 'text-sm py-2.5 px-4',
-    lg: 'text-base py-3 px-5',
-    icon: 'p-2',
+    xs: 'text-xs py-1 px-2',
+    sm: 'text-xs py-1.5 px-3',
+    md: 'text-sm py-2 px-4',
+    lg: 'text-base py-2.5 px-5',
+    icon: icon ? 'p-2' : 'p-2.5',
   };
+  
+  // Define rounded styles
+  const roundedStyles = {
+    full: 'rounded-full',
+    lg: 'rounded-lg',
+    md: 'rounded-md',
+    none: 'rounded-none',
+  };
+  
+  // Prefer leftIcon/rightIcon over icon with iconPosition
+  const effectiveLeftIcon = leftIcon || (iconPosition === 'left' ? icon : null);
+  const effectiveRightIcon = rightIcon || (iconPosition === 'right' ? icon : null);
 
   // Base component with conditional motion wrapper
   const ButtonComponent = animate ? motion.button : 'button';
 
   // Animation properties
-  const motionProps = animate
+  const motionProps = animate && !disabled && !isLoading
     ? {
-        whileHover: { scale: 1.03, boxShadow: '0 0 8px rgba(11, 197, 234, 0.3)' }, // Updated glow color
-        whileTap: { scale: 0.97 },
+        whileHover: buttonHover,
+        whileTap: buttonTap,
         transition: { duration: 0.2 },
       }
     : {};
 
   return (
     <ButtonComponent
+      ref={ref}
       className={cn(
-        'rounded-full font-medium transition-colors flex items-center justify-center',
+        'font-medium transition-all flex items-center justify-center',
         variants[variant],
         sizes[size],
+        roundedStyles[rounded],
         fullWidth && 'w-full',
-        disabled && 'opacity-50 cursor-not-allowed',
+        (disabled || isLoading) && 'opacity-60 cursor-not-allowed pointer-events-none',
         className
       )}
-      disabled={disabled}
+      disabled={disabled || isLoading}
       {...motionProps}
       {...props}
     >
-      {icon && iconPosition === 'left' && <span className="mr-2">{icon}</span>}
+      {isLoading && (
+        <motion.span 
+          className="mr-2 inline-block"
+          animate={{ rotate: 360 }}
+          transition={{ 
+            repeat: Infinity, 
+            duration: 1, 
+            ease: "linear" 
+          }}
+        >
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        </motion.span>
+      )}
+      
+      {effectiveLeftIcon && !isLoading && (
+        <span className={cn("inline-flex", children ? "mr-2" : "")}>
+          {effectiveLeftIcon}
+        </span>
+      )}
+      
       {children}
-      {icon && iconPosition === 'right' && <span className="ml-2">{icon}</span>}
+      
+      {effectiveRightIcon && !isLoading && (
+        <span className={cn("inline-flex", children ? "ml-2" : "")}>
+          {effectiveRightIcon}
+        </span>
+      )}
     </ButtonComponent>
   );
-};
+});
+
+Button.displayName = 'Button';
 
 export default Button;

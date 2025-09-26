@@ -8,6 +8,9 @@ import {
 import { AnimatePresence } from 'framer-motion';
 import PageTransition from './components/ui/PageTransition';
 import { isOnboardingComplete } from './utils/onboarding';
+import { ActivityPointsProvider } from './contexts/ActivityPointsContext';
+import PersonalizationProvider from './contexts/PersonalizationContext';
+import AppProvider from './contexts/AppContext';
 
 // Loading component for suspense fallback
 const LoadingScreen = () => (
@@ -38,6 +41,7 @@ const FriendsPage = lazy(() => import('./pages/FriendsPage'));
 const SchedulePage = lazy(() => import('./pages/SchedulePage'));
 const CoachPage = lazy(() => import('./pages/CoachPage'));
 const InsightsPage = lazy(() => import('./pages/InsightsPage'));
+const SettingsPage = lazy(() => import('./pages/SettingsPage'));
 
 // Other screens
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
@@ -57,7 +61,7 @@ function App() {
     <Suspense fallback={<LoadingScreen />}>
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
-          {/* Onboarding Flow */}
+              {/* Onboarding Flow */}
           <Route path="/onboarding">
             <Route index element={<Navigate to="/onboarding/welcome" replace />} />
             <Route path="welcome" element={<PageTransition><WelcomeScreen /></PageTransition>} />
@@ -90,7 +94,7 @@ function App() {
           <Route path="/mountain" element={<PageTransition><HomePage /></PageTransition>} /> {/* Placeholder - would show focused mountain view */}
           <Route path="/journey" element={<PageTransition><HomePage /></PageTransition>} /> {/* Placeholder - would show journey progress */}
           <Route path="/calendar" element={<PageTransition><SchedulePage /></PageTransition>} /> {/* Schedule page with AI chat interface */}
-          <Route path="/settings" element={<PageTransition><HomePage /></PageTransition>} /> {/* Placeholder - would show settings */}
+          <Route path="/settings" element={<PageTransition><SettingsPage /></PageTransition>} /> {/* User settings and personalization */}
           <Route path="/coach" element={<PageTransition><CoachPage /></PageTransition>} /> {/* AI coach chat interface */}
           
           {/* 404 Page */}

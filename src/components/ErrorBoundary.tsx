@@ -1,72 +1,67 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import GlassCard from '@/components/ui/GlassCard';
-import { AlertCircle } from 'lucide-react';
 
-interface ErrorBoundaryProps {
+interface Props {
   children: ReactNode;
   fallback?: ReactNode;
 }
 
-interface ErrorBoundaryState {
+interface State {
   hasError: boolean;
   error: Error | null;
+  errorInfo: ErrorInfo | null;
 }
 
 /**
- * Error Boundary component to catch and handle errors in React components
- * Provides a graceful fallback UI when components fail to render
+ * Error Boundary component to catch and handle errors in the React component tree
  */
-class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  constructor(props: ErrorBoundaryProps) {
+class ErrorBoundary extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       hasError: false,
-      error: null
+      error: null,
+      errorInfo: null,
     };
   }
 
-  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+  static getDerivedStateFromError(error: Error): State {
     // Update state so the next render will show the fallback UI
-    return { hasError: true, error };
+    return {
+      hasError: true,
+      error,
+      errorInfo: null,
+    };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    // Log the error to an error reporting service
+    // You can log the error to an error reporting service
     console.error('Error caught by ErrorBoundary:', error, errorInfo);
-    
-    // In a production app, you would send this to a logging service
-    // logErrorToService(error, errorInfo);
+    this.setState({
+      error,
+      errorInfo,
+    });
   }
 
   render(): ReactNode {
     if (this.state.hasError) {
-      // Custom fallback UI
-      if (this.props.fallback) {
-        return this.props.fallback;
-      }
-      
-      // Default fallback UI
-      return (
-        <GlassCard variant="default" size="md" className="p-4 max-w-md mx-auto my-8">
-          <div className="flex items-center mb-4">
-            <AlertCircle className="text-red-500 mr-2" size={20} />
-            <h3 className="text-lg font-medium text-alpine-mist">Something went wrong</h3>
-          </div>
-          <p className="text-text-secondary text-sm mb-4">
-            We encountered an error while rendering this component. Please try refreshing the page.
-          </p>
-          <div className="bg-glass-background bg-opacity-30 p-3 rounded-lg">
-            <p className="text-xs text-alpine-mist font-mono overflow-auto max-h-32">
-              {this.state.error?.message || 'Unknown error'}
-            </p>
-          </div>
+      // You can render any custom fallback UI
+      return this.props.fallback || (
+        <div className="error-boundary p-4 bg-red-900/20 border border-red-500 rounded-lg m-4 text-white">
+          <h2 className="text-lg font-semibold mb-2">Something went wrong</h2>
+          <details className="text-sm opacity-80">
+            <summary>Error details</summary>
+            <p className="mt-2">{this.state.error && this.state.error.toString()}</p>
+            <div className="mt-2 overflow-auto max-h-40 text-xs bg-black/30 p-2 rounded">
+              {this.state.errorInfo && this.state.errorInfo.componentStack}
+            </div>
+          </details>
           <button
-            className="mt-4 px-4 py-2 bg-cyan-primary text-white rounded-lg hover:bg-cyan-secondary transition-colors"
+            className="mt-4 px-3 py-1 bg-cyan-primary text-white rounded"
             onClick={() => window.location.reload()}
           >
-            Refresh Page
+            Reload App
           </button>
-        </GlassCard>
+        </div>
       );
     }
 

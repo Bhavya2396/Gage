@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, Sparkles, Zap, Dumbbell } from 'lucide-react';
+import { MessageCircle, Sparkles, Zap, Dumbbell, Map, Award } from 'lucide-react';
 import { useActivityPoints } from '@/contexts/ActivityPointsContext';
 import { getGreeting } from '@/lib/utils';
 import { useNavigate } from 'react-router-dom';
@@ -35,25 +35,88 @@ const AIGreeting: React.FC<AIGreetingProps> = ({
     // Add weather context using centralized utility
     personalizedGreeting += getWeatherDescription(weatherCondition as WeatherCondition, temperature) + ' ';
     
-    // Add progress context
-    if (progress < 30) {
-      personalizedGreeting += `You're just getting started on your ${activityPoints.goalName} journey with ${activityPoints.currentPoints} points so far. Every workout brings you closer! `;
-    } else if (progress < 70) {
-      personalizedGreeting += `You're making awesome progress on your ${activityPoints.goalName} goal! You've earned ${activityPoints.currentPoints} points (${progress}% of the way there). Keep this momentum going! `;
-    } else {
-      personalizedGreeting += `You're so close to the summit! Just ${pointsRemaining} more points to achieve your ${activityPoints.goalName} goal. I can almost see you at the top! `;
+    // Add journey narrative with phase-specific context
+    const currentPhase = activityPoints.phases.find(p => !p.completed);
+    const phaseIndex = activityPoints.phases.findIndex(p => !p.completed);
+    const phaseProgress = currentPhase ? Math.round((currentPhase.points / currentPhase.totalPoints) * 100) : 100;
+    
+    if (!currentPhase) {
+      // All phases complete
+      personalizedGreeting += `Congratulations on reaching the summit of your ${activityPoints.goalName} journey! You've conquered all phases and earned ${activityPoints.currentPoints} points. What an achievement! `;
+    } else if (phaseIndex === 0) {
+      // Foundation Phase
+      if (phaseProgress < 30) {
+        personalizedGreeting += `You're at Base Camp (${phaseProgress}%) in your ${activityPoints.goalName} journey. This Foundation Phase is all about building the fundamentals with ${currentPhase.points} of ${currentPhase.totalPoints} points earned. `;
+      } else if (phaseProgress < 70) {
+        personalizedGreeting += `You're making great progress at Base Camp (${phaseProgress}%) on your ${activityPoints.goalName} journey. Keep building those foundations! You've earned ${currentPhase.points} of ${currentPhase.totalPoints} points in this phase. `;
+      } else {
+        personalizedGreeting += `You're almost ready to leave Base Camp (${phaseProgress}%)! Just ${currentPhase.totalPoints - currentPhase.points} more points to complete the Foundation Phase of your ${activityPoints.goalName} journey. `;
+      }
+    } else if (phaseIndex === 1) {
+      // Development Phase
+      if (phaseProgress < 30) {
+        personalizedGreeting += `You've reached Camp 1 (${phaseProgress}%) on your climb toward ${activityPoints.goalName}! This Development Phase builds on your solid foundation. You've earned ${currentPhase.points} of ${currentPhase.totalPoints} points here. `;
+      } else if (phaseProgress < 70) {
+        personalizedGreeting += `You're making strong progress at Camp 1 (${phaseProgress}%) on your ${activityPoints.goalName} journey. This Development Phase is really coming along with ${currentPhase.points} of ${currentPhase.totalPoints} points earned. `;
+      } else {
+        personalizedGreeting += `You're preparing for the final ascent! At ${phaseProgress}% through Camp 1, you're almost ready for the summit push. Just ${currentPhase.totalPoints - currentPhase.points} more points to complete this Development Phase! `;
+      }
+    } else if (phaseIndex === 2) {
+      // Specialization Phase
+      if (phaseProgress < 30) {
+        personalizedGreeting += `You've begun the final ascent (${phaseProgress}%) toward your ${activityPoints.goalName} goal! This Specialization Phase is where everything comes together. You've earned ${currentPhase.points} of ${currentPhase.totalPoints} points on this final stretch. `;
+      } else if (phaseProgress < 70) {
+        personalizedGreeting += `The summit is in sight! At ${phaseProgress}% through the final ascent, you're making incredible progress toward your ${activityPoints.goalName} goal. You've earned ${currentPhase.points} of ${currentPhase.totalPoints} points in this Specialization Phase. `;
+      } else {
+        personalizedGreeting += `You're so close to the summit! At ${phaseProgress}% through the final phase, just ${currentPhase.totalPoints - currentPhase.points} more points and you'll achieve your ${activityPoints.goalName} goal. I can almost see you at the top! `;
+      }
     }
     
-    // Add daily recommendation
+    // Add phase-specific daily recommendation
     const dayOfWeek = new Date().getDay();
-    if (dayOfWeek === 1 || dayOfWeek === 4) { // Monday or Thursday
-      personalizedGreeting += `Today I've got a strength session planned for you, focusing on rotational power to help with your goal.`;
-    } else if (dayOfWeek === 2 || dayOfWeek === 5) { // Tuesday or Friday
-      personalizedGreeting += `Today's focus: Let's work on your flexibility and mobility to enhance your swing mechanics.`;
-    } else if (dayOfWeek === 3 || dayOfWeek === 6) { // Wednesday or Saturday
-      personalizedGreeting += `Today's all about practice and consistency. I've got a session that'll help reinforce your technique.`;
-    } else { // Sunday
-      personalizedGreeting += `It's recovery day! Let's focus on active recovery to make sure you're ready to crush next week.`;
+    const phaseName = currentPhase?.name || "Maintenance";
+    
+    // Different recommendations based on current phase
+    if (phaseName === "Foundation Phase") {
+      if (dayOfWeek === 1 || dayOfWeek === 4) { // Monday or Thursday
+        personalizedGreeting += `Today at Base Camp, I've scheduled a foundational strength session focusing on building your core stability - essential for your ${activityPoints.goalName} journey.`;
+      } else if (dayOfWeek === 2 || dayOfWeek === 5) { // Tuesday or Friday
+        personalizedGreeting += `Today's Base Camp focus: Let's work on your fundamental movement patterns to create a solid foundation for your ${activityPoints.goalName} goal.`;
+      } else if (dayOfWeek === 3 || dayOfWeek === 6) { // Wednesday or Saturday
+        personalizedGreeting += `Today at Base Camp we're focusing on technique fundamentals. I've mapped out key exercises to build your base skills for ${activityPoints.goalName}.`;
+      } else { // Sunday
+        personalizedGreeting += `Base Camp recovery day! Let's focus on mobility and light activity to ensure your foundation is solid before we climb higher.`;
+      }
+    } else if (phaseName === "Development Phase") {
+      if (dayOfWeek === 1 || dayOfWeek === 4) { // Monday or Thursday
+        personalizedGreeting += `At Camp 1 today, we're intensifying your training with progressive overload to develop the specific strength patterns needed for ${activityPoints.goalName}.`;
+      } else if (dayOfWeek === 2 || dayOfWeek === 5) { // Tuesday or Friday
+        personalizedGreeting += `Today at Camp 1, we're focusing on skill development and technique refinement to enhance your performance for ${activityPoints.goalName}.`;
+      } else if (dayOfWeek === 3 || dayOfWeek === 6) { // Wednesday or Saturday
+        personalizedGreeting += `Camp 1 training today combines strength and skill work - the perfect development combo for your ${activityPoints.goalName} journey.`;
+      } else { // Sunday
+        personalizedGreeting += `Strategic recovery day at Camp 1! Today's lighter session will help your body adapt to the increasing demands of your ${activityPoints.goalName} development.`;
+      }
+    } else if (phaseName === "Specialization Phase") {
+      if (dayOfWeek === 1 || dayOfWeek === 4) { // Monday or Thursday
+        personalizedGreeting += `Summit push day! Today's specialized training integrates all components needed for peak performance in your ${activityPoints.goalName} goal.`;
+      } else if (dayOfWeek === 2 || dayOfWeek === 5) { // Tuesday or Friday
+        personalizedGreeting += `Today's summit training: Fine-tuning your technique with specialized drills specifically designed for ${activityPoints.goalName} mastery.`;
+      } else if (dayOfWeek === 3 || dayOfWeek === 6) { // Wednesday or Saturday
+        personalizedGreeting += `On the final ascent today, we're focusing on performance integration - bringing together all elements of your ${activityPoints.goalName} training.`;
+      } else { // Sunday
+        personalizedGreeting += `Strategic recovery near the summit! Today's session focuses on precision recovery to ensure peak performance for your final push toward ${activityPoints.goalName}.`;
+      }
+    } else { // Maintenance or completed
+      if (dayOfWeek === 1 || dayOfWeek === 4) { // Monday or Thursday
+        personalizedGreeting += `Summit maintenance day! Today's session will help you maintain your hard-earned progress and continue enjoying the view from the top of ${activityPoints.goalName}.`;
+      } else if (dayOfWeek === 2 || dayOfWeek === 5) { // Tuesday or Friday
+        personalizedGreeting += `Today's focus: Skill refinement to keep your ${activityPoints.goalName} performance at its peak while you enjoy the summit view.`;
+      } else if (dayOfWeek === 3 || dayOfWeek === 6) { // Wednesday or Saturday
+        personalizedGreeting += `Summit celebration day! Let's enjoy some fun training variations that keep your ${activityPoints.goalName} skills sharp while planning your next adventure.`;
+      } else { // Sunday
+        personalizedGreeting += `Summit reflection day! Let's take time to appreciate your achievement and plan how to maintain your ${activityPoints.goalName} success long-term.`;
+      }
     }
     
     setGreeting(personalizedGreeting);
@@ -72,7 +135,11 @@ const AIGreeting: React.FC<AIGreetingProps> = ({
     navigate('/coach', { state: { initialTopic: topic } });
   };
 
-  // Quick action suggestions
+  // Get current phase
+  const currentPhase = activityPoints.getCurrentPhase?.();
+  const progress = getProgressPercentage();
+  
+  // Quick action suggestions - enhanced with journey context
   const suggestions = [
     { 
       text: "Show me today's workout", 
@@ -80,9 +147,14 @@ const AIGreeting: React.FC<AIGreetingProps> = ({
       action: () => navigate('/workout')
     },
     { 
-      text: "How's my recovery?", 
-      icon: <Sparkles size={14} className="sm:size-4" />,
-      action: () => handleChatNavigation('recovery')
+      text: "View my journey map", 
+      icon: <Map size={14} className="sm:size-4" />,
+      action: () => navigate('/goals/progress')
+    },
+    { 
+      text: currentPhase ? `Next milestone: ${Math.round((currentPhase.points / currentPhase.totalPoints) * 100)}%` : "Journey complete!", 
+      icon: <Award size={14} className="sm:size-4" />,
+      action: () => navigate('/goals/progress')
     },
     { 
       text: "Chat with AI Coach", 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import GlassCard from '@/components/ui/GlassCard';
@@ -23,7 +23,11 @@ import {
   Droplet,
   Thermometer,
   Wind,
-  Clock
+  Clock,
+  Lightbulb,
+  Brain,
+  Sparkles,
+  Flame
 } from 'lucide-react';
 
 // Interactive card component with hover effects
@@ -48,6 +52,18 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   
+  // Handle click with event prevention
+  const handleClick = (e: React.MouseEvent) => {
+    // Prevent event bubbling
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Call the onClick handler
+    if (onClick) {
+      onClick();
+    }
+  };
+  
   return (
     <motion.div
       className={`w-full mb-4 sm:mb-6 ${className}`}
@@ -56,12 +72,13 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
       transition={{ type: 'spring', stiffness: 400, damping: 17 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
+      onClick={handleClick}
     >
       <GlassCard 
         variant="default" 
         size="md" 
         className={`h-full w-full cursor-pointer overflow-hidden ${isHovered ? 'border-cyan-primary/50 shadow-xl shadow-cyan-primary/20' : 'shadow-lg'}`}
-        onClick={onClick}
+        onClick={handleClick}
       >
         <div className="flex flex-col h-full">
           {/* Card Header */}
@@ -146,13 +163,199 @@ const HealthMetric: React.FC<HealthMetricProps> = ({
   );
 };
 
+// Contextual Insight Component
+interface ContextualInsightProps {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  actionText?: string;
+  onAction?: () => void;
+  type?: 'info' | 'warning' | 'success' | 'tip';
+}
+
+const ContextualInsight: React.FC<ContextualInsightProps> = ({
+  title,
+  description,
+  icon,
+  actionText,
+  onAction,
+  type = 'info'
+}) => {
+  const getBgColor = () => {
+    switch(type) {
+      case 'warning': return 'bg-amber-500/20';
+      case 'success': return 'bg-teal-primary/20';
+      case 'tip': return 'bg-cyan-primary/20';
+      default: return 'bg-glass-highlight';
+    }
+  };
+  
+  const getIconColor = () => {
+    switch(type) {
+      case 'warning': return 'text-amber-500';
+      case 'success': return 'text-teal-primary';
+      case 'tip': return 'text-cyan-primary';
+      default: return 'text-alpine-mist';
+    }
+  };
+  
+  return (
+    <motion.div 
+      className={`mb-4 p-4 rounded-lg border border-glass-border ${getBgColor()} backdrop-blur-md`}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="flex items-start">
+        <div className={`p-2 rounded-full bg-glass-background mr-3 ${getIconColor()}`}>
+          {icon}
+        </div>
+        <div className="flex-1">
+          <h4 className="text-white text-sm font-medium mb-1">{title}</h4>
+          <p className="text-alpine-mist text-xs mb-2">{description}</p>
+          {actionText && onAction && (
+            <button 
+              onClick={onAction}
+              className="text-xs font-medium flex items-center text-cyan-primary"
+            >
+              {actionText}
+              <ChevronRight size={14} className="ml-1" />
+            </button>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 // Main Dashboard Component
 const EnhancedDashboard: React.FC = () => {
   const navigate = useNavigate();
-  const { activityPoints, getProgressPercentage, getPointsRemaining } = useActivityPoints();
+  const { activityPoints, getProgressPercentage, getPointsRemaining, getCurrentPhase } = useActivityPoints();
   const [recoveryScore] = useState(78);
   const [weatherCondition] = useState<'sunny' | 'cloudy' | 'rainy' | 'snowy'>('sunny');
   const [temperature] = useState(25);
+  const [contextualInsights, setContextualInsights] = useState<ContextualInsightProps[]>([]);
+  
+  // Generate contextual insights based on user data
+  useEffect(() => {
+    const currentPhase = getCurrentPhase();
+    const progress = getProgressPercentage();
+    const insights: ContextualInsightProps[] = [];
+    
+    // Recovery-based insight
+    if (recoveryScore < 60) {
+      insights.push({
+        title: 'Recovery Alert',
+        description: 'Your recovery score is low. Consider focusing on rest and light activity today to improve recovery.',
+        icon: <Heart size={16} />,
+        actionText: 'View recovery tips',
+        onAction: () => navigate('/health'),
+        type: 'warning'
+      });
+    } else if (recoveryScore > 85) {
+      insights.push({
+        title: 'Peak Recovery',
+        description: 'Your body is well-recovered. Today is ideal for a higher intensity workout.',
+        icon: <Sparkles size={16} />,
+        actionText: 'See workout options',
+        onAction: () => navigate('/workout'),
+        type: 'success'
+      });
+    }
+    
+    // Phase-specific insights
+    if (currentPhase) {
+      const phaseProgress = Math.round((currentPhase.points / currentPhase.totalPoints) * 100);
+      
+      if (currentPhase.name === 'Foundation Phase') {
+        if (phaseProgress < 30) {
+          insights.push({
+            title: 'Base Camp Focus',
+            description: 'Focus on building fundamental movement patterns and core stability this week.',
+            icon: <Brain size={16} />,
+            actionText: 'View foundation tips',
+            onAction: () => navigate('/coach'),
+            type: 'tip'
+          });
+        } else if (phaseProgress > 70) {
+          insights.push({
+            title: 'Almost Ready to Advance',
+            description: 'You\'re nearly ready to move to Camp 1! Complete your foundation work to unlock new training methods.',
+            icon: <Lightbulb size={16} />,
+            actionText: 'See what\'s next',
+            onAction: () => navigate('/goals/progress'),
+            type: 'info'
+          });
+        }
+      } else if (currentPhase.name === 'Development Phase') {
+        if (phaseProgress < 30) {
+          insights.push({
+            title: 'Camp 1 Strategy',
+            description: 'Now that you have a solid foundation, it\'s time to increase intensity and specificity in your training.',
+            icon: <Target size={16} />,
+            actionText: 'See development plan',
+            onAction: () => navigate('/coach'),
+            type: 'tip'
+          });
+        } else if (phaseProgress > 70) {
+          insights.push({
+            title: 'Summit Push Preparation',
+            description: 'You\'re almost ready for the final phase! Focus on perfecting your technique before the summit push.',
+            icon: <Award size={16} />,
+            actionText: 'Prepare for summit',
+            onAction: () => navigate('/goals/progress'),
+            type: 'success'
+          });
+        }
+      } else if (currentPhase.name === 'Specialization Phase') {
+        if (phaseProgress < 30) {
+          insights.push({
+            title: 'Final Ascent Begun',
+            description: 'You\'ve reached the specialized training phase. Focus on integrating all aspects of your training.',
+            icon: <Flame size={16} />,
+            actionText: 'View summit strategy',
+            onAction: () => navigate('/coach'),
+            type: 'tip'
+          });
+        } else if (phaseProgress > 70) {
+          insights.push({
+            title: 'Summit In Sight!',
+            description: 'The peak is within reach! Keep pushing with your specialized training to achieve your goal.',
+            icon: <Award size={16} />,
+            actionText: 'Final push strategy',
+            onAction: () => navigate('/goals/progress'),
+            type: 'success'
+          });
+        }
+      }
+    } else {
+      // All phases complete
+      insights.push({
+        title: 'Summit Achieved!',
+        description: 'Congratulations on reaching the summit! Consider setting a new goal or maintaining your achievement.',
+        icon: <Award size={16} />,
+        actionText: 'Set new goal',
+        onAction: () => navigate('/goals'),
+        type: 'success'
+      });
+    }
+    
+    // Nutrition-based insight
+    const caloriePercentage = Math.round((nutritionSummary.calories.current / nutritionSummary.calories.target) * 100);
+    if (caloriePercentage < 70 && new Date().getHours() > 16) {
+      insights.push({
+        title: 'Nutrition Gap',
+        description: 'You\'re below your calorie target for today. Consider adding a nutritious snack to support your training.',
+        icon: <Utensils size={16} />,
+        actionText: 'View meal suggestions',
+        onAction: () => navigate('/food'),
+        type: 'warning'
+      });
+    }
+    
+    setContextualInsights(insights);
+  }, [recoveryScore, activityPoints, navigate, getCurrentPhase, getProgressPercentage]);
   
   // Use the imported getRecoveryColor function for consistency
   
@@ -175,6 +378,28 @@ const EnhancedDashboard: React.FC = () => {
           temperature={temperature}
         />
       </div>
+      
+      {/* Contextual Insights - Intelligent recommendations based on user data */}
+      {contextualInsights.length > 0 && (
+        <div className="px-4 sm:px-6">
+          <div className="mb-2 flex items-center">
+            <Lightbulb size={16} className="text-cyan-primary mr-2" />
+            <h3 className="text-white text-sm font-medium">Contextual Insights</h3>
+          </div>
+          <AnimatePresence>
+            {contextualInsights.map((insight, index) => (
+              <motion.div
+                key={`insight-${index}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <ContextualInsight {...insight} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+      )}
       
       {/* Today's Plan Card */}
       <div className="px-4 sm:px-6">
@@ -248,7 +473,7 @@ const EnhancedDashboard: React.FC = () => {
         />
       </div>
       
-      {/* Workout Card */}
+      {/* Workout Card - Enhanced with phase context */}
       <div className="px-4 sm:px-6">
         <InteractiveCard
           title="Workout"
@@ -259,6 +484,35 @@ const EnhancedDashboard: React.FC = () => {
           content={
             <div>
               <h4 className="text-alpine-mist font-medium text-sm sm:text-base mb-2 sm:mb-3">{todaysWorkout.title}</h4>
+              
+              {/* Phase context banner */}
+              {getCurrentPhase() && (
+                <div className={`mb-3 p-2 rounded-lg text-xs ${
+                  getCurrentPhase()?.name === 'Foundation Phase' ? 'bg-cyan-primary/20' :
+                  getCurrentPhase()?.name === 'Development Phase' ? 'bg-teal-primary/20' :
+                  'bg-indigo-500/20'
+                }`}>
+                  <div className="flex items-center">
+                    {getCurrentPhase()?.name === 'Foundation Phase' ? (
+                      <>
+                        <Brain size={14} className="mr-2 text-cyan-primary" />
+                        <span className="text-white">Base Camp Focus: Building foundational strength and movement patterns</span>
+                      </>
+                    ) : getCurrentPhase()?.name === 'Development Phase' ? (
+                      <>
+                        <Target size={14} className="mr-2 text-teal-primary" />
+                        <span className="text-white">Camp 1 Focus: Progressive overload and skill development</span>
+                      </>
+                    ) : (
+                      <>
+                        <Flame size={14} className="mr-2 text-indigo-400" />
+                        <span className="text-white">Summit Push: Specialized training for peak performance</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
+              
               <div className="flex justify-between text-xs sm:text-sm text-alpine-mist mb-3 sm:mb-4 bg-glass-background bg-opacity-30 p-1.5 sm:p-2 rounded-lg">
                 <div className="flex items-center">
                   <Target size={14} className="mr-2 text-teal-primary" />
@@ -277,6 +531,19 @@ const EnhancedDashboard: React.FC = () => {
                     <span className="text-alpine-mist">{exercise.sets} × {exercise.reps}</span>
                   </div>
                 ))}
+              </div>
+              
+              {/* Journey impact - how this workout contributes to progress */}
+              <div className="mt-3 p-2 bg-glass-highlight bg-opacity-50 rounded-lg">
+                <div className="flex items-center mb-1">
+                  <Zap size={14} className="mr-2 text-cyan-primary" />
+                  <span className="text-white text-xs font-medium">Journey Impact</span>
+                </div>
+                <p className="text-alpine-mist text-xs">
+                  This workout will earn you approximately 25-30 points toward your 
+                  {getCurrentPhase() ? ` ${getCurrentPhase()?.name.toLowerCase()} of ` : ' '}
+                  {activityPoints.goalName}.
+                </p>
               </div>
             </div>
           }
@@ -327,6 +594,41 @@ const EnhancedDashboard: React.FC = () => {
                     <div className="text-white/70 text-xs">of {nutritionSummary.calories.target} kcal</div>
                   </div>
                 </div>
+                
+                {/* Phase-specific nutrition context */}
+                {getCurrentPhase() && (
+                  <div className={`mb-3 p-2 rounded-lg text-xs ${
+                    getCurrentPhase()?.name === 'Foundation Phase' ? 'bg-cyan-primary/20' :
+                    getCurrentPhase()?.name === 'Development Phase' ? 'bg-teal-primary/20' :
+                    'bg-indigo-500/20'
+                  }`}>
+                    <div className="flex items-center mb-1">
+                      {getCurrentPhase()?.name === 'Foundation Phase' ? (
+                        <>
+                          <Utensils size={14} className="mr-2 text-cyan-primary" />
+                          <span className="text-white font-medium">Base Camp Nutrition</span>
+                        </>
+                      ) : getCurrentPhase()?.name === 'Development Phase' ? (
+                        <>
+                          <Utensils size={14} className="mr-2 text-teal-primary" />
+                          <span className="text-white font-medium">Camp 1 Nutrition</span>
+                        </>
+                      ) : (
+                        <>
+                          <Utensils size={14} className="mr-2 text-indigo-400" />
+                          <span className="text-white font-medium">Summit Push Nutrition</span>
+                        </>
+                      )}
+                    </div>
+                    <p className="text-alpine-mist text-xs">
+                      {getCurrentPhase()?.name === 'Foundation Phase' 
+                        ? 'Focus on balanced macros with adequate protein to build your foundation.'
+                        : getCurrentPhase()?.name === 'Development Phase'
+                        ? 'Increased protein and carbs to support your intensifying training.'
+                        : 'Precision nutrition with optimal timing for peak performance.'}
+                    </p>
+                  </div>
+                )}
                 
                 {/* Macros visualization */}
                 <div className="grid grid-cols-3 gap-2 mb-4">
@@ -396,6 +698,17 @@ const EnhancedDashboard: React.FC = () => {
                     <span className="text-white text-sm font-medium">{nutritionSummary.fat.current}{nutritionSummary.fat.unit}</span>
                   </motion.div>
                 </div>
+                
+                {/* Journey impact - how nutrition contributes to progress */}
+                <div className="mt-3 p-2 bg-glass-highlight bg-opacity-50 rounded-lg">
+                  <div className="flex items-center mb-1">
+                    <Zap size={14} className="mr-2 text-cyan-primary" />
+                    <span className="text-white text-xs font-medium">Journey Impact</span>
+                  </div>
+                  <p className="text-alpine-mist text-xs">
+                    Optimal nutrition can boost your recovery by up to 30% and accelerate your progress toward {activityPoints.goalName}.
+                  </p>
+                </div>
               </div>
           }
         />
@@ -439,6 +752,41 @@ const EnhancedDashboard: React.FC = () => {
                   </div>
                 </div>
                 
+                {/* Phase-specific health context */}
+                {getCurrentPhase() && (
+                  <div className={`mb-3 p-2 rounded-lg text-xs ${
+                    getCurrentPhase()?.name === 'Foundation Phase' ? 'bg-cyan-primary/20' :
+                    getCurrentPhase()?.name === 'Development Phase' ? 'bg-teal-primary/20' :
+                    'bg-indigo-500/20'
+                  }`}>
+                    <div className="flex items-center mb-1">
+                      {getCurrentPhase()?.name === 'Foundation Phase' ? (
+                        <>
+                          <Heart size={14} className="mr-2 text-cyan-primary" />
+                          <span className="text-white font-medium">Base Camp Recovery</span>
+                        </>
+                      ) : getCurrentPhase()?.name === 'Development Phase' ? (
+                        <>
+                          <Heart size={14} className="mr-2 text-teal-primary" />
+                          <span className="text-white font-medium">Camp 1 Recovery</span>
+                        </>
+                      ) : (
+                        <>
+                          <Heart size={14} className="mr-2 text-indigo-400" />
+                          <span className="text-white font-medium">Summit Push Recovery</span>
+                        </>
+                      )}
+                    </div>
+                    <p className="text-alpine-mist text-xs">
+                      {getCurrentPhase()?.name === 'Foundation Phase' 
+                        ? 'Focus on establishing healthy recovery patterns to build a strong foundation.'
+                        : getCurrentPhase()?.name === 'Development Phase'
+                        ? 'Optimize recovery to support increased training load and skill development.'
+                        : 'Precision recovery techniques are critical for peak performance in the final phase.'}
+                    </p>
+                  </div>
+                )}
+                
                 {/* Health metrics grid */}
                 <div className="grid grid-cols-2 gap-3">
                   {healthMetrics.map((metric, index) => (
@@ -469,6 +817,20 @@ const EnhancedDashboard: React.FC = () => {
                     </div>
                   ))}
                 </div>
+                
+                {/* Journey impact - how health metrics relate to progress */}
+                <div className="mt-3 p-2 bg-glass-highlight bg-opacity-50 rounded-lg">
+                  <div className="flex items-center mb-1">
+                    <Zap size={14} className="mr-2 text-cyan-primary" />
+                    <span className="text-white text-xs font-medium">Journey Impact</span>
+                  </div>
+                  <p className="text-alpine-mist text-xs">
+                    Your recovery score directly affects how quickly you can progress through your {activityPoints.goalName} journey. 
+                    {recoveryScore > 75 ? ' Your current recovery is excellent for making progress.' : 
+                     recoveryScore > 60 ? ' Your current recovery is good, but could be optimized.' : 
+                     ' Improving your recovery should be a priority to accelerate progress.'}
+                  </p>
+                </div>
               </div>
           }
         />
@@ -482,10 +844,10 @@ const EnhancedDashboard: React.FC = () => {
           onClick={() => navigate('/goals/progress')}
           content={
               <div>
-                {/* Simplified goal progress card */}
-                <div className="relative h-32 bg-glass-highlight bg-opacity-70 rounded-lg overflow-hidden">
+                {/* Enhanced goal progress card with journey context */}
+                <div className="relative bg-glass-highlight bg-opacity-70 rounded-lg overflow-hidden">
                   {/* Mountain silhouette background - simplified */}
-                  <div className="absolute inset-0 flex items-end opacity-30">
+                  <div className="absolute inset-0 flex items-end opacity-20">
                     <svg viewBox="0 0 100 60" className="w-full">
                       <path 
                         d="M0,60 L20,30 L30,40 L40,20 L60,45 L70,15 L80,35 L100,10 L100,60 Z" 
@@ -495,11 +857,24 @@ const EnhancedDashboard: React.FC = () => {
                   </div>
                   
                   {/* Main content */}
-                  <div className="absolute inset-0 p-4 flex flex-col justify-between">
-                    {/* Top section */}
-                    <div>
-                      <div className="text-white text-base font-medium mb-1">{activityPoints.goalName}</div>
-                      <div className="text-white/80 text-sm mb-3">{getProgressPercentage()}% complete</div>
+                  <div className="relative p-4">
+                    {/* Journey Title */}
+                    <div className="flex items-center mb-3">
+                      <div className="p-2 rounded-full bg-cyan-primary/30 mr-3">
+                        <Award size={16} className="text-cyan-primary" />
+                      </div>
+                      <div>
+                        <div className="text-white text-base font-medium">{activityPoints.goalName}</div>
+                        <div className="text-white/80 text-xs">Your mountain journey</div>
+                      </div>
+                    </div>
+                    
+                    {/* Overall Progress */}
+                    <div className="mb-4">
+                      <div className="flex justify-between mb-1">
+                        <span className="text-white text-sm">Overall Progress</span>
+                        <span className="text-cyan-primary text-sm font-medium">{getProgressPercentage()}%</span>
+                      </div>
                       
                       {/* Progress bar */}
                       <div className="relative h-2 bg-glass-background bg-opacity-30 rounded-full overflow-hidden">
@@ -510,17 +885,52 @@ const EnhancedDashboard: React.FC = () => {
                           transition={{ duration: 1, type: 'spring', bounce: 0.2 }}
                         />
                       </div>
+                      
+                      <div className="flex justify-between mt-1 text-xs text-white/70">
+                        <span>Base Camp</span>
+                        <span>Camp 1</span>
+                        <span>Summit</span>
+                      </div>
                     </div>
                     
-                    {/* Bottom section */}
-                    <div className="flex justify-between items-center">
-                      <div className="text-white text-sm">
-                        <span className="font-medium">{activityPoints.currentPoints}</span>
-                        <span className="text-white/70"> / {activityPoints.targetPoints} points</span>
+                    {/* Current Phase */}
+                    {getCurrentPhase() && (
+                      <div className="mb-4">
+                        <div className="flex justify-between mb-1">
+                          <div className="flex items-center">
+                            <span className="text-white text-sm">{getCurrentPhase().name}</span>
+                            <span className="ml-2 text-xs bg-cyan-primary/30 text-white px-2 py-0.5 rounded-full">Current</span>
+                          </div>
+                          <span className="text-cyan-primary text-sm font-medium">
+                            {Math.round((getCurrentPhase().points / getCurrentPhase().totalPoints) * 100)}%
+                          </span>
+                        </div>
+                        
+                        {/* Phase progress bar */}
+                        <div className="relative h-2 bg-glass-background bg-opacity-30 rounded-full overflow-hidden">
+                          <motion.div 
+                            className="absolute left-0 top-0 bottom-0 bg-cyan-primary rounded-full"
+                            initial={{ width: 0 }}
+                            animate={{ width: `${(getCurrentPhase().points / getCurrentPhase().totalPoints) * 100}%` }}
+                            transition={{ duration: 1, type: 'spring', bounce: 0.2, delay: 0.3 }}
+                          />
+                        </div>
+                        
+                        <div className="mt-2 text-xs text-white/80">
+                          <span>{getCurrentPhase().points} of {getCurrentPhase().totalPoints} points earned in this phase</span>
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* Points Summary */}
+                    <div className="flex justify-between items-center bg-glass-background bg-opacity-30 p-3 rounded-lg">
+                      <div>
+                        <div className="text-white text-sm font-medium">{activityPoints.currentPoints} points</div>
+                        <div className="text-white/70 text-xs">total earned</div>
                       </div>
                       
                       <div className="bg-cyan-primary/30 text-white px-3 py-1 rounded-full text-sm font-medium">
-                        {getPointsRemaining()} to next level
+                        {getPointsRemaining()} to summit
                       </div>
                     </div>
                   </div>

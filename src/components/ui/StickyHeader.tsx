@@ -1,22 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Award, ChevronDown, ChevronUp } from 'lucide-react';
+import { Award, ChevronDown, ChevronUp, ArrowLeft } from 'lucide-react';
 import { useActivityPoints } from '@/contexts/ActivityPointsContext';
+import { useNavigate } from 'react-router-dom';
+import { cn } from '@/lib/utils';
+import { fadeInDown, fadeIn } from '@/design/animations';
+import { Progress } from '@/design/components';
+import { useResponsive } from '@/hooks/useResponsive';
 
 interface StickyHeaderProps {
   title?: string;
   showProgress?: boolean;
   className?: string;
+  showBackButton?: boolean;
+  backPath?: string;
+  onBackClick?: () => void;
+  rightContent?: React.ReactNode;
+  transparent?: boolean;
 }
 
+/**
+ * StickyHeader - Appears when scrolling down the page
+ * Can show title, progress, and navigation controls
+ */
 const StickyHeader: React.FC<StickyHeaderProps> = ({
   title,
   showProgress = true,
   className = '',
+  showBackButton = false,
+  backPath = '/',
+  onBackClick,
+  rightContent,
+  transparent = false,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const { activityPoints, getProgressPercentage } = useActivityPoints();
+  const navigate = useNavigate();
+  const { isMobile } = useResponsive();
   
   // Track scroll position
   useEffect(() => {
@@ -28,6 +49,15 @@ const StickyHeader: React.FC<StickyHeaderProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   
+  // Handle back button click
+  const handleBackClick = () => {
+    if (onBackClick) {
+      onBackClick();
+    } else {
+      navigate(backPath);
+    }
+  };
+  
   // Calculate progress
   const progressPercentage = getProgressPercentage();
   
@@ -35,97 +65,123 @@ const StickyHeader: React.FC<StickyHeaderProps> = ({
     <AnimatePresence>
       {isScrolled && (
         <motion.div
-          className={`fixed top-0 left-0 right-0 z-40 ${className}`}
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
+          className={cn(
+            'fixed top-0 left-0 right-0 z-40',
+            className
+          )}
+          variants={fadeInDown}
+          initial="initial"
+          animate="animate"
+          exit="exit"
         >
           {/* Backdrop blur */}
-          <div className="absolute inset-0 bg-bg-primary/50 backdrop-blur-md z-0"></div>
+          {!transparent && (
+            <div className="absolute inset-0 bg-bg-primary/50 backdrop-blur-md z-0"></div>
+          )}
           
           {/* Content */}
           <div className="relative z-10 px-4 py-3">
             <div className="flex items-center justify-between">
-              {/* Title or logo */}
+              {/* Left side - Title and back button */}
               <div className="flex items-center">
+                {showBackButton && (
+                  <button
+                    onClick={handleBackClick}
+                    className="mr-3 p-1.5 rounded-full bg-glass-background border border-glass-border text-alpine-mist"
+                  >
+                    <ArrowLeft size={isMobile ? 16 : 18} />
+                  </button>
+                )}
+                
                 {title && (
-                  <h1 className="text-lg font-medium text-alpine-mist">{title}</h1>
+                  <h1 className="text-lg font-medium text-alpine-mist truncate max-w-[200px]">
+                    {title}
+                  </h1>
                 )}
               </div>
               
-              {/* Progress indicator */}
-              {showProgress && (
-                <div 
-                  className="flex items-center cursor-pointer"
-                  onClick={() => setIsExpanded(!isExpanded)}
-                >
-                  <div className="flex items-center bg-glass-background px-3 py-1.5 rounded-full border border-glass-border shadow-sm">
-                    <Award className="text-cyan-primary mr-2" size={16} />
-                    <span className="text-sm font-medium text-alpine-mist">
-                      {activityPoints.currentPoints} / {activityPoints.targetPoints}
-                    </span>
-                    {isExpanded ? (
-                      <ChevronUp size={16} className="ml-1 text-alpine-mist/70" />
-                    ) : (
-                      <ChevronDown size={16} className="ml-1 text-alpine-mist/70" />
-                    )}
+              {/* Right side - Progress or custom content */}
+              {rightContent ? (
+                rightContent
+              ) : (
+                showProgress && (
+                  <div 
+                    className="flex items-center cursor-pointer"
+                    onClick={() => setIsExpanded(!isExpanded)}
+                  >
+                    <motion.div 
+                      className="flex items-center bg-glass-background px-3 py-1.5 rounded-full border border-glass-border shadow-sm"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Award className="text-primary-cyan mr-2" size={16} />
+                      <span className="text-sm font-medium text-alpine-mist">
+                        {activityPoints.currentPoints} / {activityPoints.totalPointsRequired}
+                      </span>
+                      {isExpanded ? (
+                        <ChevronUp size={16} className="ml-1 text-alpine-mist/70" />
+                      ) : (
+                        <ChevronDown size={16} className="ml-1 text-alpine-mist/70" />
+                      )}
+                    </motion.div>
                   </div>
-                </div>
+                )
               )}
             </div>
             
             {/* Expanded details */}
-            <AnimatePresence>
+            <AnimatePresence mode="wait">
               {isExpanded && (
                 <motion.div
-                  className="mt-2 bg-glass-background bg-opacity-30 rounded-lg p-3"
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
+                  className="mt-2 bg-glass-background backdrop-blur-md rounded-lg p-3 border border-glass-border"
+                  variants={fadeIn}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
                 >
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="text-xs text-alpine-mist">Progress</span>
-                    <span className="text-xs text-alpine-mist">{progressPercentage}%</span>
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-xs text-alpine-mist">Progress to Summit</span>
+                    <span className="text-xs font-medium text-alpine-mist">{progressPercentage}%</span>
                   </div>
                   
                   {/* Progress bar */}
-                  <div className="w-full h-1.5 bg-glass-border rounded-full overflow-hidden">
-                    <motion.div
-                      className="h-full bg-gradient-to-r from-cyan-primary to-teal-primary"
-                      initial={{ width: 0 }}
-                      animate={{ width: `${progressPercentage}%` }}
-                      transition={{ duration: 0.8, type: 'spring' }}
-                    />
-                  </div>
+                  <Progress 
+                    value={progressPercentage} 
+                    size="md"
+                    variant="line"
+                    colorByValue
+                  />
                   
                   {/* Points breakdown */}
                   <div className="mt-3 grid grid-cols-3 gap-2">
-                    <div className="text-center">
-                      <div className="text-xs text-alpine-mist/70">Daily</div>
-                      <div className="text-sm font-medium text-alpine-mist">+45</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-xs text-alpine-mist/70">Weekly</div>
-                      <div className="text-sm font-medium text-alpine-mist">+210</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-xs text-alpine-mist/70">Remaining</div>
-                      <div className="text-sm font-medium text-alpine-mist">{activityPoints.targetPoints - activityPoints.currentPoints}</div>
-                    </div>
+                    <ProgressStat label="Daily" value="+45" />
+                    <ProgressStat label="Weekly" value="+210" />
+                    <ProgressStat 
+                      label="Remaining" 
+                      value={activityPoints.totalPointsRequired - activityPoints.currentPoints} 
+                    />
                   </div>
                 </motion.div>
               )}
             </AnimatePresence>
             
             {/* Bottom border/shadow */}
-            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-glass-border to-transparent"></div>
+            {!transparent && (
+              <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-glass-border to-transparent"></div>
+            )}
           </div>
         </motion.div>
       )}
     </AnimatePresence>
   );
 };
+
+// Helper component for stats
+const ProgressStat = ({ label, value }: { label: string, value: string | number }) => (
+  <div className="text-center">
+    <div className="text-xs text-alpine-mist/70">{label}</div>
+    <div className="text-sm font-medium text-alpine-mist">{value}</div>
+  </div>
+);
 
 export default StickyHeader;

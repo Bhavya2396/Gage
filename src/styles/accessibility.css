@@ -1,0 +1,154 @@
+/* Accessibility styles */
+
+:root {
+  --a11y-focus-color: #2563eb;
+  --a11y-focus-width: 3px;
+  --a11y-font-scale: 1;
+  --a11y-contrast-scale: 1;
+}
+
+/* Focus indicator styles */
+.user-is-tabbing :focus {
+  outline: var(--a11y-focus-width) solid var(--a11y-focus-color);
+  outline-offset: 2px;
+}
+
+.user-is-tabbing :focus:not(:focus-visible) {
+  outline: none;
+}
+
+.user-is-tabbing :focus-visible {
+  outline: var(--a11y-focus-width) solid var(--a11y-focus-color);
+  outline-offset: 2px;
+}
+
+/* High contrast mode */
+.a11y-high-contrast {
+  --a11y-focus-color: #ffff00;
+  --a11y-focus-width: 4px;
+}
+
+.a11y-high-contrast img,
+.a11y-high-contrast svg,
+.a11y-high-contrast canvas,
+.a11y-high-contrast video {
+  filter: contrast(var(--a11y-contrast-scale, 1.2));
+}
+
+.a11y-high-contrast button:not([disabled]),
+.a11y-high-contrast a {
+  text-decoration: underline;
+}
+
+.a11y-high-contrast .glass-card {
+  border-width: 2px;
+}
+
+/* Large text mode */
+.a11y-large-text {
+  font-size: calc(100% * var(--a11y-font-scale, 1.25));
+}
+
+.a11y-large-text button,
+.a11y-large-text input,
+.a11y-large-text select,
+.a11y-large-text textarea {
+  font-size: inherit;
+}
+
+/* Dyslexic friendly font */
+.a11y-dyslexic-font {
+  font-family: 'Open Dyslexic', 'Comic Sans MS', 'Verdana', sans-serif;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  word-spacing: 0.1em;
+}
+
+/* Reduced motion mode */
+.a11y-reduce-motion *,
+.a11y-disable-animations * {
+  animation-duration: 0.001ms !important;
+  transition-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  scroll-behavior: auto !important;
+}
+
+/* Focus mode */
+.a11y-focus-mode {
+  --focus-fade: 0.4;
+}
+
+.a11y-focus-mode .main-content > *:not(:focus-within) {
+  opacity: var(--focus-fade);
+  filter: grayscale(30%);
+  transition: opacity 0.2s ease-in-out, filter 0.2s ease-in-out;
+}
+
+.a11y-focus-mode .main-content > :focus-within {
+  opacity: 1;
+  filter: none;
+  outline: var(--a11y-focus-width) solid var(--a11y-focus-color);
+  outline-offset: 2px;
+}
+
+/* Inverted colors mode */
+.a11y-invert-colors {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+.a11y-invert-colors img,
+.a11y-invert-colors video,
+.a11y-invert-colors canvas {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Skip to content link - visible on focus */
+.skip-to-content {
+  position: absolute;
+  top: -3rem;
+  left: 0;
+  padding: 0.5rem 1rem;
+  background: var(--a11y-focus-color);
+  color: white;
+  font-weight: bold;
+  z-index: 999;
+  transition: top 0.2s ease;
+}
+
+.skip-to-content:focus {
+  top: 0;
+  outline: none;
+}
+
+/* Enhanced tap targets for touch devices */
+@media (pointer: coarse) {
+  button,
+  .button,
+  a,
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="submit"],
+  input[type="button"],
+  select {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  input[type="checkbox"],
+  input[type="radio"] {
+    transform: scale(1.2);
+  }
+}
