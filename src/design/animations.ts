@@ -101,6 +101,26 @@ export const buttonTap = {
   tap: { scale: 0.98 },
 };
 
+// Button hover animation
+export const buttonHover = {
+  rest: {
+    scale: 1,
+    transition: {
+      duration: 0.2,
+      type: 'tween',
+      ease: 'easeOut',
+    },
+  },
+  hover: {
+    scale: 1.05,
+    transition: {
+      duration: 0.2,
+      type: 'tween',
+      ease: 'easeOut',
+    },
+  },
+};
+
 // Pulse animation
 export const pulse: Variants = {
   initial: { scale: 1 },
@@ -212,6 +232,7 @@ export default {
   staggerContainer,
   cardHover,
   buttonTap,
+  buttonHover,
   pulse,
   parallaxLayers,
   cardTiltAnimation,
