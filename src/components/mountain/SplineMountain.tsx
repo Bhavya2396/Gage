@@ -175,7 +175,7 @@ const SplineMountain: React.FC<SplineMountainProps> = ({
         getBackgroundGradient()
       )} 
       style={{
-        background: 'linear-gradient(to bottom, rgba(135, 206, 235, 0.3) 0%, rgba(100, 149, 237, 0.2) 30%, rgba(25, 25, 112, 0.4) 100%)'
+        background: 'linear-gradient(to bottom, rgba(135, 206, 235, 0.4) 0%, rgba(100, 149, 237, 0.3) 25%, rgba(25, 25, 112, 0.5) 100%)'
       }} />
       
       {/* Spline 3D Scene - Adjusted camera angle */}
@@ -183,7 +183,7 @@ const SplineMountain: React.FC<SplineMountainProps> = ({
         <div 
           className="w-full h-full"
           style={{
-            transform: 'scale(1.6) translateY(-15%) translateX(5%) rotateX(5deg)',
+            transform: 'scale(1.8) translateY(-25%) translateX(8%) rotateX(8deg) rotateY(-3deg)',
             transformOrigin: 'center center',
             transformStyle: 'preserve-3d'
           }}
@@ -216,32 +216,6 @@ const SplineMountain: React.FC<SplineMountainProps> = ({
       {/* Weather effects overlay */}
       {getWeatherOverlay()}
       
-      {/* Progress indicator */}
-      {progressPercentage > 0 && (
-        <motion.div
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-          className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
-        >
-          {/* Glowing progress ring */}
-          <motion.div
-            className="w-16 h-16 rounded-full border-2 border-cyan-500/50 flex items-center justify-center"
-            animate={{
-              boxShadow: [
-                '0 0 10px rgba(0, 204, 255, 0.3)',
-                '0 0 20px rgba(0, 204, 255, 0.6)',
-                '0 0 10px rgba(0, 204, 255, 0.3)'
-              ]
-            }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <span className="text-sm font-bold text-cyan-400">
-              {Math.round(progressPercentage)}%
-            </span>
-          </motion.div>
-        </motion.div>
-      )}
       
       {/* Atmospheric fog/haze effect */}
       {ambientEffects && (timeOfDay === 'dawn' || timeOfDay === 'dusk') && (
