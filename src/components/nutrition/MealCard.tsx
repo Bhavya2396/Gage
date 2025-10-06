@@ -61,21 +61,47 @@ const MealCard: React.FC<MealCardProps> = ({
       variant={completed ? 'muted' : 'default'} 
       size="md" 
       className={`w-full ${className}`}
+      interactive
+      animate
+      whileHover={{ 
+        scale: 1.02, 
+        y: -2,
+        boxShadow: completed 
+          ? '0 8px 16px rgba(0, 0, 0, 0.1)' 
+          : '0 20px 40px rgba(0, 204, 255, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1)'
+      }}
+      whileTap={{ scale: 0.98 }}
+      glow={!completed}
+      glowColor="#00ccff"
     >
       <div className="flex justify-between items-start">
-        <div>
-          <div className="flex items-center">
-            <h3 className={`text-base sm:text-lg font-medium ${completed ? 'text-alpine-mist/70' : 'text-alpine-mist'}`}>
-              {title}
-            </h3>
-            <span className={`ml-2 text-xs ${completed ? 'text-alpine-mist/50' : 'text-alpine-mist/80'}`}>
-              {time}
-            </span>
+        <div className="flex-1">
+          <div className="flex items-center mb-2">
+            <div className="flex items-center space-x-3">
+              <div className={`p-2 rounded-lg ${completed ? 'bg-white/10' : 'bg-gradient-to-br from-primary-cyan-500/20 to-primary-teal-500/20 border border-primary-cyan-500/30'}`}>
+                <Utensils size={16} className={completed ? 'text-white/60' : 'text-primary-cyan-500'} />
+              </div>
+              <div>
+                <h3 className={`text-lg font-semibold ${completed ? 'text-white/70' : 'text-white'}`}>
+                  {title}
+                </h3>
+                <span className={`text-sm ${completed ? 'text-white/50' : 'text-white/60'}`}>
+                  {time}
+                </span>
+              </div>
+            </div>
           </div>
           
-          <p className={`text-xs sm:text-sm mt-1 ${completed ? 'text-alpine-mist/50' : 'text-alpine-mist/70'}`}>
-            {macros.calories} kcal • {macros.protein}g protein • {macros.carbs}g carbs • {macros.fat}g fat
-          </p>
+          <div className="grid grid-cols-2 gap-3 mb-3">
+            <div className="bg-white/10 rounded-lg p-2">
+              <div className="text-lg font-bold text-white">{macros.calories}</div>
+              <div className="text-xs text-white/60">kcal</div>
+            </div>
+            <div className="bg-white/10 rounded-lg p-2">
+              <div className="text-lg font-bold text-white">{macros.protein}g</div>
+              <div className="text-xs text-white/60">protein</div>
+            </div>
+          </div>
         </div>
         
         <div className="flex">

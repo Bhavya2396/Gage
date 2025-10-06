@@ -115,19 +115,38 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
       size="full" 
       className={`${className} ${isActive ? 'border-primary-cyan-500' : ''} ${isCompleted ? 'border-primary-cyan-500/50 bg-glass-background/50' : ''}`}
       onClick={!isActive && !isCompleted ? onActivate : undefined}
+      interactive
+      animate
+      whileHover={{ 
+        scale: 1.02, 
+        y: -2,
+        boxShadow: isActive 
+          ? '0 20px 40px rgba(0, 204, 255, 0.2), 0 8px 16px rgba(0, 0, 0, 0.1)'
+          : '0 8px 16px rgba(0, 0, 0, 0.1)'
+      }}
+      whileTap={{ scale: 0.98 }}
+      glow={isActive}
+      glowColor="#00ccff"
     >
-      <div className="flex justify-between items-start mb-3">
-        <div>
-          <h3 className="text-base sm:text-lg font-medium text-alpine-mist">{name}</h3>
-          <div className="flex flex-wrap gap-2 mt-1">
-            {muscleGroup && (
-              <span className="text-xs px-2 py-0.5 bg-glass-background rounded-full text-alpine-mist">
-                {muscleGroup}
-              </span>
-            )}
-            <span className="text-xs px-2 py-0.5 bg-primary-cyan-500/20 rounded-full text-primary-cyan-500">
-              {typeof reps === 'string' ? reps : `${reps} reps`} × {sets} sets
-            </span>
+      <div className="flex justify-between items-start mb-4">
+        <div className="flex-1">
+          <div className="flex items-center space-x-3 mb-3">
+            <div className={`p-2 rounded-lg ${isActive ? 'bg-gradient-to-br from-primary-cyan-500/20 to-primary-teal-500/20 border border-primary-cyan-500/30' : 'bg-white/10'}`}>
+              <Dumbbell size={16} className={isActive ? 'text-primary-cyan-500' : 'text-white/60'} />
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-white">{name}</h3>
+              <div className="flex flex-wrap gap-2 mt-1">
+                {muscleGroup && (
+                  <span className="text-xs px-2 py-1 bg-white/10 rounded-lg text-white/60">
+                    {muscleGroup}
+                  </span>
+                )}
+                <span className="text-xs px-2 py-1 bg-primary-cyan-500/20 rounded-lg text-primary-cyan-400 font-medium">
+                  {typeof reps === 'string' ? reps : `${reps} reps`} × {sets} sets
+                </span>
+              </div>
+            </div>
           </div>
         </div>
         

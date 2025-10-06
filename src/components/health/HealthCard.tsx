@@ -65,17 +65,21 @@ const HealthCard: React.FC<HealthMetricCardProps> = ({
     const range = max - min;
     
     return (
-      <div className="h-10 flex items-end space-x-1">
+      <div className="h-12 flex items-end space-x-1">
         {chartData.map((point, i) => {
-          const height = ((point - min) / range) * 100;
+          const height = Math.max(((point - min) / range) * 100, 8);
+          const isLatest = i === chartData.length - 1;
           return (
             <div 
               key={i}
-              className="w-1 rounded-t-sm"
+              className="w-1.5 rounded-t-sm transition-all duration-300"
               style={{ 
                 height: `${height}%`,
-                backgroundColor: color,
-                opacity: i === chartData.length - 1 ? 1 : 0.6
+                background: isLatest 
+                  ? `linear-gradient(to top, ${color}, ${color}80)`
+                  : `linear-gradient(to top, ${color}60, ${color}30)`,
+                opacity: isLatest ? 1 : 0.7,
+                boxShadow: isLatest ? `0 0 8px ${color}40` : 'none'
               }}
             />
           );
@@ -129,18 +133,35 @@ const HealthCard: React.FC<HealthMetricCardProps> = ({
       size={expanded ? "xl" : "md"} 
       className="w-full"
       onClick={handleClick}
+      interactive
+      animate
+      whileHover={{ 
+        scale: 1.02, 
+        y: -2,
+        boxShadow: '0 20px 40px rgba(0, 204, 255, 0.15), 0 8px 16px rgba(0, 0, 0, 0.1)'
+      }}
+      whileTap={{ scale: 0.98 }}
+      glow={trend === 'up'}
+      glowColor={trend === 'up' ? '#4ade80' : trend === 'down' ? '#f87171' : color}
     >
       <div className="flex justify-between items-start">
         <div className="flex items-center">
-          {icon && <div className="mr-2 text-accent-primary">{icon}</div>}
-          <h3 className="text-sm font-medium text-alpine-mist">{title}</h3>
+          {icon && (
+            <div className="mr-3 p-2 rounded-lg bg-gradient-to-br from-primary-cyan-500/20 to-primary-teal-500/20 border border-primary-cyan-500/30">
+              <div className="text-primary-cyan-500">{icon}</div>
+            </div>
+          )}
+          <div>
+            <h3 className="text-sm font-semibold text-white">{title}</h3>
+            <div className="text-xs text-white/60">Last 7 days</div>
+          </div>
         </div>
         
         {trend && (
-          <div className="flex items-center">
+          <div className="flex items-center bg-white/10 rounded-lg px-2 py-1">
             {trendIcons[trend]}
             {trendValue && (
-              <span className="text-xs ml-1" style={{ color: trend === 'up' ? '#4ade80' : trend === 'down' ? '#f87171' : 'var(--color-accent-secondary)' }}>
+              <span className="text-xs ml-1 font-medium" style={{ color: trend === 'up' ? '#4ade80' : trend === 'down' ? '#f87171' : '#60a5fa' }}>
                 {trendValue}
               </span>
             )}
@@ -148,13 +169,20 @@ const HealthCard: React.FC<HealthMetricCardProps> = ({
         )}
       </div>
       
-      <div className="flex justify-between items-end mt-2">
-        <div>
-          <span className="text-2xl font-bold" style={{ color }}>{value}</span>
-          {unit && <span className="text-alpine-mist text-sm ml-1 bg-glass-background bg-opacity-30 px-2 py-1 rounded-lg">{unit}</span>}
+      <div className="flex justify-between items-end mt-4">
+        <div className="flex items-baseline space-x-2">
+          <span className="text-3xl font-bold text-white" style={{ color }}>{value}</span>
+          {unit && (
+            <span className="text-white/60 text-sm bg-white/10 px-2 py-1 rounded-lg font-medium">
+              {unit}
+            </span>
+          )}
         </div>
         
-        <MiniChart />
+        <div className="flex flex-col items-end">
+          <MiniChart />
+          <div className="text-xs text-white/50 mt-1">Weekly trend</div>
+        </div>
       </div>
       
       <AnimatePresence>
