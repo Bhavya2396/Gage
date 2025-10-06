@@ -30,20 +30,20 @@ export const colors = {
     },
   },
   
-  // UI colors - Updated to match golf app aesthetic
+  // UI colors - Updated for translucent glassmorphism effect
   ui: {
     background: '#0F172A', // Dark blue background
-    card: 'rgba(255, 255, 255, 0.95)', // Clean white card background
-    cardDark: 'rgba(15, 23, 42, 0.9)', // Dark card for contrast
+    card: 'rgba(255, 255, 255, 0.15)', // Translucent white card background
+    cardDark: 'rgba(15, 23, 42, 0.8)', // Dark card for contrast
     cardGlass: 'rgba(255, 255, 255, 0.1)', // Glass effect card
-    border: 'rgba(0, 0, 0, 0.1)', // Subtle dark border
-    borderLight: 'rgba(255, 255, 255, 0.2)', // Light border
-    highlight: 'rgba(0, 204, 255, 0.1)', // Cyan highlight
+    border: 'rgba(255, 255, 255, 0.2)', // Subtle white border
+    borderLight: 'rgba(255, 255, 255, 0.3)', // Light border
+    highlight: 'rgba(0, 204, 255, 0.2)', // Cyan highlight
     text: {
-      primary: '#1F2937', // Dark text for white cards
-      secondary: '#6B7280', // Medium gray
-      muted: '#9CA3AF', // Light gray
-      white: '#FFFFFF', // White text for dark backgrounds
+      primary: '#FFFFFF', // White text for translucent cards
+      secondary: '#E2E8F0', // Light gray
+      muted: '#94A3B8', // Medium gray
+      white: '#FFFFFF', // White text
     },
   },
   

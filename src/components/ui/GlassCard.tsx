@@ -87,18 +87,18 @@ export const GlassCard: React.FC<GlassCardProps> = ({
   const smoothMouseX = useSpring(mouseX, springConfig);
   const smoothMouseY = useSpring(mouseY, springConfig);
   
-  // Define variant styles - updated to match golf app aesthetic
+  // Define variant styles - updated for translucent glassmorphism
   const variants = {
-    default: 'bg-ui-card backdrop-blur-sm border-ui-border shadow-card-light',
-    highlight: 'bg-ui-card backdrop-blur-sm border-primary-cyan-500/30 shadow-card-medium',
-    muted: 'bg-ui-card/50 backdrop-blur-sm border-ui-border/50 shadow-card-light',
-    accent: 'bg-ui-card backdrop-blur-sm border-primary-cyan-500 shadow-card-medium',
-    frosted: 'bg-ui-card-glass backdrop-blur-md border-ui-border-light shadow-card-light',
-    dark: 'bg-ui-card-dark backdrop-blur-sm border-ui-border-light shadow-card-medium',
-    elevated: 'bg-ui-card backdrop-blur-sm border-ui-border shadow-card-strong',
-    primary: 'bg-primary-cyan-50 backdrop-blur-sm border-primary-cyan-200 shadow-card-medium',
-    teal: 'bg-primary-teal-50 backdrop-blur-sm border-primary-teal-200 shadow-card-medium',
-    purple: 'bg-primary-cyan-50 backdrop-blur-sm border-primary-cyan-200 shadow-card-medium',
+    default: 'bg-ui-card backdrop-blur-md border-ui-border shadow-card-light',
+    highlight: 'bg-ui-card backdrop-blur-md border-primary-cyan-500/50 shadow-card-medium',
+    muted: 'bg-ui-card/70 backdrop-blur-sm border-ui-border/50 shadow-card-light',
+    accent: 'bg-ui-card backdrop-blur-md border-primary-cyan-500 shadow-card-medium',
+    frosted: 'bg-ui-card-glass backdrop-blur-lg border-ui-border-light shadow-card-light',
+    dark: 'bg-ui-card-dark backdrop-blur-md border-ui-border-light shadow-card-medium',
+    elevated: 'bg-ui-card backdrop-blur-md border-ui-border shadow-card-strong',
+    primary: 'bg-primary-cyan-500/20 backdrop-blur-md border-primary-cyan-400/50 shadow-card-medium',
+    teal: 'bg-primary-teal-500/20 backdrop-blur-md border-primary-teal-400/50 shadow-card-medium',
+    purple: 'bg-primary-cyan-500/20 backdrop-blur-md border-primary-cyan-400/50 shadow-card-medium',
   };
   
   // Padding based on size (with no padding option) - updated for more consistent spacing
