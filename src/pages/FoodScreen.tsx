@@ -163,52 +163,50 @@ const FoodScreen: React.FC = () => {
           </div>
         </GlassCard>
           
-          {/* Add/Edit Meal Modal (simplified placeholder) */}
-          {showAddMealModal && (
+        {/* Add/Edit Meal Modal (simplified placeholder) */}
+        {showAddMealModal && (
+          <motion.div
+            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowAddMealModal(false)}
+          >
             <motion.div
-              className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setShowAddMealModal(false)}
+              className="w-full max-w-md mx-4 bg-glass-background backdrop-blur-md border border-glass-border rounded-lg p-4"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
             >
-              <motion.div
-                className="w-full max-w-md mx-4 bg-glass-background backdrop-blur-md border border-glass-border rounded-lg p-4"
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <h2 className="text-xl font-medium text-alpine-mist mb-4">
-                  {editingMealId ? 'Edit Meal' : 'Add New Meal'}
-                </h2>
-                
-                <p className="text-text-secondary">
-                  This is a placeholder for the meal editor. In a complete implementation, this would include fields for meal name, time, food items, and quantities.
-                </p>
-                
-                <div className="flex justify-end mt-4 space-x-2">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setShowAddMealModal(false)}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    variant="primary"
-                    size="sm"
-                    onClick={() => setShowAddMealModal(false)}
-                  >
-                    {editingMealId ? 'Save Changes' : 'Add Meal'}
-                  </Button>
-                </div>
-              </motion.div>
+              <h2 className="text-xl font-medium text-alpine-mist mb-4">
+                {editingMealId ? 'Edit Meal' : 'Add New Meal'}
+              </h2>
+              
+              <p className="text-text-secondary">
+                This is a placeholder for the meal editor. In a complete implementation, this would include fields for meal name, time, food items, and quantities.
+              </p>
+              
+              <div className="flex justify-end mt-4 space-x-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowAddMealModal(false)}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={() => setShowAddMealModal(false)}
+                >
+                  {editingMealId ? 'Save Changes' : 'Add Meal'}
+                </Button>
+              </div>
             </motion.div>
-          )}
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </div>
     </MainLayout>
   );
 };
