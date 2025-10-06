@@ -32,7 +32,7 @@ import {
   ChevronRight as ChevronRightIcon
 } from 'lucide-react';
 
-// Dashboard card component for swipe interface
+// Dashboard card component for swipe interface - matches original InteractiveCard styling
 interface DashboardCardProps {
   title: string;
   icon: React.ReactNode;
@@ -52,35 +52,74 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
   highlight = false,
   badge
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  // Handle click with event prevention
+  const handleClick = (e: React.MouseEvent) => {
+    // Prevent event bubbling
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Call the onClick handler
+    if (onClick) {
+      onClick();
+    }
+  };
+
   return (
     <motion.div
-      className={`w-full ${className}`}
-      whileHover={{ scale: 1.02 }}
+      className={`w-full mb-4 sm:mb-6 ${className}`}
+      whileHover={{ scale: 1.02, y: -4 }}
       whileTap={{ scale: 0.98 }}
-      onClick={onClick}
+      transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      onClick={handleClick}
     >
-      <GlassCard
-        variant={highlight ? 'highlight' : 'default'}
-        className="p-4 cursor-pointer transition-all duration-300"
-        interactive
+      <GlassCard 
+        variant="default" 
+        size="md" 
+        className={`h-full w-full cursor-pointer overflow-hidden ${isHovered ? 'border-primary-cyan-500/50 shadow-xl shadow-cyan-primary/20' : 'shadow-lg'}`}
+        onClick={handleClick}
       >
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center space-x-3">
-            <div className={`p-2 rounded-lg ${highlight ? 'bg-primary-cyan-500/20' : 'bg-ui-highlight'}`}>
-              {icon}
+        <div className="flex flex-col h-full">
+          {/* Card Header */}
+          <div className="flex justify-between items-center mb-3 sm:mb-4">
+            <div className="flex items-center">
+              <div className={`p-2.5 sm:p-3 rounded-full ${isHovered ? 'bg-gradient-to-br from-primary-cyan-500 to-primary-teal-500' : 'bg-glass-highlight bg-opacity-80'} mr-3 sm:mr-4 transition-colors`}>
+                <div className={`${isHovered ? 'text-white' : 'text-primary-cyan-500'}`}>
+                  {icon}
+                </div>
+              </div>
+              <div className="flex items-center">
+                <h3 className="text-white font-medium text-base sm:text-lg">{title}</h3>
+                {badge && (
+                  <span className="ml-2 sm:ml-3 text-[10px] sm:text-xs bg-primary-cyan-500/30 text-white font-medium px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
+                    {badge}
+                  </span>
+                )}
+              </div>
             </div>
-            <div>
-              <h3 className="font-semibold text-ui-text-primary text-shadow-medium">{title}</h3>
-              {badge && (
-                <span className="text-xs bg-primary-cyan-500/20 text-primary-cyan-400 px-2 py-1 rounded-full">
-                  {badge}
-                </span>
-              )}
-            </div>
+            
+            <motion.div
+              animate={{ x: isHovered ? 0 : 5, opacity: isHovered ? 1 : 0.5 }}
+              transition={{ duration: 0.2 }}
+              className={`${isHovered ? 'bg-primary-cyan-500 text-white' : 'bg-glass-highlight text-primary-cyan-500'} rounded-full p-1.5 transition-colors`}
+            >
+              <ArrowUpRight size={16} />
+            </motion.div>
           </div>
-          <ChevronRight className="text-ui-text-muted" size={16} />
+          
+          {/* Card Content */}
+          <div className="flex-1">
+            {content}
+          </div>
+          
+          {/* Highlight indicator */}
+          {highlight && (
+            <div className="absolute top-0 right-0 w-3 h-3 rounded-full bg-primary-cyan-500 animate-pulse m-2 shadow-md shadow-cyan-primary/30" />
+          )}
         </div>
-        {content}
       </GlassCard>
     </motion.div>
   );
@@ -115,25 +154,25 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/calendar'),
       content: (
         <div className="relative">
-          <div className="space-y-2">
+          <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-ui-text-secondary text-shadow-light">Morning</span>
-              <span className="text-xs text-ui-text-muted">9:00 AM</span>
+              <span className="text-sm text-white/80">Morning</span>
+              <span className="text-xs text-white/60">9:00 AM</span>
             </div>
-            <div className="bg-primary-cyan-500/10 rounded-lg p-2">
-              <div className="flex items-center space-x-2">
-                <Dumbbell className="text-primary-cyan-500" size={14} />
-                <span className="text-sm text-ui-text-primary text-shadow-light">Foundation Strength</span>
+            <div className="bg-primary-cyan-500/20 rounded-lg p-3 border border-primary-cyan-500/30">
+              <div className="flex items-center space-x-3">
+                <Dumbbell className="text-primary-cyan-500" size={16} />
+                <span className="text-sm text-white font-medium">Foundation Strength</span>
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-ui-text-secondary text-shadow-light">Afternoon</span>
-              <span className="text-xs text-ui-text-muted">2:00 PM</span>
+              <span className="text-sm text-white/80">Afternoon</span>
+              <span className="text-xs text-white/60">2:00 PM</span>
             </div>
-            <div className="bg-primary-teal-500/10 rounded-lg p-2">
-              <div className="flex items-center space-x-2">
-                <Utensils className="text-primary-teal-500" size={14} />
-                <span className="text-sm text-ui-text-primary text-shadow-light">Nutrition Check</span>
+            <div className="bg-primary-teal-500/20 rounded-lg p-3 border border-primary-teal-500/30">
+              <div className="flex items-center space-x-3">
+                <Utensils className="text-primary-teal-500" size={16} />
+                <span className="text-sm text-white font-medium">Nutrition Check</span>
               </div>
             </div>
           </div>
@@ -149,28 +188,28 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/workout'),
       content: (
         <div>
-          <div className="mb-3">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-ui-text-secondary text-shadow-light">Foundation Strength</span>
-              <span className="text-xs bg-primary-cyan-500/20 text-primary-cyan-400 px-2 py-1 rounded-full">
+          <div className="mb-4">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm text-white/80">Foundation Strength</span>
+              <span className="text-xs bg-primary-cyan-500/30 text-white font-medium px-2.5 py-1 rounded-full">
                 45 min
               </span>
             </div>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-ui-text-primary text-shadow-light">Core Stability</span>
-                <span className="text-xs text-ui-text-muted">3 sets</span>
+                <span className="text-sm text-white font-medium">Core Stability</span>
+                <span className="text-xs text-white/60">3 sets</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-ui-text-primary text-shadow-light">Leg Strength</span>
-                <span className="text-xs text-ui-text-muted">4 sets</span>
+                <span className="text-sm text-white font-medium">Leg Strength</span>
+                <span className="text-xs text-white/60">4 sets</span>
               </div>
             </div>
           </div>
-          <div className="bg-primary-cyan-500/10 rounded-lg p-2">
-            <div className="flex items-center space-x-2">
-              <Lightbulb className="text-primary-cyan-500" size={14} />
-              <span className="text-xs text-ui-text-primary text-shadow-light">
+          <div className="bg-primary-cyan-500/20 rounded-lg p-3 border border-primary-cyan-500/30">
+            <div className="flex items-center space-x-3">
+              <Lightbulb className="text-primary-cyan-500" size={16} />
+              <span className="text-xs text-white font-medium">
                 Focus on core stability for golf drive power
               </span>
             </div>
@@ -185,28 +224,28 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/food'),
       content: (
         <div>
-          <div className="grid grid-cols-2 gap-3 mb-3">
+          <div className="grid grid-cols-2 gap-4 mb-4">
             <div className="text-center">
-              <div className="text-lg font-bold text-ui-text-primary text-shadow-strong">
+              <div className="text-xl font-bold text-white">
                 {nutritionSummary.calories}
               </div>
-              <div className="text-xs text-ui-text-muted">Calories</div>
+              <div className="text-xs text-white/60">Calories</div>
             </div>
             <div className="text-center">
-              <div className="text-lg font-bold text-ui-text-primary text-shadow-strong">
+              <div className="text-xl font-bold text-white">
                 {nutritionSummary.protein}g
               </div>
-              <div className="text-xs text-ui-text-muted">Protein</div>
+              <div className="text-xs text-white/60">Protein</div>
             </div>
           </div>
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-ui-text-primary text-shadow-light">Breakfast</span>
-              <span className="text-xs text-ui-text-muted">✓ Complete</span>
+              <span className="text-sm text-white font-medium">Breakfast</span>
+              <span className="text-xs text-white/60">✓ Complete</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-ui-text-primary text-shadow-light">Lunch</span>
-              <span className="text-xs text-ui-text-muted">Pending</span>
+              <span className="text-sm text-white font-medium">Lunch</span>
+              <span className="text-xs text-white/60">Pending</span>
             </div>
           </div>
         </div>
@@ -219,24 +258,24 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/health'),
       content: (
         <div>
-          <div className="grid grid-cols-2 gap-3 mb-3">
+          <div className="grid grid-cols-2 gap-4 mb-4">
             <div className="text-center">
-              <div className="text-lg font-bold text-ui-text-primary text-shadow-strong">
+              <div className="text-xl font-bold text-white">
                 {baseHealthMetrics.heartRate}
               </div>
-              <div className="text-xs text-ui-text-muted">BPM</div>
+              <div className="text-xs text-white/60">BPM</div>
             </div>
             <div className="text-center">
-              <div className="text-lg font-bold text-ui-text-primary text-shadow-strong">
+              <div className="text-xl font-bold text-white">
                 {baseHealthMetrics.sleep}
               </div>
-              <div className="text-xs text-ui-text-muted">Hours</div>
+              <div className="text-xs text-white/60">Hours</div>
             </div>
           </div>
-          <div className="bg-primary-cyan-500/10 rounded-lg p-2">
-            <div className="flex items-center space-x-2">
-              <Brain className="text-primary-cyan-500" size={14} />
-              <span className="text-xs text-ui-text-primary text-shadow-light">
+          <div className="bg-primary-cyan-500/20 rounded-lg p-3 border border-primary-cyan-500/30">
+            <div className="flex items-center space-x-3">
+              <Brain className="text-primary-cyan-500" size={16} />
+              <span className="text-xs text-white font-medium">
                 Recovery: {baseHealthMetrics.recovery}%
               </span>
             </div>
@@ -251,12 +290,12 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/goals/progress'),
       content: (
         <div>
-          <div className="mb-3">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-ui-text-secondary text-shadow-light">Foundation Phase</span>
-              <span className="text-xs text-ui-text-muted">{getProgressPercentage()}%</span>
+          <div className="mb-4">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm text-white/80">Foundation Phase</span>
+              <span className="text-xs text-white/60">{getProgressPercentage()}%</span>
             </div>
-            <div className="w-full bg-ui-highlight rounded-full h-2">
+            <div className="w-full bg-white/20 rounded-full h-2">
               <div 
                 className="bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 h-2 rounded-full transition-all duration-500"
                 style={{ width: `${getProgressPercentage()}%` }}
@@ -265,14 +304,14 @@ const SwipeDashboard: React.FC = () => {
           </div>
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-ui-text-primary text-shadow-light">Points to go</span>
-              <span className="text-xs text-ui-text-muted">
+              <span className="text-sm text-white font-medium">Points to go</span>
+              <span className="text-xs text-white/60">
                 {activityPoints.targetPoints - activityPoints.currentPoints}
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-ui-text-primary text-shadow-light">Days remaining</span>
-              <span className="text-xs text-ui-text-muted">12</span>
+              <span className="text-sm text-white font-medium">Days remaining</span>
+              <span className="text-xs text-white/60">12</span>
             </div>
           </div>
         </div>
@@ -285,19 +324,19 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/coach'),
       content: (
         <div>
-          <div className="mb-3">
-            <div className="flex items-center space-x-2 mb-2">
-              <Sparkles className="text-primary-cyan-500" size={14} />
-              <span className="text-sm text-ui-text-secondary text-shadow-light">Latest Insight</span>
+          <div className="mb-4">
+            <div className="flex items-center space-x-3 mb-3">
+              <Sparkles className="text-primary-cyan-500" size={16} />
+              <span className="text-sm text-white/80">Latest Insight</span>
             </div>
-            <p className="text-xs text-ui-text-primary text-shadow-light">
+            <p className="text-sm text-white font-medium">
               "Your core stability is improving! Focus on rotational exercises for golf power."
             </p>
           </div>
-          <div className="bg-primary-cyan-500/10 rounded-lg p-2">
-            <div className="flex items-center space-x-2">
-              <Brain className="text-primary-cyan-500" size={14} />
-              <span className="text-xs text-ui-text-primary text-shadow-light">
+          <div className="bg-primary-cyan-500/20 rounded-lg p-3 border border-primary-cyan-500/30">
+            <div className="flex items-center space-x-3">
+              <Brain className="text-primary-cyan-500" size={16} />
+              <span className="text-xs text-white font-medium">
                 Personalized recommendations available
               </span>
             </div>
@@ -313,18 +352,18 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/friends'),
       content: (
         <div>
-          <div className="space-y-2">
+          <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-ui-text-primary text-shadow-light">Alex</span>
-              <span className="text-xs text-ui-text-muted">Online</span>
+              <span className="text-sm text-white font-medium">Alex</span>
+              <span className="text-xs text-white/60">Online</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-ui-text-primary text-shadow-light">Sarah</span>
-              <span className="text-xs text-ui-text-muted">Working out</span>
+              <span className="text-sm text-white font-medium">Sarah</span>
+              <span className="text-xs text-white/60">Working out</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-ui-text-primary text-shadow-light">Mike</span>
-              <span className="text-xs text-ui-text-muted">Just finished</span>
+              <span className="text-sm text-white font-medium">Mike</span>
+              <span className="text-xs text-white/60">Just finished</span>
             </div>
           </div>
         </div>
@@ -337,18 +376,18 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/health/trends'),
       content: (
         <div>
-          <div className="space-y-2">
+          <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-ui-text-primary text-shadow-light">Weekly Progress</span>
-              <span className="text-xs text-ui-text-muted">+12%</span>
+              <span className="text-sm text-white font-medium">Weekly Progress</span>
+              <span className="text-xs text-white/60">+12%</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-ui-text-primary text-shadow-light">Best Day</span>
-              <span className="text-xs text-ui-text-muted">Tuesday</span>
+              <span className="text-sm text-white font-medium">Best Day</span>
+              <span className="text-xs text-white/60">Tuesday</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-ui-text-primary text-shadow-light">Streak</span>
-              <span className="text-xs text-ui-text-muted">5 days</span>
+              <span className="text-sm text-white font-medium">Streak</span>
+              <span className="text-xs text-white/60">5 days</span>
             </div>
           </div>
         </div>
