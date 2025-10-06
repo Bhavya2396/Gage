@@ -102,100 +102,66 @@ const FoodScreen: React.FC = () => {
 
   return (
     <MainLayout>
-      {showContent && (
-        <div className="w-full max-w-md mx-auto px-4 pb-24">
-          {/* Content container with proper padding for header */}
-          <div className="pt-20 pb-4">
-            {/* Header */}
-            <div className="mb-4 flex items-center justify-between">
-              <div className="flex items-center">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => navigate('/')}
-                  icon={<ChevronLeft size={16} />}
-                  className="text-white"
-                >
-                  Back
-                </Button>
-                <h1 className="text-sm font-bold text-white ml-2">Nutrition</h1>
-              </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleAddMeal}
-                icon={<Plus size={14} />}
-                className="border-primary-cyan-500 text-primary-cyan-400"
-              >
-                Add Meal
-              </Button>
-            </div>
-            {/* Nutritional Targets Card - Regular, scrollable card */}
-            <div className="mb-6">
-              <NutritionalTargets {...getUpdatedTargets()} />
-            </div>
-          
-          {/* Meal Cards */}
-          <div className="space-y-4">
-            {meals.map(meal => (
-              <MealCard
-                key={meal.id}
-                title={meal.title}
-                time={meal.time}
-                items={meal.items}
-                macros={meal.macros}
-                completed={meal.completed}
-                onComplete={() => handleCompleteMeal(meal.id)}
-                onEdit={() => handleEditMeal(meal.id)}
-                onAddFootnote={(note) => handleAddFootnote(meal.id, note)}
-                className="mb-4"
-              />
-            ))}
+      <div className="w-full max-w-md mx-auto px-4 pt-20 pb-24">
+        {/* Header */}
+        <div className="mb-4 flex items-center justify-between">
+          <div className="flex items-center">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate('/')}
+              icon={<ChevronLeft size={16} />}
+              className="text-white"
+            >
+              Back
+            </Button>
+            <h1 className="text-sm font-bold text-white ml-2">Nutrition</h1>
           </div>
-          
-          {/* Nutrition Impact Card */}
-          <GlassCard variant="default" size="md" className="w-full mt-6 mb-6">
-            <div className="flex items-center mb-3">
-              <UtensilsCrossed className="text-primary-cyan-500 mr-2" size={18} />
-              <h3 className="text-lg font-medium text-alpine-mist">Nutrition Impact</h3>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleAddMeal}
+            icon={<Plus size={14} />}
+            className="border-primary-cyan-500 text-primary-cyan-400"
+          >
+            Add Meal
+          </Button>
+        </div>
+        
+        {/* Nutritional Targets Card - Compact */}
+        <div className="mb-4">
+          <NutritionalTargets {...getUpdatedTargets()} />
+        </div>
+      
+        {/* Meal Cards */}
+        <div className="space-y-3">
+          {meals.map(meal => (
+            <MealCard
+              key={meal.id}
+              title={meal.title}
+              time={meal.time}
+              items={meal.items}
+              macros={meal.macros}
+              completed={meal.completed}
+              onComplete={() => handleCompleteMeal(meal.id)}
+              onEdit={() => handleEditMeal(meal.id)}
+              onAddFootnote={(note) => handleAddFootnote(meal.id, note)}
+            />
+          ))}
+        </div>
+        
+        {/* Nutrition Impact Card - Simplified */}
+        <GlassCard variant="default" size="sm" className="w-full mt-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <UtensilsCrossed className="text-primary-cyan-500 mr-2" size={16} />
+              <span className="text-xs font-bold text-white">Activity Points</span>
             </div>
-            
-            <p className="text-text-secondary text-sm mb-3">
-              Today's nutrition plan is optimized for your recovery and upcoming workout. Following this plan will contribute:
-            </p>
-            
-            <div className="bg-glass-background p-3 rounded-lg">
-              <div className="flex justify-between items-center">
-                <div className="flex items-center">
-                  <div className="w-2 h-2 rounded-full bg-primary-cyan-500 mr-2"></div>
-                  <span className="text-sm text-alpine-mist">Activity Points</span>
-                </div>
-                <span className="text-xs bg-primary-cyan-500/20 text-primary-cyan-500 px-2 py-1 rounded-full">
-                  +15 points
-                </span>
-              </div>
-              
-              <div className="mt-3 space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-xs text-text-secondary">Recovery Optimization</span>
-                  <span className="text-xs text-alpine-mist">+5 points</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-xs text-text-secondary">Workout Support</span>
-                  <span className="text-xs text-alpine-mist">+7 points</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-xs text-text-secondary">Goal Alignment</span>
-                  <span className="text-xs text-alpine-mist">+3 points</span>
-                </div>
-              </div>
-            </div>
-          </GlassCard>
-          
-          {/* AI Nutrition Advisor */}
-          <div className="mb-6">
-            <AINutritionAdvisor userMetrics={userMetrics} />
+            <span className="text-xs bg-primary-cyan-500/20 text-primary-cyan-500 px-2 py-1 rounded-full">
+              +15 points
+            </span>
           </div>
+        </GlassCard>
           
           {/* Add/Edit Meal Modal (simplified placeholder) */}
           {showAddMealModal && (

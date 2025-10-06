@@ -74,66 +74,63 @@ const NutritionalTargets: React.FC<NutritionalTargetsProps> = ({
   }));
 
   return (
-    <GlassCard size="full" className={className}>
+    <GlassCard size="sm" className={className}>
       <div>
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h3 className="text-base sm:text-lg font-medium text-alpine-mist mb-4">Nutritional Targets</h3>
+          <h3 className="text-xs font-bold text-white mb-3">Daily Targets</h3>
         </motion.div>
       
-      {calories && (        <motion.div 
-          className="mb-6"
+      {calories && (
+        <motion.div 
+          className="mb-3"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          {macrosArray.length > 0 ? (
-            <MacroVisualizer macros={macroVisualizerData} />
-          ) : (
-            <div className="flex items-center justify-between bg-glass-background bg-opacity-30 p-3 rounded-lg">
-              <div>
-                <p className="text-xs sm:text-sm text-alpine-mist mb-1">Daily Calories</p>
-                <div className="flex items-baseline">
-                  <span className="text-lg sm:text-xl font-medium text-primary-cyan-500">{calories.current}</span>
-                  <span className="text-xs sm:text-sm text-alpine-mist ml-1">/ {calories.target} {calories.unit || 'kcal'}</span>
-                </div>
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs text-white/70 mb-1">Daily Calories</p>
+              <div className="flex items-baseline">
+                <span className="text-sm font-bold text-white">{calories.current}</span>
+                <span className="text-xs text-white/60 ml-1">/ {calories.target} kcal</span>
               </div>
-              
-              <CircleProgress 
-                percentage={caloriePercentage} 
-                size={60} 
-                strokeWidth={6}
-                color={calories.color || "cyan-primary"}
-              />
             </div>
-          )}
+            
+            <CircleProgress 
+              percentage={caloriePercentage} 
+              size={40} 
+              strokeWidth={4}
+              color={calories.color || "cyan-primary"}
+            />
+          </div>
         </motion.div>
       )}
       
       {macrosArray.length > 0 && !macros && (
-        <div className="space-y-4">
+        <div className="space-y-2">
           {macrosArray.map((macro, index) => {
             const percentage = Math.min(Math.round((macro.current / macro.target) * 100), 100);
             
             return (
               <motion.div 
                 key={index} 
-                className="bg-glass-background bg-opacity-30 p-3 rounded-lg"
+                className="bg-white/5 p-2 rounded-lg"
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, delay: 0.2 + index * 0.1 }}
               >
-                <div className="flex justify-between mb-2">
-                  <p className="text-xs sm:text-sm text-alpine-mist">{macro.name}</p>
-                  <p className="text-xs sm:text-sm text-alpine-mist">
+                <div className="flex justify-between mb-1">
+                  <p className="text-xs text-white/70">{macro.name}</p>
+                  <p className="text-xs text-white/70">
                     {macro.current} / {macro.target} {macro.unit}
                   </p>
                 </div>
                 
-                <div className="w-full bg-glass-border h-1.5 sm:h-2 rounded-full overflow-hidden">
+                <div className="w-full bg-white/10 h-1 rounded-full overflow-hidden">
                   <motion.div 
                     className="h-full rounded-full"
                     style={{ 

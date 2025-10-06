@@ -59,47 +59,42 @@ const MealCard: React.FC<MealCardProps> = ({
   return (
     <GlassCard 
       variant={completed ? 'muted' : 'default'} 
-      size="md" 
+      size="sm" 
       className={`w-full ${className}`}
       interactive
       animate
       whileHover={{ 
-        scale: 1.02, 
-        y: -2,
-        boxShadow: completed 
-          ? '0 8px 16px rgba(0, 0, 0, 0.1)' 
-          : '0 20px 40px rgba(0, 204, 255, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1)'
+        scale: 1.01, 
+        y: -1
       }}
-      whileTap={{ scale: 0.98 }}
-      glow={!completed}
-      glowColor="#00ccff"
+      whileTap={{ scale: 0.99 }}
     >
-      <div className="flex justify-between items-start">
+      <div className="flex justify-between items-center">
         <div className="flex-1">
           <div className="flex items-center mb-2">
-            <div className="flex items-center space-x-3">
-              <div className={`p-2 rounded-lg ${completed ? 'bg-white/10' : 'bg-gradient-to-br from-primary-cyan-500/20 to-primary-teal-500/20 border border-primary-cyan-500/30'}`}>
-                <Utensils size={16} className={completed ? 'text-white/60' : 'text-primary-cyan-500'} />
+            <div className="flex items-center space-x-2">
+              <div className={`p-1.5 rounded-full ${completed ? 'bg-white/10' : 'bg-primary-cyan-500/20'}`}>
+                <Utensils size={14} className={completed ? 'text-white/60' : 'text-primary-cyan-500'} />
               </div>
               <div>
-                <h3 className={`text-lg font-semibold ${completed ? 'text-white/70' : 'text-white'}`}>
+                <h3 className={`text-sm font-bold ${completed ? 'text-white/70' : 'text-white'}`}>
                   {title}
                 </h3>
-                <span className={`text-sm ${completed ? 'text-white/50' : 'text-white/60'}`}>
+                <span className={`text-xs ${completed ? 'text-white/50' : 'text-white/60'}`}>
                   {time}
                 </span>
               </div>
             </div>
           </div>
           
-          <div className="grid grid-cols-2 gap-4 mb-4">
-            <div className="bg-gradient-to-br from-primary-cyan-500/20 to-primary-teal-500/20 rounded-xl p-4 border border-primary-cyan-500/30 shadow-lg shadow-cyan-500/10">
-              <div className="text-2xl font-bold text-white mb-1">{macros.calories}</div>
-              <div className="text-sm text-primary-cyan-400 font-semibold">kcal</div>
+          <div className="flex items-center space-x-4">
+            <div className="text-right">
+              <div className="text-lg font-bold text-white">{macros.calories}</div>
+              <div className="text-xs text-primary-cyan-400">kcal</div>
             </div>
-            <div className="bg-gradient-to-br from-primary-teal-500/20 to-primary-cyan-500/20 rounded-xl p-4 border border-primary-teal-500/30 shadow-lg shadow-teal-500/10">
-              <div className="text-2xl font-bold text-white mb-1">{macros.protein}g</div>
-              <div className="text-sm text-primary-teal-400 font-semibold">protein</div>
+            <div className="text-right">
+              <div className="text-lg font-bold text-white">{macros.protein}g</div>
+              <div className="text-xs text-primary-teal-400">protein</div>
             </div>
           </div>
         </div>
@@ -110,24 +105,24 @@ const MealCard: React.FC<MealCardProps> = ({
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className={`p-1.5 rounded-md mr-2 ${
-                completed ? 'bg-primary-cyan-500/20' : 'bg-glass-highlight'
+                completed ? 'bg-primary-cyan-500/20' : 'bg-white/10'
               }`}
               onClick={onComplete}
             >
-              <Check size={16} className={completed ? 'text-primary-cyan-500' : 'text-alpine-mist'} />
+              <Check size={14} className={completed ? 'text-primary-cyan-500' : 'text-white'} />
             </motion.button>
           )}
           
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="p-1.5 bg-glass-highlight rounded-md"
+            className="p-1.5 bg-white/10 rounded-md"
             onClick={handleToggle}
           >
             {expanded ? (
-              <ChevronUp size={16} className="text-alpine-mist" />
+              <ChevronUp size={14} className="text-white" />
             ) : (
-              <ChevronDown size={16} className="text-alpine-mist" />
+              <ChevronDown size={14} className="text-white" />
             )}
           </motion.button>
         </div>
@@ -138,41 +133,18 @@ const MealCard: React.FC<MealCardProps> = ({
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
-          className="mt-4"
+          className="mt-3"
         >
-          {/* Visual food items representation */}
-          <div className="mb-3">
-            <div className="flex items-center mb-2">
-              <Utensils size={14} className="text-primary-cyan-500 mr-1.5" />
-              <p className="text-xs sm:text-sm text-alpine-mist/80">Food Items</p>
+          {/* Food items summary */}
+          <div className="mb-3 bg-white/5 rounded-lg p-3">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-xs text-white/70">{items.length} items</span>
+              <span className="text-xs text-white/70">
+                {items.reduce((sum, item) => sum + item.calories, 0)} kcal total
+              </span>
             </div>
             
             <FoodItemsVisualizer items={items} />
-            
-            {/* Simplified text summary */}
-            <div className="mt-3 bg-glass-background bg-opacity-30 rounded-lg p-3">
-              <div className="flex justify-between items-center">
-                <span className={`text-xs ${completed ? 'text-alpine-mist/50' : 'text-alpine-mist'}`}>
-                  {items.length} items
-                </span>
-                <span className={`text-xs ${completed ? 'text-alpine-mist/50' : 'text-alpine-mist'}`}>
-                  {items.reduce((sum, item) => sum + item.calories, 0)} kcal total
-                </span>
-              </div>
-              
-              {/* Show/hide details button */}
-              <motion.button
-                className="w-full mt-2 text-xs text-primary-cyan-500 flex items-center justify-center"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  // This would toggle a detailed view in a real implementation
-                }}
-              >
-                View details
-              </motion.button>
-            </div>
           </div>
           
           {/* Action buttons */}
@@ -181,10 +153,10 @@ const MealCard: React.FC<MealCardProps> = ({
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center p-1.5 bg-glass-highlight rounded-md text-xs sm:text-sm text-alpine-mist"
+                className="flex items-center p-1.5 bg-white/10 rounded-md text-xs text-white"
                 onClick={onEdit}
               >
-                <Edit size={14} className="mr-1" />
+                <Edit size={12} className="mr-1" />
                 Edit
               </motion.button>
             )}
@@ -193,10 +165,10 @@ const MealCard: React.FC<MealCardProps> = ({
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center p-1.5 bg-glass-highlight rounded-md text-xs sm:text-sm text-alpine-mist"
+                className="flex items-center p-1.5 bg-white/10 rounded-md text-xs text-white"
                 onClick={() => setShowFootnoteInput(!showFootnoteInput)}
               >
-                <MessageSquare size={14} className="mr-1" />
+                <MessageSquare size={12} className="mr-1" />
                 Add Note
               </motion.button>
             )}
@@ -211,7 +183,7 @@ const MealCard: React.FC<MealCardProps> = ({
             >
               <input
                 type="text"
-                className="flex-1 bg-glass-background border border-glass-border rounded-l-md p-2 text-xs sm:text-sm text-alpine-mist focus:outline-none focus:border-primary-cyan-500/50"
+                className="flex-1 bg-white/5 border border-white/20 rounded-l-md p-2 text-xs text-white focus:outline-none focus:border-primary-cyan-500/50"
                 placeholder="Add a note about this meal..."
                 value={footnote}
                 onChange={(e) => setFootnote(e.target.value)}
@@ -223,7 +195,7 @@ const MealCard: React.FC<MealCardProps> = ({
                 className="bg-primary-cyan-500 p-2 rounded-r-md"
                 onClick={handleAddFootnote}
               >
-                <Plus size={14} className="text-white" />
+                <Plus size={12} className="text-white" />
               </motion.button>
             </motion.div>
           )}
