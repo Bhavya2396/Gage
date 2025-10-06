@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import MainLayout from '@/layouts/MainLayout';
-import BottomCard from '@/components/ui/BottomCard';
-import EnhancedDashboard from '@/components/home/EnhancedDashboard';
+import SwipeableDashboard from '@/components/ui/SwipeableDashboard';
 import StickyHeader from '@/components/ui/StickyHeader';
 import { useActivityPoints } from '@/contexts/ActivityPointsContext';
 import { getRecoveryColor } from '@/lib/utils';
@@ -314,13 +313,11 @@ const HomePage: React.FC = () => {
       
       {/* Progress indicator removed as requested */}
       
-      {/* Bottom card with expandable content */}
+      {/* Swipeable dashboard */}
       {showContent && (
-        <BottomCard
-          expandedContent={<EnhancedDashboard />}
-        >
+        <SwipeableDashboard>
           {mainCardContent}
-        </BottomCard>
+        </SwipeableDashboard>
       )}
     </MainLayout>
   );
