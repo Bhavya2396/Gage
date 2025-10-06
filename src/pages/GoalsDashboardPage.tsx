@@ -28,11 +28,11 @@ const GoalsOverview: React.FC = () => {
             <TrendingUp className="text-primary-teal-400" size={16} />
           </div>
           <div className="text-lg font-bold text-white">3</div>
-          <div className="text-xs text-white/60">Completed</div>
+              <div className="text-xs text-white/60">Completed</div>
         </div>
         <div className="text-center">
-          <div className="w-8 h-8 rounded-full bg-primary-purple-500/20 flex items-center justify-center mx-auto mb-2">
-            <Award className="text-primary-purple-400" size={16} />
+          <div className="w-8 h-8 rounded-full bg-primary-cyan-500/20 flex items-center justify-center mx-auto mb-2">
+            <Award className="text-primary-cyan-400" size={16} />
           </div>
           <div className="text-lg font-bold text-white">78%</div>
           <div className="text-xs text-white/60">Progress</div>
@@ -297,14 +297,14 @@ const GoalsDashboardPage: React.FC = () => {
                 title="Fitness Progress"
                 data={progressData.fitness}
                 unit="minutes"
-                color="primary-cyan"
+                color="primary-cyan-500"
                 icon={<Activity className="text-primary-cyan-400" size={14} />}
               />
               <ProgressChart
                 title="Nutrition Progress"
                 data={progressData.nutrition}
                 unit="servings"
-                color="primary-teal"
+                color="primary-teal-500"
                 icon={<Utensils className="text-primary-teal-400" size={14} />}
               />
             </motion.div>

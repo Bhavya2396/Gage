@@ -33,8 +33,8 @@ const ProgressChart: React.FC<ProgressChartProps> = ({
   };
 
   const getBarColor = (value: number, target: number) => {
-    if (value >= target) return 'bg-green-400';
-    if (value >= target * 0.8) return 'bg-yellow-400';
+    if (value >= target) return 'bg-primary-cyan-500';
+    if (value >= target * 0.8) return 'bg-primary-teal-500';
     return 'bg-red-400';
   };
 

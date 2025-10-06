@@ -41,11 +41,11 @@ const GoalCard: React.FC<GoalCardProps> = ({
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'fitness': return 'primary-cyan';
-      case 'nutrition': return 'primary-teal';
-      case 'health': return 'primary-purple';
-      case 'personal': return 'primary-orange';
-      default: return 'primary-cyan';
+      case 'fitness': return 'primary-cyan-500';
+      case 'nutrition': return 'primary-teal-500';
+      case 'health': return 'primary-purple-500';
+      case 'personal': return 'primary-orange-500';
+      default: return 'primary-cyan-500';
     }
   };
 
@@ -86,7 +86,7 @@ const GoalCard: React.FC<GoalCardProps> = ({
             <h3 className={`text-sm font-bold ml-2 ${isCompleted ? 'text-white/70' : 'text-white'}`}>
               {title}
             </h3>
-            <div className={`ml-2 px-2 py-0.5 rounded-full text-xs font-bold bg-${categoryColor}-500/20 text-${categoryColor}-400`}>
+            <div className="ml-2 px-2 py-0.5 rounded-full text-xs font-bold bg-primary-cyan-500/20 text-primary-cyan-400">
               {category}
             </div>
           </div>
@@ -109,12 +109,12 @@ const GoalCard: React.FC<GoalCardProps> = ({
         </div>
         
         <div className="ml-4">
-          <CircleProgress 
-            percentage={Math.round(progress)} 
-            size={50} 
-            strokeWidth={4}
-            color={categoryColor}
-          />
+        <CircleProgress 
+          percentage={Math.round(progress)} 
+          size={50} 
+          strokeWidth={4}
+          color="primary-cyan"
+        />
         </div>
       </div>
       
@@ -126,7 +126,7 @@ const GoalCard: React.FC<GoalCardProps> = ({
         </div>
         <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden">
           <motion.div 
-            className={`h-full bg-gradient-to-r from-${categoryColor}-500 to-${categoryColor}-400 rounded-full`}
+            className="h-full bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 rounded-full"
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
             transition={{ duration: 1, delay: 0.2 }}

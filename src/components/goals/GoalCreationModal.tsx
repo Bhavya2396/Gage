@@ -27,10 +27,10 @@ const GoalCreationModal: React.FC<GoalCreationModalProps> = ({
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const categories = [
-    { value: 'fitness', label: 'Fitness', color: 'primary-cyan' },
-    { value: 'nutrition', label: 'Nutrition', color: 'primary-teal' },
-    { value: 'health', label: 'Health', color: 'primary-purple' },
-    { value: 'personal', label: 'Personal', color: 'primary-orange' }
+    { value: 'fitness', label: 'Fitness', color: 'primary-cyan-500' },
+    { value: 'nutrition', label: 'Nutrition', color: 'primary-teal-500' },
+    { value: 'health', label: 'Health', color: 'primary-cyan-500' },
+    { value: 'personal', label: 'Personal', color: 'primary-teal-500' }
   ];
 
   const priorities = [
