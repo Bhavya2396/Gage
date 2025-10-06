@@ -128,22 +128,22 @@ export const GlassCard: React.FC<GlassCardProps> = ({
     full: 'rounded-2xl',
   };
   
-  // Border width styles
+  // Border width styles - removed borders for 3D effect
   const borderWidths = {
     none: 'border-0',
-    thin: 'border-[0.5px]',
-    normal: 'border',
-    thick: 'border-2',
+    thin: 'border-0',
+    normal: 'border-0',
+    thick: 'border-0',
   };
   
-  // Shadow intensities based on elevation - updated to use card shadows
+  // Shadow intensities based on elevation - enhanced 3D shadows
   const shadowLevels = {
     0: '',
-    1: shadows.card.light,
-    2: shadows.card.medium,
-    3: shadows.card.strong,
-    4: shadows.elevation[4],
-    5: shadows.elevation[5],
+    1: '0 2px 8px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1)',
+    2: '0 4px 16px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.15)',
+    3: '0 8px 24px rgba(0, 0, 0, 0.25), 0 4px 12px rgba(0, 0, 0, 0.2)',
+    4: '0 12px 32px rgba(0, 0, 0, 0.3), 0 6px 16px rgba(0, 0, 0, 0.25)',
+    5: '0 16px 40px rgba(0, 0, 0, 0.35), 0 8px 20px rgba(0, 0, 0, 0.3)',
   };
   
   // Glow effect intensities - updated with new colors
@@ -209,16 +209,15 @@ export const GlassCard: React.FC<GlassCardProps> = ({
         transition: { type: 'spring', stiffness: 300, damping: 24 },
         
         whileHover: whileHover || (interactive ? { 
-          y: -2, 
-          scale: 1.01,
-          boxShadow: shadows.card.strong,
-          borderColor: variant === 'default' ? 'rgba(0, 204, 255, 0.2)' : undefined,
+          y: -4, 
+          scale: 1.02,
+          boxShadow: '0 12px 32px rgba(0, 0, 0, 0.3), 0 6px 16px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1)',
         } : {}),
         
         whileTap: whileTap || (interactive ? { 
-          scale: 0.99, 
-          y: -1,
-          boxShadow: shadows.card.medium,
+          scale: 0.98, 
+          y: -2,
+          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.15)',
         } : {}),
       }
     : {};
@@ -252,7 +251,9 @@ export const GlassCard: React.FC<GlassCardProps> = ({
           rotateX,
           rotateY,
           transformStyle: 'preserve-3d',
-        })
+        }),
+        // Add subtle inner shadow for 3D depth
+        background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.1) 100%)',
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseMove={handleMouseMove}
