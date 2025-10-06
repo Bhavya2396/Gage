@@ -425,32 +425,32 @@ const SwipeDashboard: React.FC = () => {
                 <div className="text-lg font-bold text-white mb-1">1650</div>
                 <div className="text-xs text-white/60">of 2400 kcal</div>
               </div>
-              <div className="relative w-12 h-12">
-                <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 24 24">
+              <div className="relative w-16 h-16">
+                <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 24 24">
                   {/* Background circle */}
                   <circle
                     cx="12"
                     cy="12"
-                    r="4"
+                    r="7"
                     stroke="rgba(255, 255, 255, 0.1)"
-                    strokeWidth="3"
+                    strokeWidth="2"
                     fill="rgba(0, 0, 0, 0.3)"
                   />
                   {/* Progress circle */}
                   <circle
                     cx="12"
                     cy="12"
-                    r="4"
+                    r="7"
                     stroke="#00ccff"
                     strokeWidth="2"
                     fill="none"
-                    strokeDasharray="25.1"
-                    strokeDashoffset="7.8"
+                    strokeDasharray="44"
+                    strokeDashoffset="13.6"
                     strokeLinecap="round"
                   />
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-xs font-bold text-white bg-black/20 px-1 py-0.5 rounded">69%</div>
+                  <div className="text-sm font-bold text-white bg-black/30 px-2 py-1 rounded">69%</div>
                 </div>
               </div>
             </div>
