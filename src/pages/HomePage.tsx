@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import MainLayout from '@/layouts/MainLayout';
 import BottomCard from '@/components/ui/BottomCard';
-import EnhancedDashboard from '@/components/home/EnhancedDashboard';
+import CleanDashboard from '@/components/home/CleanDashboard';
 import StickyHeader from '@/components/ui/StickyHeader';
 import { useActivityPoints } from '@/contexts/ActivityPointsContext';
 import { getRecoveryColor } from '@/lib/utils';
@@ -79,7 +79,7 @@ const HomePage: React.FC = () => {
           <div>
             <span className="text-xs uppercase tracking-wider text-ui-text-muted font-medium">YOUR JOURNEY</span>
             <motion.h2 
-              className="text-lg font-bold text-ui-text-primary"
+              className="text-lg font-bold text-ui-text-primary leading-tight"
               initial={{ opacity: 0, x: -5 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
@@ -144,8 +144,8 @@ const HomePage: React.FC = () => {
           </div>
           
           <div className="ml-2 flex items-center">
-            <Thermometer size={12} className="text-ui-text-primary mr-1 opacity-70" />
-            <span className="text-ui-text-primary font-medium text-base">{weather.temp}°C</span>
+            <Thermometer size={12} className="text-ui-text-accent mr-1 opacity-80" />
+            <span className="text-ui-text-primary font-semibold text-base">{weather.temp}°C</span>
           </div>
         </motion.div>
       </div>
@@ -255,8 +255,8 @@ const HomePage: React.FC = () => {
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-xs font-medium text-ui-text-primary mt-1">{getProgressPercentage()}%</span>
-            <span className="text-xs text-ui-text-muted">Progress</span>
+            <span className="text-sm font-bold text-ui-text-primary mt-1">{getProgressPercentage()}%</span>
+            <span className="text-xs text-ui-text-muted font-medium">Progress</span>
           </div>
         </div>
         
@@ -278,8 +278,8 @@ const HomePage: React.FC = () => {
             <Heart className="text-primary-teal-500 z-10" size={20} />
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-xs font-medium text-ui-text-primary mt-1">68</span>
-            <span className="text-xs text-ui-text-muted">BPM</span>
+            <span className="text-sm font-bold text-ui-text-primary mt-1">68</span>
+            <span className="text-xs text-ui-text-muted font-medium">BPM</span>
           </div>
         </div>
         
@@ -299,8 +299,8 @@ const HomePage: React.FC = () => {
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-xs font-medium text-ui-text-primary mt-1">340</span>
-            <span className="text-xs text-ui-text-muted">Load</span>
+            <span className="text-sm font-bold text-ui-text-primary mt-1">340</span>
+            <span className="text-xs text-ui-text-muted font-medium">Load</span>
           </div>
         </div>
       </div>
@@ -317,7 +317,7 @@ const HomePage: React.FC = () => {
       {/* Bottom card with expandable content */}
       {showContent && (
         <BottomCard
-          expandedContent={<EnhancedDashboard />}
+          expandedContent={<CleanDashboard />}
         >
           {mainCardContent}
         </BottomCard>
