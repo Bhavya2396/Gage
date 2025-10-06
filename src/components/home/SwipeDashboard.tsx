@@ -95,17 +95,17 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
       >
         <div className="flex flex-col h-full">
           {/* Card Header */}
-          <div className="flex justify-between items-center mb-3 sm:mb-4">
+          <div className="flex justify-between items-center mb-2">
             <div className="flex items-center">
-              <div className={`p-3 sm:p-4 rounded-full ${isHovered ? 'bg-gradient-to-br from-primary-cyan-500 to-primary-teal-500 shadow-lg shadow-cyan-500/30' : 'bg-gradient-to-br from-primary-cyan-500/20 to-primary-teal-500/20 border border-primary-cyan-500/30'} mr-4 sm:mr-5 transition-all duration-300`}>
+              <div className={`p-2 rounded-full ${isHovered ? 'bg-gradient-to-br from-primary-cyan-500 to-primary-teal-500 shadow-lg shadow-cyan-500/30' : 'bg-gradient-to-br from-primary-cyan-500/20 to-primary-teal-500/20 border border-primary-cyan-500/30'} mr-3 transition-all duration-300`}>
                 <div className={`${isHovered ? 'text-white' : 'text-primary-cyan-500'} transition-colors`}>
                   {icon}
                 </div>
               </div>
               <div className="flex items-center">
-                <h3 className="text-white font-semibold text-lg sm:text-xl">{title}</h3>
+                <h3 className="text-white font-semibold text-sm">{title}</h3>
                 {badge && (
-                  <span className="ml-3 sm:ml-4 text-xs sm:text-sm bg-primary-cyan-500/30 text-white font-semibold px-3 py-1.5 rounded-full border border-primary-cyan-500/50">
+                  <span className="ml-2 text-xs bg-primary-cyan-500/30 text-white font-semibold px-2 py-1 rounded-full border border-primary-cyan-500/50">
                     {badge}
                   </span>
                 )}
@@ -162,6 +162,113 @@ const SwipeDashboard: React.FC = () => {
   // Dashboard cards data
   const dashboardCards = [
     {
+      id: 'coach',
+      title: "AI Coach",
+      icon: <MessageCircle className="text-primary-cyan-500" size={16} />,
+      onClick: () => navigate('/coach'),
+      content: (
+        <div>
+          {/* Overview Metrics - 4 key metrics like the image */}
+          <div className="grid grid-cols-4 gap-3 mb-4">
+            {/* Recovery Metric */}
+            <div className="text-center">
+              <div className="relative w-10 h-10 mx-auto mb-2">
+                <svg className="w-10 h-10 transform -rotate-90" viewBox="0 0 24 24">
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="4"
+                    stroke="rgba(255, 255, 255, 0.2)"
+                    strokeWidth="2"
+                    fill="none"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="4"
+                    stroke="#00ff88"
+                    strokeWidth="2"
+                    fill="none"
+                    strokeDasharray="25.1"
+                    strokeDashoffset="5.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-xs font-bold text-green-400">78</div>
+                </div>
+              </div>
+              <div className="text-xs text-white/60">Recovery</div>
+            </div>
+            
+            {/* Progress Metric */}
+            <div className="text-center">
+              <div className="w-10 h-10 mx-auto mb-2 bg-white/10 rounded-full flex items-center justify-center border border-primary-cyan-500/30">
+                <Award className="text-primary-cyan-400" size={14} />
+              </div>
+              <div className="text-xs text-white/60">Progress</div>
+            </div>
+            
+            {/* BPM Metric */}
+            <div className="text-center">
+              <div className="w-10 h-10 mx-auto mb-2 bg-white/10 rounded-full flex items-center justify-center border border-primary-cyan-500/30">
+                <Heart className="text-primary-cyan-400" size={14} />
+              </div>
+              <div className="text-xs text-white/60">BPM</div>
+            </div>
+            
+            {/* Load Metric */}
+            <div className="text-center">
+              <div className="w-10 h-10 mx-auto mb-2 bg-primary-cyan-500/20 rounded-lg flex items-center justify-center border border-primary-cyan-500/30">
+                <Zap className="text-white" size={14} />
+              </div>
+              <div className="text-xs text-white/60">Load</div>
+            </div>
+          </div>
+          
+          {/* GAGE AI Header */}
+          <div className="flex items-center mb-3">
+            <div className="w-6 h-6 bg-primary-cyan-500/30 rounded-full flex items-center justify-center mr-2">
+              <Sparkles className="text-primary-cyan-400" size={14} />
+            </div>
+            <div className="flex items-center">
+              <span className="text-sm font-bold text-primary-cyan-400 mr-2">GAGE AI</span>
+              <span className="text-xs bg-primary-cyan-500/30 text-white px-2 py-1 rounded-full">Coach</span>
+            </div>
+          </div>
+          
+          {/* AI Message */}
+          <div className="mb-3">
+            <p className="text-xs text-white mb-1">
+              Good afternoon, Bhavya! It's a beautiful sunny day at 25°C – perfect weather for getting active!
+            </p>
+            <p className="text-xs text-white mb-1">
+              You're at Base Camp (0%) in your add 15 yeards to my golf swing journey.
+            </p>
+            <p className="text-xs text-white">
+              Today at Base Camp, I've scheduled a foundational strength session focusing on building your core stability.
+            </p>
+          </div>
+          
+          {/* Action Buttons */}
+          <div className="space-y-1">
+            <button className="w-full bg-white/5 rounded-lg p-2 flex items-center space-x-2 hover:bg-white/10 transition-colors">
+              <Dumbbell className="text-primary-cyan-400" size={14} />
+              <span className="text-xs text-white">Show me today's workout</span>
+            </button>
+            <button className="w-full bg-white/5 rounded-lg p-2 flex items-center space-x-2 hover:bg-white/10 transition-colors">
+              <MapPin className="text-primary-cyan-400" size={14} />
+              <span className="text-xs text-white">View my journey map</span>
+            </button>
+            <button className="w-full bg-white/5 rounded-lg p-2 flex items-center space-x-2 hover:bg-white/10 transition-colors">
+              <MessageCircle className="text-primary-cyan-400" size={14} />
+              <span className="text-xs text-white">Chat with AI Coach</span>
+            </button>
+          </div>
+        </div>
+      )
+    },
+    {
       id: 'schedule',
       title: "Today's Schedule",
       icon: <Calendar className="text-primary-cyan-500" size={16} />,
@@ -177,10 +284,10 @@ const SwipeDashboard: React.FC = () => {
               <div className="absolute -left-6 w-3 h-3 bg-primary-cyan-500 rounded-full shadow-lg shadow-cyan-500/50"></div>
               <div className="bg-white/5 rounded-xl p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-lg font-bold text-white">Morning Workout</span>
-                  <span className="text-sm text-primary-cyan-400">9:00 AM</span>
+                  <span className="text-sm font-bold text-white">Morning Workout</span>
+                  <span className="text-xs text-primary-cyan-400">9:00 AM</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-white">
+                <div className="flex items-center space-x-2 text-xs text-white">
                   <Dumbbell className="text-primary-cyan-400" size={16} />
                   <span>Full Body</span>
                   <span className="text-white/40">•</span>
@@ -194,10 +301,10 @@ const SwipeDashboard: React.FC = () => {
               <div className="absolute -left-6 w-3 h-3 bg-primary-cyan-500 rounded-full shadow-lg shadow-cyan-500/50"></div>
               <div className="bg-white/5 rounded-xl p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-lg font-bold text-white">Lunch</span>
-                  <span className="text-sm text-primary-cyan-400">12:30 PM</span>
+                  <span className="text-sm font-bold text-white">Lunch</span>
+                  <span className="text-xs text-primary-cyan-400">12:30 PM</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-white">
+                <div className="flex items-center space-x-2 text-xs text-white">
                   <Utensils className="text-primary-cyan-400" size={16} />
                   <span>Protein-rich</span>
                   <span className="text-white/40">•</span>
@@ -211,10 +318,10 @@ const SwipeDashboard: React.FC = () => {
               <div className="absolute -left-6 w-3 h-3 bg-primary-cyan-500 rounded-full shadow-lg shadow-cyan-500/50"></div>
               <div className="bg-white/5 rounded-xl p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-lg font-bold text-white">Evening Session</span>
-                  <span className="text-sm text-primary-cyan-400">6:00 PM</span>
+                  <span className="text-sm font-bold text-white">Evening Session</span>
+                  <span className="text-xs text-primary-cyan-400">6:00 PM</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-white">
+                <div className="flex items-center space-x-2 text-xs text-white">
                   <Target className="text-primary-cyan-400" size={16} />
                   <span>Golf Practice</span>
                   <span className="text-white/40">•</span>
@@ -236,62 +343,62 @@ const SwipeDashboard: React.FC = () => {
       content: (
         <div>
           {/* Workout Title */}
-          <div className="mb-4">
-            <h3 className="text-xl font-bold text-white mb-2">Full Body Strength</h3>
+          <div className="mb-3">
+            <h3 className="text-sm font-bold text-white mb-2">Full Body Strength</h3>
           </div>
           
           {/* Base Camp Focus Box */}
-          <div className="bg-primary-teal-500/20 rounded-lg p-4 mb-4 border border-primary-teal-500/30">
-            <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 bg-primary-cyan-500/30 rounded-full flex items-center justify-center">
-                <Target className="text-primary-cyan-400" size={14} />
+          <div className="bg-primary-teal-500/20 rounded-lg p-3 mb-3 border border-primary-teal-500/30">
+            <div className="flex items-center space-x-2">
+              <div className="w-5 h-5 bg-primary-cyan-500/30 rounded-full flex items-center justify-center">
+                <Target className="text-primary-cyan-400" size={12} />
               </div>
-              <span className="text-sm text-white">
+              <span className="text-xs text-white">
                 Base Camp Focus: Building foundational strength and movement patterns
               </span>
             </div>
           </div>
           
           {/* Workout Summary */}
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-base font-semibold text-white">Rotational Power</span>
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-sm font-semibold text-white">Rotational Power</span>
             <div className="flex items-center space-x-2">
-              <Clock className="text-primary-cyan-400" size={16} />
-              <span className="text-sm text-white">45 min</span>
+              <Clock className="text-primary-cyan-400" size={14} />
+              <span className="text-xs text-white">45 min</span>
             </div>
           </div>
           
           {/* Exercise List */}
-          <div className="space-y-2 mb-4">
-            <div className="flex items-center justify-between text-sm text-white">
+          <div className="space-y-1 mb-3">
+            <div className="flex items-center justify-between text-xs text-white">
               <span>Dynamic Warm-up</span>
               <span>1 x 5 min</span>
             </div>
-            <div className="flex items-center justify-between text-sm text-white">
+            <div className="flex items-center justify-between text-xs text-white">
               <span>Medicine Ball Rotational Throws</span>
               <span>3 x 10 each side</span>
             </div>
-            <div className="flex items-center justify-between text-sm text-white">
+            <div className="flex items-center justify-between text-xs text-white">
               <span>Cable Woodchoppers</span>
               <span>3 x 12 each side</span>
             </div>
-            <div className="flex items-center justify-between text-sm text-white">
+            <div className="flex items-center justify-between text-xs text-white">
               <span>Kettlebell Swings</span>
               <span>3 x 15</span>
             </div>
-            <div className="flex items-center justify-between text-sm text-white">
+            <div className="flex items-center justify-between text-xs text-white">
               <span>Plank with Rotation</span>
               <span>3 x 10 each side</span>
             </div>
           </div>
           
           {/* Journey Impact */}
-          <div className="bg-primary-teal-500/20 rounded-lg p-4 border border-primary-teal-500/30">
-            <div className="flex items-center space-x-3 mb-2">
-              <Zap className="text-primary-cyan-400" size={16} />
-              <span className="text-sm font-bold text-white">Journey Impact</span>
+          <div className="bg-primary-teal-500/20 rounded-lg p-3 border border-primary-teal-500/30">
+            <div className="flex items-center space-x-2 mb-1">
+              <Zap className="text-primary-cyan-400" size={14} />
+              <span className="text-xs font-bold text-white">Journey Impact</span>
             </div>
-            <p className="text-sm text-white">
+            <p className="text-xs text-white">
               This workout will earn you approximately 25-30 points toward your foundation phase of add 15 yeards to my golf swing.
             </p>
           </div>
@@ -306,19 +413,19 @@ const SwipeDashboard: React.FC = () => {
       content: (
         <div>
           {/* Daily Calories Card */}
-          <div className="bg-white/5 rounded-xl p-4 mb-4">
+          <div className="bg-white/5 rounded-xl p-3 mb-3">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-sm text-white mb-1">Daily Calories</div>
-                <div className="text-2xl font-bold text-white mb-1">1650</div>
+                <div className="text-xs text-white mb-1">Daily Calories</div>
+                <div className="text-lg font-bold text-white mb-1">1650</div>
                 <div className="text-xs text-white/60">of 2400 kcal</div>
               </div>
-              <div className="relative w-16 h-16">
-                <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 24 24">
+              <div className="relative w-12 h-12">
+                <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 24 24">
                   <circle
                     cx="12"
                     cy="12"
-                    r="6"
+                    r="4"
                     stroke="rgba(255, 255, 255, 0.1)"
                     strokeWidth="2"
                     fill="none"
@@ -326,12 +433,12 @@ const SwipeDashboard: React.FC = () => {
                   <circle
                     cx="12"
                     cy="12"
-                    r="6"
+                    r="4"
                     stroke="#00ccff"
                     strokeWidth="2"
                     fill="none"
-                    strokeDasharray="37.7"
-                    strokeDashoffset="11.7"
+                    strokeDasharray="25.1"
+                    strokeDashoffset="7.8"
                     strokeLinecap="round"
                   />
                 </svg>
@@ -343,13 +450,13 @@ const SwipeDashboard: React.FC = () => {
           </div>
           
           {/* Base Camp Nutrition */}
-          <div className="bg-primary-teal-500/20 rounded-lg p-4 mb-4 border border-primary-teal-500/30">
-            <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 bg-primary-cyan-500/30 rounded-full flex items-center justify-center">
-                <Utensils className="text-primary-cyan-400" size={14} />
+          <div className="bg-primary-teal-500/20 rounded-lg p-3 mb-3 border border-primary-teal-500/30">
+            <div className="flex items-center space-x-2">
+              <div className="w-5 h-5 bg-primary-cyan-500/30 rounded-full flex items-center justify-center">
+                <Utensils className="text-primary-cyan-400" size={12} />
               </div>
               <div>
-                <div className="text-sm font-bold text-white">Base Camp Nutrition</div>
+                <div className="text-xs font-bold text-white">Base Camp Nutrition</div>
                 <div className="text-xs text-white/80">
                   Focus on balanced macros with adequate protein to build your foundation.
                 </div>
@@ -358,37 +465,37 @@ const SwipeDashboard: React.FC = () => {
           </div>
           
           {/* Macro Breakdown */}
-          <div className="grid grid-cols-3 gap-3">
-            <div className="bg-white/5 rounded-lg p-3">
-              <div className="w-full bg-white/20 rounded-full h-2 mb-2">
-                <div className="bg-primary-cyan-500 h-2 rounded-full" style={{ width: '63%' }}></div>
+          <div className="grid grid-cols-3 gap-2">
+            <div className="bg-white/5 rounded-lg p-2">
+              <div className="w-full bg-white/20 rounded-full h-1.5 mb-1">
+                <div className="bg-primary-cyan-500 h-1.5 rounded-full" style={{ width: '63%' }}></div>
               </div>
               <div className="text-xs text-white/60 mb-1">Protein</div>
-              <div className="text-sm font-bold text-white">95g</div>
+              <div className="text-xs font-bold text-white">95g</div>
             </div>
-            <div className="bg-white/5 rounded-lg p-3">
-              <div className="w-full bg-white/20 rounded-full h-2 mb-2">
-                <div className="bg-primary-teal-500 h-2 rounded-full" style={{ width: '72%' }}></div>
+            <div className="bg-white/5 rounded-lg p-2">
+              <div className="w-full bg-white/20 rounded-full h-1.5 mb-1">
+                <div className="bg-primary-teal-500 h-1.5 rounded-full" style={{ width: '72%' }}></div>
               </div>
               <div className="text-xs text-white/60 mb-1">Carbs</div>
-              <div className="text-sm font-bold text-white">180g</div>
+              <div className="text-xs font-bold text-white">180g</div>
             </div>
-            <div className="bg-white/5 rounded-lg p-3">
-              <div className="w-full bg-white/20 rounded-full h-2 mb-2">
-                <div className="bg-primary-cyan-500 h-2 rounded-full" style={{ width: '69%' }}></div>
+            <div className="bg-white/5 rounded-lg p-2">
+              <div className="w-full bg-white/20 rounded-full h-1.5 mb-1">
+                <div className="bg-primary-cyan-500 h-1.5 rounded-full" style={{ width: '69%' }}></div>
               </div>
               <div className="text-xs text-white/60 mb-1">Fat</div>
-              <div className="text-sm font-bold text-white">55g</div>
+              <div className="text-xs font-bold text-white">55g</div>
             </div>
           </div>
           
           {/* Journey Impact */}
-          <div className="bg-primary-teal-500/20 rounded-lg p-4 mt-4 border border-primary-teal-500/30">
-            <div className="flex items-center space-x-3 mb-2">
-              <Zap className="text-primary-cyan-400" size={16} />
-              <span className="text-sm font-bold text-white">Journey Impact</span>
+          <div className="bg-primary-teal-500/20 rounded-lg p-3 mt-3 border border-primary-teal-500/30">
+            <div className="flex items-center space-x-2 mb-1">
+              <Zap className="text-primary-cyan-400" size={14} />
+              <span className="text-xs font-bold text-white">Journey Impact</span>
             </div>
-            <p className="text-sm text-white">
+            <p className="text-xs text-white">
               Optimal nutrition can boost your recovery by up to 30% and accelerate your progress toward add 15 yeards to my golf swing.
             </p>
           </div>
@@ -562,62 +669,6 @@ const SwipeDashboard: React.FC = () => {
                 <div className="text-sm font-bold text-white">2070 to summit</div>
               </div>
             </div>
-          </div>
-        </div>
-      )
-    },
-    {
-      id: 'coach',
-      title: "AI Coach",
-      icon: <MessageCircle className="text-primary-cyan-500" size={16} />,
-      onClick: () => navigate('/coach'),
-      content: (
-        <div>
-          {/* GAGE AI Header */}
-          <div className="flex items-center mb-4">
-            <div className="w-8 h-8 bg-primary-cyan-500/30 rounded-full flex items-center justify-center mr-3">
-              <Sparkles className="text-primary-cyan-400" size={16} />
-            </div>
-            <div className="flex items-center">
-              <span className="text-lg font-bold text-primary-cyan-400 mr-2">GAGE AI</span>
-              <span className="text-xs bg-primary-cyan-500/30 text-white px-2 py-1 rounded-full">Coach</span>
-            </div>
-          </div>
-          
-          {/* AI Message */}
-          <div className="mb-4">
-            <p className="text-sm text-white mb-2">
-              Good afternoon, Bhavya! It's a beautiful sunny day at 25°C – perfect weather for getting active!
-            </p>
-            <p className="text-sm text-white mb-2">
-              You're at Base Camp (0%) in your add 15 yeards to my golf swing journey.
-            </p>
-            <p className="text-sm text-white mb-2">
-              This Foundation Phase is all about building the fundamentals with 0 of 518 points earned.
-            </p>
-            <p className="text-sm text-white">
-              Today at Base Camp, I've scheduled a foundational strength session focusing on building your core stability - essential for your add 15 yeards to my golf swing journey.
-            </p>
-          </div>
-          
-          {/* Action Buttons */}
-          <div className="space-y-2">
-            <button className="w-full bg-white/5 rounded-lg p-3 flex items-center space-x-3 hover:bg-white/10 transition-colors">
-              <Dumbbell className="text-primary-cyan-400" size={16} />
-              <span className="text-sm text-white">Show me today's workout</span>
-            </button>
-            <button className="w-full bg-white/5 rounded-lg p-3 flex items-center space-x-3 hover:bg-white/10 transition-colors">
-              <MapPin className="text-primary-cyan-400" size={16} />
-              <span className="text-sm text-white">View my journey map</span>
-            </button>
-            <button className="w-full bg-white/5 rounded-lg p-3 flex items-center space-x-3 hover:bg-white/10 transition-colors">
-              <Award className="text-primary-cyan-400" size={16} />
-              <span className="text-sm text-white">Journey complete!</span>
-            </button>
-            <button className="w-full bg-white/5 rounded-lg p-3 flex items-center space-x-3 hover:bg-white/10 transition-colors">
-              <MessageCircle className="text-primary-cyan-400" size={16} />
-              <span className="text-sm text-white">Chat with AI Coach</span>
-            </button>
           </div>
         </div>
       )
