@@ -197,7 +197,7 @@ const SwipeDashboard: React.FC = () => {
                   />
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-sm font-bold text-white bg-black/30 px-2 py-1 rounded">78</div>
+                  <div className="text-sm font-bold text-white">78</div>
                 </div>
               </div>
               <div className="text-xs text-white/60">Recovery</div>
@@ -450,7 +450,7 @@ const SwipeDashboard: React.FC = () => {
                   />
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-sm font-bold text-white bg-black/30 px-2 py-1 rounded">69%</div>
+                  <div className="text-sm font-bold text-white">69%</div>
                 </div>
               </div>
             </div>
