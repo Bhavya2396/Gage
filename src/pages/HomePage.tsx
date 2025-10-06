@@ -1,20 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import MainLayout from '@/layouts/MainLayout';
-import BottomCard from '@/components/ui/BottomCard';
-import EnhancedDashboard from '@/components/home/EnhancedDashboard';
-import StickyHeader from '@/components/ui/StickyHeader';
 import { useActivityPoints } from '@/contexts/ActivityPointsContext';
 import { getRecoveryColor } from '@/lib/utils';
-import { Sun, Cloud, CloudRain, Snowflake, Award, Zap, Heart, Thermometer } from 'lucide-react';
-
-// Mountain journey visualization - simplified version with no plotting
-const MountainIndicators: React.FC = () => {
-  // Empty component as plotting was requested to be removed
-  return null;
-};
-
-// Progress indicator component removed as requested
+import { Sun, Cloud, CloudRain, Snowflake, Award, Zap, Heart, Thermometer, Target, TrendingUp, Clock, Users } from 'lucide-react';
 
 const HomePage: React.FC = () => {
   const { activityPoints, getProgressPercentage } = useActivityPoints();
@@ -29,14 +18,12 @@ const HomePage: React.FC = () => {
   });
   const [recoveryScore, setRecoveryScore] = useState(78);
   
-  // In a real app, we would fetch weather data from an API
+  // Simulate weather data
   useEffect(() => {
-    // Simulate weather API call
     const fetchWeather = async () => {
-      // This would be a real API call in a production app
       const conditions = ['sunny', 'cloudy', 'rainy', 'snowy'];
       const randomCondition = conditions[Math.floor(Math.random() * conditions.length)] as 'sunny' | 'cloudy' | 'rainy' | 'snowy';
-      const randomTemp = Math.floor(Math.random() * 30) + 5; // 5-35°C
+      const randomTemp = Math.floor(Math.random() * 30) + 5;
       
       setWeather({
         temp: randomTemp,
@@ -48,7 +35,6 @@ const HomePage: React.FC = () => {
   }, []);
   
   useEffect(() => {
-    // Short delay to ensure mountain is rendered first
     const timer = setTimeout(() => {
       setShowContent(true);
     }, 800);
@@ -57,270 +43,193 @@ const HomePage: React.FC = () => {
   }, []);
   
   const weatherIcons = {
-    sunny: <Sun className="text-cyan-primary" size={20} />,
+    sunny: <Sun className="text-cyan-400" size={20} />,
     cloudy: <Cloud className="text-gray-400" size={20} />,
-    rainy: <CloudRain className="text-teal-primary" size={20} />,
-    snowy: <Snowflake className="text-alpine-mist" size={20} />
+    rainy: <CloudRain className="text-teal-400" size={20} />,
+    snowy: <Snowflake className="text-blue-300" size={20} />
   };
-
-  // Main card content
-  const mainCardContent = (
-    <>
-      {/* Header - Always visible */}
-      <div className="flex justify-between items-center pb-4">
-        <div className="flex items-center">
-          {/* Animated gradient bar */}
-          <motion.div 
-            className="bg-gradient-to-r from-cyan-primary to-teal-primary w-1.5 h-12 rounded-full mr-3 opacity-80"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 48, opacity: 0.8 }}
-            transition={{ duration: 0.8 }}
-          />
-          <div>
-            <span className="text-xs uppercase tracking-wider text-gray-400 font-medium">YOUR JOURNEY</span>
-            <motion.h2 
-              className="text-lg font-bold text-alpine-mist"
-              initial={{ opacity: 0, x: -5 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-            >
-              {activityPoints.goalName}
-            </motion.h2>
-          </div>
-        </div>
-        
-        {/* Enhanced weather display */}
-        <motion.div 
-          className="flex items-center bg-glass-background px-3 py-2 rounded-lg border border-glass-border shadow-lg"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-        >
-          <div className="relative">
-            {/* Weather icon with animation */}
-            <motion.div
-              animate={{ 
-                y: [0, -2, 0, 2, 0],
-                rotate: weather.condition === 'cloudy' ? [0, 5, 0, -5, 0] : 0
-              }}
-              transition={{ 
-                duration: 4, 
-                repeat: Infinity, 
-                ease: "easeInOut" 
-              }}
-              className="text-cyan-primary"
-            >
-              {weatherIcons[weather.condition]}
-            </motion.div>
-            
-            {/* Animated weather effects */}
-            {weather.condition === 'rainy' && (
-              <motion.div 
-                className="absolute -bottom-1 left-0 w-full flex justify-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
-              >
-                <div className="flex space-x-1">
-                  {[...Array(3)].map((_, i) => (
-                    <motion.div 
-                      key={i}
-                      className="w-0.5 h-2 bg-cyan-primary rounded-full"
-                      animate={{ 
-                        y: [0, 5],
-                        opacity: [1, 0]
-                      }}
-                      transition={{ 
-                        duration: 1, 
-                        repeat: Infinity, 
-                        delay: i * 0.2,
-                        ease: "easeIn"
-                      }}
-                    />
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </div>
-          
-          <div className="ml-2 flex items-center">
-            <Thermometer size={12} className="text-alpine-mist mr-1 opacity-70" />
-            <span className="text-alpine-mist font-medium text-base">{weather.temp}°C</span>
-          </div>
-        </motion.div>
-      </div>
-      
-      {/* Enhanced visual vitals row with animated components */}
-      <div className="flex justify-between items-center mt-3 py-4 border-t border-b border-glass-border">
-        {/* Recovery score - Animated gauge */}
-        <div className="flex flex-col items-center px-2">
-          <div className="relative flex items-center justify-center">
-            <svg width="50" height="50" viewBox="0 0 100 100">
-              {/* Gauge background */}
-              <path 
-                d="M 50,50 m -45,0 a 45,45 0 1,1 90,0" 
-                fill="none" 
-                stroke="rgba(255,255,255,0.1)" 
-                strokeWidth="10"
-                strokeLinecap="round"
-              />
-              
-              {/* Gauge colored segments */}
-              <path 
-                d="M 50,50 m -45,0 a 45,45 0 0,1 90,0" 
-                fill="none" 
-                stroke="url(#recoveryGradient)" 
-                strokeWidth="10"
-                strokeDasharray={`${recoveryScore * 1.42} 142`}
-                strokeLinecap="round"
-              >
-                <animate 
-                  attributeName="stroke-dasharray" 
-                  from="0 142" 
-                  to={`${recoveryScore * 1.42} 142`} 
-                  dur="1.2s" 
-                  fill="freeze" 
-                />
-              </path>
-              
-              {/* Gauge needle */}
-              <motion.line 
-                x1="50" 
-                y1="50" 
-                x2="50" 
-                y2="15" 
-                stroke={getRecoveryColor(recoveryScore)}
-                strokeWidth="2"
-                initial={{ transform: 'rotate(0deg)' }}
-                animate={{ transform: `rotate(${(recoveryScore * 1.8) - 90}deg)` }}
-                transition={{ delay: 0.3, duration: 1.5, type: 'spring', stiffness: 50 }}
-                style={{ transformOrigin: 'center center' }}
-              />
-              
-              {/* Gauge center */}
-              <circle cx="50" cy="50" r="5" fill={getRecoveryColor(recoveryScore)} />
-              
-              {/* Gradient definition */}
-              <defs>
-                <linearGradient id="recoveryGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#FF4B4B" />
-                  <stop offset="50%" stopColor="#FFDE59" />
-                  <stop offset="100%" stopColor="#4ADE80" />
-                </linearGradient>
-              </defs>
-            </svg>
-            
-            {/* Recovery score with animation */}
-            <motion.div 
-              className="absolute bottom-0 bg-glass-background px-2 py-0.5 rounded-full"
-              initial={{ y: 10, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 1, duration: 0.5 }}
-            >
-              <span className="text-sm font-bold" style={{ color: getRecoveryColor(recoveryScore) }}>
-                {recoveryScore}
-              </span>
-            </motion.div>
-          </div>
-          <span className="text-xs text-gray-400 mt-2">Recovery</span>
-        </div>
-        
-        {/* Progress - Visual circle */}
-        <div className="flex flex-col items-center px-2">
-          <div className="relative w-10 h-10">
-            <svg width="40" height="40" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="10" />
-              <circle 
-                cx="50" 
-                cy="50" 
-                r="45" 
-                fill="none" 
-                stroke="#00CCFF" 
-                strokeWidth="10" 
-                strokeDasharray={`${getProgressPercentage() * 2.83} 283`}
-                strokeLinecap="round"
-                transform="rotate(-90 50 50)"
-              >
-                <animate 
-                  attributeName="stroke-dasharray" 
-                  from="0 283" 
-                  to={`${getProgressPercentage() * 2.83} 283`} 
-                  dur="1s" 
-                  fill="freeze" 
-                />
-              </circle>
-            </svg>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Award className="text-cyan-primary" size={16} />
-            </div>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="text-xs font-medium text-alpine-mist mt-1">{getProgressPercentage()}%</span>
-            <span className="text-xs text-gray-400">Progress</span>
-          </div>
-        </div>
-        
-        {/* Heart rate - Animated pulse */}
-        <div className="flex flex-col items-center px-2">
-          <div className="relative w-10 h-10 flex items-center justify-center">
-            <motion.div
-              className="absolute w-10 h-10 rounded-full bg-teal-primary/10"
-              animate={{ 
-                scale: [1, 1.2, 1],
-                opacity: [0.2, 0.5, 0.2]
-              }}
-              transition={{ 
-                duration: 1.5, 
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-            <Heart className="text-teal-primary z-10" size={20} />
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="text-xs font-medium text-alpine-mist mt-1">68</span>
-            <span className="text-xs text-gray-400">BPM</span>
-          </div>
-        </div>
-        
-        {/* Daily load - Visual bar */}
-        <div className="flex flex-col items-center px-2">
-          <div className="relative w-10 h-10">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="h-8 w-6 bg-glass-background rounded-sm overflow-hidden flex flex-col-reverse">
-                <motion.div 
-                  className="w-full bg-gradient-to-t from-cyan-primary to-teal-primary"
-                  initial={{ height: 0 }}
-                  animate={{ height: '70%' }}
-                  transition={{ delay: 0.5, duration: 1 }}
-                />
-              </div>
-              <Zap className="text-cyan-primary absolute" size={14} />
-            </div>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="text-xs font-medium text-alpine-mist mt-1">340</span>
-            <span className="text-xs text-gray-400">Load</span>
-          </div>
-        </div>
-      </div>
-    </>
-  );
 
   return (
     <MainLayout isMountainFocused={isMountainFocused}>
-      {/* Mountain location indicators - only show after delay */}
-      {showContent && <MountainIndicators />}
-      
-      {/* Progress indicator removed as requested */}
-      
-      {/* Bottom card with expandable content */}
+      {/* Clean, minimal overlay content */}
       {showContent && (
-        <BottomCard
-          expandedContent={<EnhancedDashboard />}
-        >
-          {mainCardContent}
-        </BottomCard>
+        <div className="absolute inset-0 z-10 flex flex-col justify-between p-6">
+          {/* Top Section - Weather and Progress */}
+          <div className="flex justify-between items-start">
+            {/* Weather Display */}
+            <motion.div 
+              className="flex items-center space-x-3 bg-black/20 backdrop-blur-md rounded-2xl px-4 py-3 border border-white/10"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+            >
+              <div className="flex items-center space-x-2">
+                {weatherIcons[weather.condition]}
+                <div className="flex items-center space-x-1">
+                  <Thermometer size={14} className="text-gray-300" />
+                  <span className="text-white font-medium">{weather.temp}°C</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Progress Indicator */}
+            <motion.div 
+              className="text-center"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.6 }}
+            >
+              <div className="w-16 h-16 relative">
+                <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 100 100">
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="40"
+                    stroke="rgba(255,255,255,0.1)"
+                    strokeWidth="8"
+                    fill="none"
+                  />
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="40"
+                    stroke="url(#progressGradient)"
+                    strokeWidth="8"
+                    fill="none"
+                    strokeDasharray={`${getProgressPercentage() * 2.51} 251`}
+                    strokeLinecap="round"
+                  />
+                  <defs>
+                    <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#00CCFF" />
+                      <stop offset="100%" stopColor="#20B2AA" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">{getProgressPercentage()}%</span>
+                </div>
+              </div>
+              <p className="text-white/70 text-xs mt-1">Progress</p>
+            </motion.div>
+          </div>
+
+          {/* Bottom Section - Clean Stats Display */}
+          <motion.div 
+            className="bg-black/20 backdrop-blur-md rounded-3xl p-6 border border-white/10"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.6 }}
+          >
+            {/* Goal Display */}
+            <div className="text-center mb-6">
+              <motion.h1 
+                className="text-2xl font-bold text-white mb-2"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.2, duration: 0.5 }}
+              >
+                {activityPoints.goalName}
+              </motion.h1>
+              <p className="text-white/60 text-sm">Your fitness journey</p>
+            </div>
+
+            {/* Stats Grid */}
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              {/* Recovery Score */}
+              <div className="text-center">
+                <div className="w-12 h-12 mx-auto mb-2 relative">
+                  <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 100 100">
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="20"
+                      stroke="rgba(255,255,255,0.1)"
+                      strokeWidth="6"
+                      fill="none"
+                    />
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="20"
+                      stroke={getRecoveryColor(recoveryScore)}
+                      strokeWidth="6"
+                      fill="none"
+                      strokeDasharray={`${recoveryScore * 1.26} 126`}
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-white font-bold text-xs">{recoveryScore}</span>
+                  </div>
+                </div>
+                <p className="text-white/70 text-xs">Recovery</p>
+              </div>
+
+              {/* Heart Rate */}
+              <div className="text-center">
+                <div className="w-12 h-12 mx-auto mb-2 flex items-center justify-center">
+                  <motion.div
+                    className="w-8 h-8 rounded-full bg-teal-500/20 flex items-center justify-center"
+                    animate={{ 
+                      scale: [1, 1.1, 1],
+                      opacity: [0.7, 1, 0.7]
+                    }}
+                    transition={{ 
+                      duration: 1.5, 
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  >
+                    <Heart className="text-teal-400" size={16} />
+                  </motion.div>
+                </div>
+                <p className="text-white font-bold text-sm">68</p>
+                <p className="text-white/70 text-xs">BPM</p>
+              </div>
+
+              {/* Daily Load */}
+              <div className="text-center">
+                <div className="w-12 h-12 mx-auto mb-2 flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-t from-cyan-500 to-teal-500 rounded-lg flex items-center justify-center">
+                    <Zap className="text-white" size={16} />
+                  </div>
+                </div>
+                <p className="text-white font-bold text-sm">340</p>
+                <p className="text-white/70 text-xs">Load</p>
+              </div>
+
+              {/* Streak */}
+              <div className="text-center">
+                <div className="w-12 h-12 mx-auto mb-2 flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
+                    <Target className="text-white" size={16} />
+                  </div>
+                </div>
+                <p className="text-white font-bold text-sm">7</p>
+                <p className="text-white/70 text-xs">Days</p>
+              </div>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="flex space-x-3">
+              <motion.button
+                className="flex-1 bg-gradient-to-r from-cyan-500 to-teal-500 text-white py-3 px-4 rounded-2xl font-medium text-sm"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Start Workout
+              </motion.button>
+              <motion.button
+                className="flex-1 bg-white/10 backdrop-blur-md text-white py-3 px-4 rounded-2xl font-medium text-sm border border-white/20"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                View Stats
+              </motion.button>
+            </div>
+          </motion.div>
+        </div>
       )}
     </MainLayout>
   );
