@@ -175,19 +175,27 @@ const SplineMountain: React.FC<SplineMountainProps> = ({
         getBackgroundGradient()
       )} />
       
-      {/* Spline 3D Scene */}
+      {/* Spline 3D Scene - Increased size */}
       <div className="absolute inset-0 w-full h-full">
-        <Spline
-          scene="https://prod.spline.design/f-qFANpTJ4bTeNKt/scene.splinecode"
-          onLoad={handleLoad}
-          onError={handleError}
+        <div 
+          className="w-full h-full"
           style={{
-            width: '100%',
-            height: '100%',
-            opacity: isLoaded ? 1 : 0,
-            transition: 'opacity 0.5s ease-in-out'
+            transform: 'scale(1.3)',
+            transformOrigin: 'center center'
           }}
-        />
+        >
+          <Spline
+            scene="https://prod.spline.design/f-qFANpTJ4bTeNKt/scene.splinecode"
+            onLoad={handleLoad}
+            onError={handleError}
+            style={{
+              width: '100%',
+              height: '100%',
+              opacity: isLoaded ? 1 : 0,
+              transition: 'opacity 0.5s ease-in-out'
+            }}
+          />
+        </div>
       </div>
       
       {/* Loading indicator */}
