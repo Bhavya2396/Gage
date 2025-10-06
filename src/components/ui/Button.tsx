@@ -34,13 +34,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   disabled,
   ...props
 }, ref) => {
-  // Define variant styles - updated to match reference design
+  // Define variant styles - updated to match golf app aesthetic
   const variants = {
-    primary: 'bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 text-white shadow-lg hover:shadow-xl hover:from-primary-cyan-400 hover:to-primary-teal-400 transition-all duration-300',
-    secondary: 'bg-glass-background backdrop-blur-md border border-glass-border text-alpine-mist hover:bg-glass-highlight hover:border-white/20 transition-all duration-300',
-    outline: 'bg-transparent border border-primary-cyan-500 text-primary-cyan-400 hover:bg-primary-cyan-500/10 hover:border-primary-cyan-400 transition-all duration-300',
-    ghost: 'text-alpine-mist hover:bg-glass-background hover:text-white transition-all duration-300',
-    glass: 'backdrop-blur-md bg-glass-background/70 border border-glass-border text-alpine-mist hover:bg-glass-highlight/80 hover:border-white/20 shadow-sm transition-all duration-300',
+    primary: 'bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 text-white shadow-card-medium hover:shadow-card-strong hover:from-primary-cyan-400 hover:to-primary-teal-400 transition-all duration-300',
+    secondary: 'bg-ui-card backdrop-blur-sm border border-ui-border text-ui-text-primary hover:bg-ui-highlight hover:border-primary-cyan-500/30 transition-all duration-300',
+    outline: 'bg-transparent border border-primary-cyan-500 text-primary-cyan-500 hover:bg-primary-cyan-500/10 hover:border-primary-cyan-400 transition-all duration-300',
+    ghost: 'text-ui-text-primary hover:bg-ui-card hover:text-primary-cyan-500 transition-all duration-300',
+    glass: 'backdrop-blur-sm bg-ui-card-glass border border-ui-border-light text-ui-text-white hover:bg-ui-highlight/80 hover:border-primary-cyan-500/30 shadow-card-light transition-all duration-300',
   };
 
   // Define size styles - updated for better proportions

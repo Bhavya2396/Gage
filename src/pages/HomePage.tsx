@@ -58,9 +58,9 @@ const HomePage: React.FC = () => {
   
   const weatherIcons = {
     sunny: <Sun className="text-primary-cyan-500" size={20} />,
-    cloudy: <Cloud className="text-gray-400" size={20} />,
+    cloudy: <Cloud className="text-ui-text-muted" size={20} />,
     rainy: <CloudRain className="text-primary-teal-500" size={20} />,
-    snowy: <Snowflake className="text-alpine-mist" size={20} />
+    snowy: <Snowflake className="text-ui-text-white" size={20} />
   };
 
   // Main card content
@@ -77,9 +77,9 @@ const HomePage: React.FC = () => {
             transition={{ duration: 0.8 }}
           />
           <div>
-            <span className="text-xs uppercase tracking-wider text-gray-400 font-medium">YOUR JOURNEY</span>
+            <span className="text-xs uppercase tracking-wider text-ui-text-muted font-medium">YOUR JOURNEY</span>
             <motion.h2 
-              className="text-lg font-bold text-alpine-mist"
+              className="text-lg font-bold text-ui-text-primary"
               initial={{ opacity: 0, x: -5 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
@@ -91,7 +91,7 @@ const HomePage: React.FC = () => {
         
         {/* Enhanced weather display */}
         <motion.div 
-          className="flex items-center bg-glass-background px-3 py-2 rounded-lg border border-glass-border shadow-lg"
+          className="flex items-center bg-ui-card px-3 py-2 rounded-lg border border-ui-border shadow-card-light"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.5, duration: 0.5 }}
@@ -144,8 +144,8 @@ const HomePage: React.FC = () => {
           </div>
           
           <div className="ml-2 flex items-center">
-            <Thermometer size={12} className="text-alpine-mist mr-1 opacity-70" />
-            <span className="text-alpine-mist font-medium text-base">{weather.temp}°C</span>
+            <Thermometer size={12} className="text-ui-text-primary mr-1 opacity-70" />
+            <span className="text-ui-text-primary font-medium text-base">{weather.temp}°C</span>
           </div>
         </motion.div>
       </div>
@@ -222,7 +222,7 @@ const HomePage: React.FC = () => {
               </span>
             </motion.div>
           </div>
-          <span className="text-xs text-gray-400 mt-2">Recovery</span>
+          <span className="text-xs text-ui-text-muted mt-2">Recovery</span>
         </div>
         
         {/* Progress - Visual circle */}
@@ -255,8 +255,8 @@ const HomePage: React.FC = () => {
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-xs font-medium text-alpine-mist mt-1">{getProgressPercentage()}%</span>
-            <span className="text-xs text-gray-400">Progress</span>
+            <span className="text-xs font-medium text-ui-text-primary mt-1">{getProgressPercentage()}%</span>
+            <span className="text-xs text-ui-text-muted">Progress</span>
           </div>
         </div>
         
@@ -278,8 +278,8 @@ const HomePage: React.FC = () => {
             <Heart className="text-primary-teal-500 z-10" size={20} />
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-xs font-medium text-alpine-mist mt-1">68</span>
-            <span className="text-xs text-gray-400">BPM</span>
+            <span className="text-xs font-medium text-ui-text-primary mt-1">68</span>
+            <span className="text-xs text-ui-text-muted">BPM</span>
           </div>
         </div>
         
@@ -299,8 +299,8 @@ const HomePage: React.FC = () => {
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-xs font-medium text-alpine-mist mt-1">340</span>
-            <span className="text-xs text-gray-400">Load</span>
+            <span className="text-xs font-medium text-ui-text-primary mt-1">340</span>
+            <span className="text-xs text-ui-text-muted">Load</span>
           </div>
         </div>
       </div>

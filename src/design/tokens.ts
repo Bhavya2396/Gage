@@ -30,16 +30,20 @@ export const colors = {
     },
   },
   
-  // UI colors
+  // UI colors - Updated to match golf app aesthetic
   ui: {
     background: '#0F172A', // Dark blue background
-    card: 'rgba(15, 23, 42, 0.8)', // Semi-transparent card background
-    border: 'rgba(255, 255, 255, 0.1)', // Subtle border
-    highlight: 'rgba(255, 255, 255, 0.05)', // Subtle highlight
+    card: 'rgba(255, 255, 255, 0.95)', // Clean white card background
+    cardDark: 'rgba(15, 23, 42, 0.9)', // Dark card for contrast
+    cardGlass: 'rgba(255, 255, 255, 0.1)', // Glass effect card
+    border: 'rgba(0, 0, 0, 0.1)', // Subtle dark border
+    borderLight: 'rgba(255, 255, 255, 0.2)', // Light border
+    highlight: 'rgba(0, 204, 255, 0.1)', // Cyan highlight
     text: {
-      primary: '#FFFFFF',
-      secondary: '#94A3B8',
-      muted: '#64748B',
+      primary: '#1F2937', // Dark text for white cards
+      secondary: '#6B7280', // Medium gray
+      muted: '#9CA3AF', // Light gray
+      white: '#FFFFFF', // White text for dark backgrounds
     },
   },
   
@@ -200,7 +204,7 @@ export const typography = {
   },
 };
 
-// Shadows
+// Shadows - Updated to match golf app aesthetic
 export const shadows = {
   sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
   DEFAULT: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
@@ -210,6 +214,14 @@ export const shadows = {
   '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
   inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
   none: 'none',
+  
+  // Card shadows - Clean and modern like golf app
+  card: {
+    light: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+    medium: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+    strong: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+  },
+  
   // Elevation levels
   elevation: {
     1: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',

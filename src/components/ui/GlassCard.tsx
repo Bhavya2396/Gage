@@ -87,18 +87,18 @@ export const GlassCard: React.FC<GlassCardProps> = ({
   const smoothMouseX = useSpring(mouseX, springConfig);
   const smoothMouseY = useSpring(mouseY, springConfig);
   
-  // Define variant styles - updated to match reference design
+  // Define variant styles - updated to match golf app aesthetic
   const variants = {
-    default: 'bg-glass-background backdrop-blur-md backdrop-saturate-110 border-glass-border',
-    highlight: 'bg-glass-background backdrop-blur-md backdrop-saturate-110 border-primary-cyan-500/30',
-    muted: 'bg-glass-background/50 backdrop-blur-sm backdrop-saturate-105 border-glass-border/50',
-    accent: 'bg-glass-background backdrop-blur-md backdrop-saturate-110 border-primary-cyan-500',
-    frosted: 'bg-white/5 backdrop-blur-xl backdrop-saturate-125 border-white/10',
-    dark: 'bg-glass-backgroundDark backdrop-blur-lg backdrop-saturate-110 border-glass-border',
-    elevated: 'bg-glass-background backdrop-blur-md backdrop-saturate-110 border-white/5',
-    primary: 'bg-primary-cyan-900/30 backdrop-blur-lg backdrop-saturate-110 border-primary-cyan-400/20',
-    teal: 'bg-glass-background backdrop-blur-md backdrop-saturate-110 border-primary-teal-500/30',
-    purple: 'bg-glass-background backdrop-blur-md backdrop-saturate-110 border-primary-cyan-500/30',
+    default: 'bg-ui-card backdrop-blur-sm border-ui-border shadow-card-light',
+    highlight: 'bg-ui-card backdrop-blur-sm border-primary-cyan-500/30 shadow-card-medium',
+    muted: 'bg-ui-card/50 backdrop-blur-sm border-ui-border/50 shadow-card-light',
+    accent: 'bg-ui-card backdrop-blur-sm border-primary-cyan-500 shadow-card-medium',
+    frosted: 'bg-ui-card-glass backdrop-blur-md border-ui-border-light shadow-card-light',
+    dark: 'bg-ui-card-dark backdrop-blur-sm border-ui-border-light shadow-card-medium',
+    elevated: 'bg-ui-card backdrop-blur-sm border-ui-border shadow-card-strong',
+    primary: 'bg-primary-cyan-50 backdrop-blur-sm border-primary-cyan-200 shadow-card-medium',
+    teal: 'bg-primary-teal-50 backdrop-blur-sm border-primary-teal-200 shadow-card-medium',
+    purple: 'bg-primary-cyan-50 backdrop-blur-sm border-primary-cyan-200 shadow-card-medium',
   };
   
   // Padding based on size (with no padding option) - updated for more consistent spacing
@@ -136,12 +136,12 @@ export const GlassCard: React.FC<GlassCardProps> = ({
     thick: 'border-2',
   };
   
-  // Shadow intensities based on elevation
+  // Shadow intensities based on elevation - updated to use card shadows
   const shadowLevels = {
     0: '',
-    1: shadows.elevation[1],
-    2: shadows.elevation[2],
-    3: shadows.elevation[3],
+    1: shadows.card.light,
+    2: shadows.card.medium,
+    3: shadows.card.strong,
     4: shadows.elevation[4],
     5: shadows.elevation[5],
   };
@@ -209,16 +209,16 @@ export const GlassCard: React.FC<GlassCardProps> = ({
         transition: { type: 'spring', stiffness: 300, damping: 24 },
         
         whileHover: whileHover || (interactive ? { 
-          y: -3, 
-          scale: 1.02,
-          boxShadow: shadows.elevation[3],
-          borderColor: variant === 'default' ? 'rgba(255, 255, 255, 0.12)' : undefined,
+          y: -2, 
+          scale: 1.01,
+          boxShadow: shadows.card.strong,
+          borderColor: variant === 'default' ? 'rgba(0, 204, 255, 0.2)' : undefined,
         } : {}),
         
         whileTap: whileTap || (interactive ? { 
-          scale: 0.98, 
+          scale: 0.99, 
           y: -1,
-          boxShadow: shadows.elevation[2],
+          boxShadow: shadows.card.medium,
         } : {}),
       }
     : {};
