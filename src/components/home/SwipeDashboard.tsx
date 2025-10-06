@@ -167,41 +167,57 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/calendar'),
       content: (
         <div className="relative">
-          <div className="space-y-3">
+          {/* Timeline */}
+          <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-primary-cyan-500"></div>
+          
+          <div className="space-y-6 pl-8">
             {/* Morning Workout */}
-            <div className="bg-gradient-to-r from-primary-cyan-500/20 to-primary-teal-500/20 rounded-xl p-4 border border-primary-cyan-500/30 shadow-lg shadow-cyan-500/10">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="p-3 rounded-full bg-primary-cyan-500/30">
-                    <Dumbbell className="text-primary-cyan-400" size={20} />
-                  </div>
-                  <div>
-                    <div className="text-lg font-bold text-white">Foundation Strength</div>
-                    <div className="text-sm text-primary-cyan-400">45 min</div>
-                  </div>
+            <div className="relative">
+              <div className="absolute -left-6 w-3 h-3 bg-primary-cyan-500 rounded-full shadow-lg shadow-cyan-500/50"></div>
+              <div className="bg-white/5 rounded-xl p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-lg font-bold text-white">Morning Workout</span>
+                  <span className="text-sm text-primary-cyan-400">9:00 AM</span>
                 </div>
-                <div className="text-right">
-                  <div className="text-sm text-white/60">Morning</div>
-                  <div className="text-sm font-bold text-primary-cyan-400">9:00 AM</div>
+                <div className="flex items-center space-x-2 text-sm text-white">
+                  <Dumbbell className="text-primary-cyan-400" size={16} />
+                  <span>Full Body</span>
+                  <span className="text-white/40">•</span>
+                  <span>45 min</span>
                 </div>
               </div>
             </div>
             
-            {/* Afternoon Nutrition */}
-            <div className="bg-gradient-to-r from-primary-teal-500/20 to-primary-cyan-500/20 rounded-xl p-4 border border-primary-teal-500/30 shadow-lg shadow-teal-500/10">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="p-3 rounded-full bg-primary-teal-500/30">
-                    <Utensils className="text-primary-teal-400" size={20} />
-                  </div>
-                  <div>
-                    <div className="text-lg font-bold text-white">Nutrition Check</div>
-                    <div className="text-sm text-primary-teal-400">30 min</div>
-                  </div>
+            {/* Lunch */}
+            <div className="relative">
+              <div className="absolute -left-6 w-3 h-3 bg-primary-cyan-500 rounded-full shadow-lg shadow-cyan-500/50"></div>
+              <div className="bg-white/5 rounded-xl p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-lg font-bold text-white">Lunch</span>
+                  <span className="text-sm text-primary-cyan-400">12:30 PM</span>
                 </div>
-                <div className="text-right">
-                  <div className="text-sm text-white/60">Afternoon</div>
-                  <div className="text-sm font-bold text-primary-teal-400">2:00 PM</div>
+                <div className="flex items-center space-x-2 text-sm text-white">
+                  <Utensils className="text-primary-cyan-400" size={16} />
+                  <span>Protein-rich</span>
+                  <span className="text-white/40">•</span>
+                  <span>650 kcal</span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Evening Session */}
+            <div className="relative">
+              <div className="absolute -left-6 w-3 h-3 bg-primary-cyan-500 rounded-full shadow-lg shadow-cyan-500/50"></div>
+              <div className="bg-white/5 rounded-xl p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-lg font-bold text-white">Evening Session</span>
+                  <span className="text-sm text-primary-cyan-400">6:00 PM</span>
+                </div>
+                <div className="flex items-center space-x-2 text-sm text-white">
+                  <Target className="text-primary-cyan-400" size={16} />
+                  <span>Golf Practice</span>
+                  <span className="text-white/40">•</span>
+                  <span>60 min</span>
                 </div>
               </div>
             </div>
@@ -218,8 +234,175 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/workout'),
       content: (
         <div>
-          {/* Workout Progress Ring */}
-          <div className="flex justify-center mb-4">
+          {/* Workout Title */}
+          <div className="mb-4">
+            <h3 className="text-xl font-bold text-white mb-2">Full Body Strength</h3>
+          </div>
+          
+          {/* Base Camp Focus Box */}
+          <div className="bg-primary-teal-500/20 rounded-lg p-4 mb-4 border border-primary-teal-500/30">
+            <div className="flex items-center space-x-3">
+              <div className="w-6 h-6 bg-primary-cyan-500/30 rounded-full flex items-center justify-center">
+                <Target className="text-primary-cyan-400" size={14} />
+              </div>
+              <span className="text-sm text-white">
+                Base Camp Focus: Building foundational strength and movement patterns
+              </span>
+            </div>
+          </div>
+          
+          {/* Workout Summary */}
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-base font-semibold text-white">Rotational Power</span>
+            <div className="flex items-center space-x-2">
+              <Clock className="text-primary-cyan-400" size={16} />
+              <span className="text-sm text-white">45 min</span>
+            </div>
+          </div>
+          
+          {/* Exercise List */}
+          <div className="space-y-2 mb-4">
+            <div className="flex items-center justify-between text-sm text-white">
+              <span>Dynamic Warm-up</span>
+              <span>1 x 5 min</span>
+            </div>
+            <div className="flex items-center justify-between text-sm text-white">
+              <span>Medicine Ball Rotational Throws</span>
+              <span>3 x 10 each side</span>
+            </div>
+            <div className="flex items-center justify-between text-sm text-white">
+              <span>Cable Woodchoppers</span>
+              <span>3 x 12 each side</span>
+            </div>
+            <div className="flex items-center justify-between text-sm text-white">
+              <span>Kettlebell Swings</span>
+              <span>3 x 15</span>
+            </div>
+            <div className="flex items-center justify-between text-sm text-white">
+              <span>Plank with Rotation</span>
+              <span>3 x 10 each side</span>
+            </div>
+          </div>
+          
+          {/* Journey Impact */}
+          <div className="bg-primary-teal-500/20 rounded-lg p-4 border border-primary-teal-500/30">
+            <div className="flex items-center space-x-3 mb-2">
+              <Zap className="text-primary-cyan-400" size={16} />
+              <span className="text-sm font-bold text-white">Journey Impact</span>
+            </div>
+            <p className="text-sm text-white">
+              This workout will earn you approximately 25-30 points toward your foundation phase of add 15 yeards to my golf swing.
+            </p>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 'nutrition',
+      title: "Nutrition",
+      icon: <Utensils className="text-primary-teal-500" size={16} />,
+      onClick: () => navigate('/food'),
+      content: (
+        <div>
+          {/* Daily Calories Card */}
+          <div className="bg-white/5 rounded-xl p-4 mb-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-sm text-white mb-1">Daily Calories</div>
+                <div className="text-2xl font-bold text-white mb-1">1650</div>
+                <div className="text-xs text-white/60">of 2400 kcal</div>
+              </div>
+              <div className="relative w-16 h-16">
+                <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 24 24">
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="6"
+                    stroke="rgba(255, 255, 255, 0.1)"
+                    strokeWidth="2"
+                    fill="none"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="6"
+                    stroke="#00ccff"
+                    strokeWidth="2"
+                    fill="none"
+                    strokeDasharray="37.7"
+                    strokeDashoffset="11.7"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-xs font-bold text-white">69%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Base Camp Nutrition */}
+          <div className="bg-primary-teal-500/20 rounded-lg p-4 mb-4 border border-primary-teal-500/30">
+            <div className="flex items-center space-x-3">
+              <div className="w-6 h-6 bg-primary-cyan-500/30 rounded-full flex items-center justify-center">
+                <Utensils className="text-primary-cyan-400" size={14} />
+              </div>
+              <div>
+                <div className="text-sm font-bold text-white">Base Camp Nutrition</div>
+                <div className="text-xs text-white/80">
+                  Focus on balanced macros with adequate protein to build your foundation.
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Macro Breakdown */}
+          <div className="grid grid-cols-3 gap-3">
+            <div className="bg-white/5 rounded-lg p-3">
+              <div className="w-full bg-white/20 rounded-full h-2 mb-2">
+                <div className="bg-primary-cyan-500 h-2 rounded-full" style={{ width: '63%' }}></div>
+              </div>
+              <div className="text-xs text-white/60 mb-1">Protein</div>
+              <div className="text-sm font-bold text-white">95g</div>
+            </div>
+            <div className="bg-white/5 rounded-lg p-3">
+              <div className="w-full bg-white/20 rounded-full h-2 mb-2">
+                <div className="bg-primary-teal-500 h-2 rounded-full" style={{ width: '72%' }}></div>
+              </div>
+              <div className="text-xs text-white/60 mb-1">Carbs</div>
+              <div className="text-sm font-bold text-white">180g</div>
+            </div>
+            <div className="bg-white/5 rounded-lg p-3">
+              <div className="w-full bg-white/20 rounded-full h-2 mb-2">
+                <div className="bg-primary-cyan-500 h-2 rounded-full" style={{ width: '69%' }}></div>
+              </div>
+              <div className="text-xs text-white/60 mb-1">Fat</div>
+              <div className="text-sm font-bold text-white">55g</div>
+            </div>
+          </div>
+          
+          {/* Journey Impact */}
+          <div className="bg-primary-teal-500/20 rounded-lg p-4 mt-4 border border-primary-teal-500/30">
+            <div className="flex items-center space-x-3 mb-2">
+              <Zap className="text-primary-cyan-400" size={16} />
+              <span className="text-sm font-bold text-white">Journey Impact</span>
+            </div>
+            <p className="text-sm text-white">
+              Optimal nutrition can boost your recovery by up to 30% and accelerate your progress toward add 15 yeards to my golf swing.
+            </p>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 'health',
+      title: "Health",
+      icon: <Heart className="text-primary-cyan-500" size={16} />,
+      onClick: () => navigate('/health'),
+      content: (
+        <div>
+          {/* Recovery Score */}
+          <div className="flex justify-center mb-6">
             <div className="relative w-24 h-24">
               <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 24 24">
                 <circle
@@ -234,207 +417,83 @@ const SwipeDashboard: React.FC = () => {
                   cx="12"
                   cy="12"
                   r="10"
-                  stroke="#00ccff"
-                  strokeWidth="2"
-                  fill="none"
-                  strokeDasharray="62.83"
-                  strokeDashoffset="31.42"
-                  strokeLinecap="round"
-                />
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-lg font-bold text-white">50%</div>
-                  <div className="text-xs text-white/60">Complete</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Exercise Icons */}
-          <div className="grid grid-cols-2 gap-3 mb-4">
-            <div className="bg-white/5 rounded-lg p-3 text-center">
-              <div className="w-8 h-8 bg-primary-cyan-500/30 rounded-full flex items-center justify-center mx-auto mb-2">
-                <Target className="text-primary-cyan-400" size={16} />
-              </div>
-              <div className="text-sm font-semibold text-white">Core</div>
-              <div className="text-xs text-primary-cyan-400">3 sets</div>
-            </div>
-            <div className="bg-white/5 rounded-lg p-3 text-center">
-              <div className="w-8 h-8 bg-primary-teal-500/30 rounded-full flex items-center justify-center mx-auto mb-2">
-                <Activity className="text-primary-teal-400" size={16} />
-              </div>
-              <div className="text-sm font-semibold text-white">Legs</div>
-              <div className="text-xs text-primary-teal-400">4 sets</div>
-            </div>
-          </div>
-          
-          {/* AI Tip */}
-          <div className="bg-gradient-to-r from-primary-cyan-500/20 to-primary-teal-500/20 rounded-xl p-3 border border-primary-cyan-500/30">
-            <div className="flex items-center space-x-2">
-              <Lightbulb className="text-primary-cyan-400" size={16} />
-              <span className="text-sm font-medium text-white">Focus on core stability</span>
-            </div>
-          </div>
-        </div>
-      )
-    },
-    {
-      id: 'nutrition',
-      title: "Nutrition",
-      icon: <Utensils className="text-primary-teal-500" size={16} />,
-      onClick: () => navigate('/food'),
-      content: (
-        <div>
-          {/* Calorie Progress Ring */}
-          <div className="flex justify-center mb-4">
-            <div className="relative w-20 h-20">
-              <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 24 24">
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="8"
-                  stroke="rgba(255, 255, 255, 0.1)"
-                  strokeWidth="2"
-                  fill="none"
-                />
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="8"
-                  stroke="#00ccff"
-                  strokeWidth="2"
-                  fill="none"
-                  strokeDasharray="50.27"
-                  strokeDashoffset="15.08"
-                  strokeLinecap="round"
-                />
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-sm font-bold text-white">69%</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Macro Icons */}
-          <div className="grid grid-cols-3 gap-2 mb-4">
-            <div className="bg-white/5 rounded-lg p-2 text-center">
-              <div className="w-6 h-6 bg-primary-cyan-500/30 rounded-full flex items-center justify-center mx-auto mb-1">
-                <Flame className="text-primary-cyan-400" size={12} />
-              </div>
-              <div className="text-xs text-white font-semibold">1650</div>
-              <div className="text-xs text-white/60">kcal</div>
-            </div>
-            <div className="bg-white/5 rounded-lg p-2 text-center">
-              <div className="w-6 h-6 bg-primary-teal-500/30 rounded-full flex items-center justify-center mx-auto mb-1">
-                <Zap className="text-primary-teal-400" size={12} />
-              </div>
-              <div className="text-xs text-white font-semibold">95g</div>
-              <div className="text-xs text-white/60">protein</div>
-            </div>
-            <div className="bg-white/5 rounded-lg p-2 text-center">
-              <div className="w-6 h-6 bg-primary-cyan-500/30 rounded-full flex items-center justify-center mx-auto mb-1">
-                <Droplet className="text-primary-cyan-400" size={12} />
-              </div>
-              <div className="text-xs text-white font-semibold">2.1L</div>
-              <div className="text-xs text-white/60">water</div>
-            </div>
-          </div>
-          
-          {/* Meal Status */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                <span className="text-sm text-white">Breakfast</span>
-              </div>
-              <span className="text-xs text-green-400">✓</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-primary-cyan-400 rounded-full"></div>
-                <span className="text-sm text-white">Lunch</span>
-              </div>
-              <span className="text-xs text-primary-cyan-400">⏳</span>
-            </div>
-          </div>
-        </div>
-      )
-    },
-    {
-      id: 'health',
-      title: "Health",
-      icon: <Heart className="text-primary-cyan-500" size={16} />,
-      onClick: () => navigate('/health'),
-      content: (
-        <div>
-          {/* Health Metrics Grid */}
-          <div className="grid grid-cols-2 gap-3 mb-4">
-            <div className="bg-white/5 rounded-lg p-3 text-center">
-              <div className="w-8 h-8 bg-primary-cyan-500/30 rounded-full flex items-center justify-center mx-auto mb-2">
-                <Heart className="text-primary-cyan-400" size={16} />
-              </div>
-              <div className="text-lg font-bold text-white">68</div>
-              <div className="text-xs text-white/60">BPM</div>
-            </div>
-            <div className="bg-white/5 rounded-lg p-3 text-center">
-              <div className="w-8 h-8 bg-primary-teal-500/30 rounded-full flex items-center justify-center mx-auto mb-2">
-                <Clock className="text-primary-teal-400" size={16} />
-              </div>
-              <div className="text-lg font-bold text-white">7.5h</div>
-              <div className="text-xs text-white/60">Sleep</div>
-            </div>
-          </div>
-          
-          {/* Recovery Ring */}
-          <div className="flex justify-center mb-3">
-            <div className="relative w-16 h-16">
-              <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 24 24">
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="6"
-                  stroke="rgba(255, 255, 255, 0.1)"
-                  strokeWidth="2"
-                  fill="none"
-                />
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="6"
                   stroke="#4ade80"
                   strokeWidth="2"
                   fill="none"
-                  strokeDasharray="37.7"
-                  strokeDashoffset="8.3"
+                  strokeDasharray="62.83"
+                  strokeDashoffset="13.8"
                   strokeLinecap="round"
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="text-xs font-bold text-white">78%</div>
+                  <div className="text-2xl font-bold text-white">78</div>
+                  <div className="text-xs text-white/60">Recovery</div>
                 </div>
               </div>
             </div>
           </div>
           
-          {/* Status Indicators */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                <span className="text-sm text-white">Recovery</span>
+          {/* Base Camp Recovery */}
+          <div className="bg-white/5 rounded-lg p-4 mb-4">
+            <div className="flex items-center space-x-3">
+              <div className="w-6 h-6 bg-primary-cyan-500/30 rounded-full flex items-center justify-center">
+                <Heart className="text-primary-cyan-400" size={14} />
               </div>
-              <span className="text-xs text-green-400">Good</span>
+              <div>
+                <div className="text-sm font-bold text-white">Base Camp Recovery</div>
+                <div className="text-xs text-white/80">
+                  Focus on establishing healthy recovery patterns to build a strong foundation.
+                </div>
+              </div>
             </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-primary-cyan-400 rounded-full"></div>
-                <span className="text-sm text-white">HRV</span>
+          </div>
+          
+          {/* Health Metrics Grid */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-white/5 rounded-lg p-3">
+              <div className="flex items-center space-x-2 mb-2">
+                <Heart className="text-primary-cyan-400" size={16} />
+                <span className="text-sm text-white font-semibold">Heart Rate</span>
               </div>
-              <span className="text-xs text-primary-cyan-400">↑ +5</span>
+              <div className="text-lg font-bold text-white mb-1">68bpm</div>
+              <div className="flex items-center space-x-1">
+                <div className="w-2 h-2 bg-primary-cyan-400 rounded-full"></div>
+                <span className="text-xs text-primary-cyan-400">Stable</span>
+              </div>
+            </div>
+            <div className="bg-white/5 rounded-lg p-3">
+              <div className="flex items-center space-x-2 mb-2">
+                <Activity className="text-primary-cyan-400" size={16} />
+                <span className="text-sm text-white font-semibold">HRV</span>
+              </div>
+              <div className="text-lg font-bold text-white mb-1">65ms</div>
+              <div className="flex items-center space-x-1">
+                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                <span className="text-xs text-green-400">Improving</span>
+              </div>
+            </div>
+            <div className="bg-white/5 rounded-lg p-3">
+              <div className="flex items-center space-x-2 mb-2">
+                <Wind className="text-primary-cyan-400" size={16} />
+                <span className="text-sm text-white font-semibold">Respiration</span>
+              </div>
+              <div className="text-lg font-bold text-white mb-1">14bpm</div>
+              <div className="flex items-center space-x-1">
+                <div className="w-2 h-2 bg-primary-cyan-400 rounded-full"></div>
+                <span className="text-xs text-primary-cyan-400">Normal</span>
+              </div>
+            </div>
+            <div className="bg-white/5 rounded-lg p-3">
+              <div className="flex items-center space-x-2 mb-2">
+                <Droplet className="text-primary-cyan-400" size={16} />
+                <span className="text-sm text-white font-semibold">Hydration</span>
+              </div>
+              <div className="text-lg font-bold text-white mb-1">Good</div>
+              <div className="flex items-center space-x-1">
+                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                <span className="text-xs text-green-400">Optimal</span>
+              </div>
             </div>
           </div>
         </div>
@@ -446,69 +505,63 @@ const SwipeDashboard: React.FC = () => {
       icon: <Target className="text-primary-cyan-500" size={16} />,
       onClick: () => navigate('/goals/progress'),
       content: (
-        <div>
-          {/* Progress Ring */}
-          <div className="flex justify-center mb-4">
-            <div className="relative w-20 h-20">
-              <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 24 24">
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="8"
-                  stroke="rgba(255, 255, 255, 0.1)"
-                  strokeWidth="2"
-                  fill="none"
-                />
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="8"
-                  stroke="#00ccff"
-                  strokeWidth="2"
-                  fill="none"
-                  strokeDasharray="50.27"
-                  strokeDashoffset="50.27"
-                  strokeLinecap="round"
-                />
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-sm font-bold text-white">0%</div>
+        <div className="relative">
+          {/* Mountain Background */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="w-full h-20 bg-gradient-to-t from-primary-cyan-500/20 to-transparent rounded-lg"></div>
+          </div>
+          
+          <div className="relative z-10">
+            {/* Goal Description */}
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-6 h-6 bg-primary-cyan-500/30 rounded-full flex items-center justify-center">
+                <Award className="text-primary-cyan-400" size={14} />
+              </div>
+              <div>
+                <div className="text-lg font-bold text-white">add 15 yeards to my golf swing</div>
+                <div className="text-xs text-white/60">Your mountain journey</div>
+              </div>
+            </div>
+            
+            {/* Overall Progress */}
+            <div className="mb-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm text-white">Overall Progress</span>
+                <span className="text-sm text-white">0%</span>
+              </div>
+              <div className="w-full bg-white/20 rounded-full h-2 mb-2">
+                <div className="bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 h-2 rounded-full" style={{ width: '0%' }} />
+              </div>
+              <div className="flex justify-between text-xs text-white/60">
+                <span>Base Camp</span>
+                <span>Camp 1</span>
+                <span>Summit</span>
+              </div>
+            </div>
+            
+            {/* Foundation Phase */}
+            <div className="mb-4">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm text-white">Foundation Phase</span>
+                  <span className="text-xs bg-primary-cyan-500/30 text-white px-2 py-1 rounded-full">Current</span>
                 </div>
+                <span className="text-sm text-white">0%</span>
+              </div>
+              <div className="text-xs text-white/60">0 of 518 points earned in this phase</div>
+            </div>
+            
+            {/* Points Summary */}
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-lg font-bold text-white">0 points</div>
+                <div className="text-xs text-white/60">total earned</div>
+              </div>
+              <div className="bg-gradient-to-r from-primary-cyan-500/30 to-primary-teal-500/30 rounded-lg px-3 py-2">
+                <div className="text-sm font-bold text-white">2070 to summit</div>
               </div>
             </div>
           </div>
-          
-          {/* Goal Icons */}
-          <div className="grid grid-cols-3 gap-2 mb-4">
-            <div className="bg-white/5 rounded-lg p-2 text-center">
-              <div className="w-6 h-6 bg-primary-cyan-500/30 rounded-full flex items-center justify-center mx-auto mb-1">
-                <Target className="text-primary-cyan-400" size={12} />
-              </div>
-              <div className="text-xs text-white font-semibold">0</div>
-              <div className="text-xs text-white/60">points</div>
-            </div>
-            <div className="bg-white/5 rounded-lg p-2 text-center">
-              <div className="w-6 h-6 bg-primary-teal-500/30 rounded-full flex items-center justify-center mx-auto mb-1">
-                <Award className="text-primary-teal-400" size={12} />
-              </div>
-              <div className="text-xs text-white font-semibold">518</div>
-              <div className="text-xs text-white/60">target</div>
-            </div>
-            <div className="bg-white/5 rounded-lg p-2 text-center">
-              <div className="w-6 h-6 bg-primary-cyan-500/30 rounded-full flex items-center justify-center mx-auto mb-1">
-                <Clock className="text-primary-cyan-400" size={12} />
-              </div>
-              <div className="text-xs text-white font-semibold">12</div>
-              <div className="text-xs text-white/60">days</div>
-            </div>
-          </div>
-          
-          {/* Progress Bar */}
-          <div className="w-full bg-white/20 rounded-full h-2 mb-2">
-            <div className="bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 h-2 rounded-full" style={{ width: '0%' }} />
-          </div>
-          <div className="text-center text-xs text-white/60">Foundation Phase</div>
         </div>
       )
     },
@@ -519,41 +572,51 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/coach'),
       content: (
         <div>
-          {/* AI Avatar */}
-          <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-primary-cyan-500/30 to-primary-teal-500/30 rounded-full flex items-center justify-center border border-primary-cyan-500/30">
-              <Brain className="text-primary-cyan-400" size={24} />
+          {/* GAGE AI Header */}
+          <div className="flex items-center mb-4">
+            <div className="w-8 h-8 bg-primary-cyan-500/30 rounded-full flex items-center justify-center mr-3">
+              <Sparkles className="text-primary-cyan-400" size={16} />
+            </div>
+            <div className="flex items-center">
+              <span className="text-lg font-bold text-primary-cyan-400 mr-2">GAGE AI</span>
+              <span className="text-xs bg-primary-cyan-500/30 text-white px-2 py-1 rounded-full">Coach</span>
             </div>
           </div>
           
-          {/* AI Status */}
-          <div className="text-center mb-4">
-            <div className="text-sm font-bold text-white mb-1">AI Coach Active</div>
-            <div className="text-xs text-primary-cyan-400">5 day streak</div>
+          {/* AI Message */}
+          <div className="mb-4">
+            <p className="text-sm text-white mb-2">
+              Good afternoon, Bhavya! It's a beautiful sunny day at 25°C – perfect weather for getting active!
+            </p>
+            <p className="text-sm text-white mb-2">
+              You're at Base Camp (0%) in your add 15 yeards to my golf swing journey.
+            </p>
+            <p className="text-sm text-white mb-2">
+              This Foundation Phase is all about building the fundamentals with 0 of 518 points earned.
+            </p>
+            <p className="text-sm text-white">
+              Today at Base Camp, I've scheduled a foundational strength session focusing on building your core stability - essential for your add 15 yeards to my golf swing journey.
+            </p>
           </div>
           
-          {/* Quick Actions */}
-          <div className="grid grid-cols-2 gap-2 mb-4">
-            <div className="bg-white/5 rounded-lg p-2 text-center">
-              <div className="w-6 h-6 bg-primary-cyan-500/30 rounded-full flex items-center justify-center mx-auto mb-1">
-                <MessageCircle className="text-primary-cyan-400" size={12} />
-              </div>
-              <div className="text-xs text-white font-semibold">Chat</div>
-            </div>
-            <div className="bg-white/5 rounded-lg p-2 text-center">
-              <div className="w-6 h-6 bg-primary-teal-500/30 rounded-full flex items-center justify-center mx-auto mb-1">
-                <Sparkles className="text-primary-teal-400" size={12} />
-              </div>
-              <div className="text-xs text-white font-semibold">Insights</div>
-            </div>
-          </div>
-          
-          {/* Next Session */}
-          <div className="bg-gradient-to-r from-primary-cyan-500/20 to-primary-teal-500/20 rounded-lg p-3 border border-primary-cyan-500/30">
-            <div className="flex items-center space-x-2">
-              <Clock className="text-primary-cyan-400" size={14} />
-              <span className="text-sm text-white">Next session: 2:00 PM</span>
-            </div>
+          {/* Action Buttons */}
+          <div className="space-y-2">
+            <button className="w-full bg-white/5 rounded-lg p-3 flex items-center space-x-3 hover:bg-white/10 transition-colors">
+              <Dumbbell className="text-primary-cyan-400" size={16} />
+              <span className="text-sm text-white">Show me today's workout</span>
+            </button>
+            <button className="w-full bg-white/5 rounded-lg p-3 flex items-center space-x-3 hover:bg-white/10 transition-colors">
+              <MapPin className="text-primary-cyan-400" size={16} />
+              <span className="text-sm text-white">View my journey map</span>
+            </button>
+            <button className="w-full bg-white/5 rounded-lg p-3 flex items-center space-x-3 hover:bg-white/10 transition-colors">
+              <Award className="text-primary-cyan-400" size={16} />
+              <span className="text-sm text-white">Journey complete!</span>
+            </button>
+            <button className="w-full bg-white/5 rounded-lg p-3 flex items-center space-x-3 hover:bg-white/10 transition-colors">
+              <MessageCircle className="text-primary-cyan-400" size={16} />
+              <span className="text-sm text-white">Chat with AI Coach</span>
+            </button>
           </div>
         </div>
       )
@@ -568,41 +631,25 @@ const SwipeDashboard: React.FC = () => {
         <div>
           {/* Friends Avatars */}
           <div className="flex justify-center mb-4">
-            <div className="flex -space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary-cyan-500/30 to-primary-teal-500/30 rounded-full flex items-center justify-center text-white text-sm font-bold border-2 border-primary-cyan-500/30">
-                A
+            <div className="flex -space-x-2">
+              <div className="w-8 h-8 bg-primary-cyan-500/30 rounded-full flex items-center justify-center text-white text-xs font-bold border border-primary-cyan-500/30">
+                JS
               </div>
-              <div className="w-10 h-10 bg-gradient-to-br from-primary-teal-500/30 to-primary-cyan-500/30 rounded-full flex items-center justify-center text-white text-sm font-bold border-2 border-primary-teal-500/30">
-                S
+              <div className="w-8 h-8 bg-primary-cyan-500/30 rounded-full flex items-center justify-center text-white text-xs font-bold border border-primary-cyan-500/30">
+                KM
               </div>
-              <div className="w-10 h-10 bg-gradient-to-br from-primary-cyan-500/30 to-primary-teal-500/30 rounded-full flex items-center justify-center text-white text-sm font-bold border-2 border-primary-cyan-500/30">
-                M
+              <div className="w-8 h-8 bg-primary-cyan-500/30 rounded-full flex items-center justify-center text-white text-xs font-bold border border-primary-cyan-500/30">
+                AR
+              </div>
+              <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white text-xs font-bold border border-white/30">
+                +2
               </div>
             </div>
           </div>
           
           {/* Active Status */}
-          <div className="text-center mb-4">
-            <div className="text-sm font-bold text-white mb-1">3 Active Friends</div>
-            <div className="text-xs text-primary-cyan-400">2 working out now</div>
-          </div>
-          
-          {/* Friend Status */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between bg-white/5 rounded-lg p-2">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                <span className="text-sm text-white">Alex</span>
-              </div>
-              <span className="text-xs text-green-400">Online</span>
-            </div>
-            <div className="flex items-center justify-between bg-white/5 rounded-lg p-2">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-primary-cyan-400 rounded-full"></div>
-                <span className="text-sm text-white">Sarah</span>
-              </div>
-              <span className="text-xs text-primary-cyan-400">Workout</span>
-            </div>
+          <div className="text-center">
+            <div className="text-sm text-white">3 friends active now</div>
           </div>
         </div>
       )
@@ -614,41 +661,34 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/health/trends'),
       content: (
         <div>
-          {/* Weekly Chart */}
+          {/* Weekly Progress Chart */}
           <div className="mb-4">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-bold text-white">Weekly Progress</span>
-              <span className="text-xs text-primary-cyan-400">+12%</span>
-            </div>
-            <div className="flex items-center justify-between h-12">
-              <div className="w-4 h-6 bg-primary-cyan-500/30 rounded-sm"></div>
-              <div className="w-4 h-8 bg-primary-cyan-500/50 rounded-sm"></div>
-              <div className="w-4 h-10 bg-primary-cyan-500 rounded-sm"></div>
-              <div className="w-4 h-7 bg-primary-cyan-500/70 rounded-sm"></div>
-              <div className="w-4 h-9 bg-primary-cyan-500/50 rounded-sm"></div>
-              <div className="w-4 h-8 bg-primary-cyan-500/30 rounded-sm"></div>
-              <div className="w-4 h-12 bg-primary-teal-500 rounded-sm"></div>
-            </div>
-            <div className="flex justify-between text-xs text-white/60 mt-1">
-              <span>Mon</span>
-              <span>Tue</span>
-              <span>Wed</span>
-              <span>Thu</span>
-              <span>Fri</span>
-              <span>Sat</span>
-              <span>Sun</span>
-            </div>
-          </div>
-          
-          {/* Metrics */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="bg-white/5 rounded-lg p-3 text-center">
-              <div className="text-lg font-bold text-white mb-1">5</div>
-              <div className="text-xs text-white/60">Day Streak</div>
-            </div>
-            <div className="bg-white/5 rounded-lg p-3 text-center">
-              <div className="text-lg font-bold text-white mb-1">Tue</div>
-              <div className="text-xs text-white/60">Best Day</div>
+            <div className="text-sm text-white mb-3">Weekly Progress</div>
+            <div className="relative h-16">
+              {/* Chart Bars */}
+              <div className="flex items-end justify-between h-12">
+                <div className="w-4 h-4 bg-white/20 rounded-sm"></div>
+                <div className="w-4 h-6 bg-white/20 rounded-sm"></div>
+                <div className="w-4 h-8 bg-white/20 rounded-sm"></div>
+                <div className="w-4 h-5 bg-white/20 rounded-sm"></div>
+                <div className="w-4 h-7 bg-white/20 rounded-sm"></div>
+                <div className="w-4 h-6 bg-white/20 rounded-sm"></div>
+                <div className="w-4 h-12 bg-primary-cyan-500 rounded-sm relative">
+                  <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-primary-cyan-500 text-white text-xs px-2 py-1 rounded">
+                    90%
+                  </div>
+                </div>
+              </div>
+              {/* Day Labels */}
+              <div className="flex justify-between text-xs text-white/60 mt-2">
+                <span>M</span>
+                <span>T</span>
+                <span>W</span>
+                <span>T</span>
+                <span>F</span>
+                <span>S</span>
+                <span>S</span>
+              </div>
             </div>
           </div>
         </div>
