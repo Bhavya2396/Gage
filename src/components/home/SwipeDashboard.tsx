@@ -255,16 +255,8 @@ const SwipeDashboard: React.FC = () => {
             </p>
           </div>
           
-          {/* Action Buttons */}
-          <div className="space-y-1">
-            <button className="w-full bg-white/5 rounded-lg p-2 flex items-center space-x-2 hover:bg-white/10 transition-colors">
-              <Dumbbell className="text-primary-cyan-400" size={14} />
-              <span className="text-xs text-white">Show me today's workout</span>
-            </button>
-            <button className="w-full bg-white/5 rounded-lg p-2 flex items-center space-x-2 hover:bg-white/10 transition-colors">
-              <MapPin className="text-primary-cyan-400" size={14} />
-              <span className="text-xs text-white">View my journey map</span>
-            </button>
+          {/* Action Button */}
+          <div className="mt-3">
             <button className="w-full bg-white/5 rounded-lg p-2 flex items-center space-x-2 hover:bg-white/10 transition-colors">
               <MessageCircle className="text-primary-cyan-400" size={14} />
               <span className="text-xs text-white">Chat with AI Coach</span>
