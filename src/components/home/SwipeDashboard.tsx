@@ -172,12 +172,12 @@ const SwipeDashboard: React.FC = () => {
           <div className="grid grid-cols-4 gap-3 mb-4">
             {/* Recovery Metric */}
             <div className="text-center">
-              <div className="relative w-10 h-10 mx-auto mb-2">
-                <svg className="w-10 h-10 transform -rotate-90" viewBox="0 0 24 24">
+              <div className="relative w-12 h-12 mx-auto mb-2">
+                <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 24 24">
                   <circle
                     cx="12"
                     cy="12"
-                    r="4"
+                    r="5"
                     stroke="rgba(255, 255, 255, 0.2)"
                     strokeWidth="2"
                     fill="none"
@@ -185,12 +185,12 @@ const SwipeDashboard: React.FC = () => {
                   <circle
                     cx="12"
                     cy="12"
-                    r="4"
+                    r="5"
                     stroke="#00ff88"
                     strokeWidth="2"
                     fill="none"
-                    strokeDasharray="25.1"
-                    strokeDashoffset="5.5"
+                    strokeDasharray="31.4"
+                    strokeDashoffset="6.9"
                     strokeLinecap="round"
                   />
                 </svg>
@@ -203,26 +203,29 @@ const SwipeDashboard: React.FC = () => {
             
             {/* Progress Metric */}
             <div className="text-center">
-              <div className="w-10 h-10 mx-auto mb-2 bg-white/10 rounded-full flex items-center justify-center border border-primary-cyan-500/30">
-                <Award className="text-primary-cyan-400" size={14} />
+              <div className="w-12 h-12 mx-auto mb-2 bg-white/10 rounded-full flex items-center justify-center border border-primary-cyan-500/30">
+                <Award className="text-primary-cyan-400" size={16} />
               </div>
               <div className="text-xs text-white/60">Progress</div>
+              <div className="text-xs font-bold text-primary-cyan-400 mt-1">0%</div>
             </div>
             
             {/* BPM Metric */}
             <div className="text-center">
-              <div className="w-10 h-10 mx-auto mb-2 bg-white/10 rounded-full flex items-center justify-center border border-primary-cyan-500/30">
-                <Heart className="text-primary-cyan-400" size={14} />
+              <div className="w-12 h-12 mx-auto mb-2 bg-white/10 rounded-full flex items-center justify-center border border-primary-cyan-500/30">
+                <Heart className="text-primary-cyan-400" size={16} />
               </div>
               <div className="text-xs text-white/60">BPM</div>
+              <div className="text-xs font-bold text-white mt-1">68</div>
             </div>
             
             {/* Load Metric */}
             <div className="text-center">
-              <div className="w-10 h-10 mx-auto mb-2 bg-primary-cyan-500/20 rounded-lg flex items-center justify-center border border-primary-cyan-500/30">
-                <Zap className="text-white" size={14} />
+              <div className="w-12 h-12 mx-auto mb-2 bg-primary-cyan-500/20 rounded-lg flex items-center justify-center border border-primary-cyan-500/30">
+                <Zap className="text-white" size={16} />
               </div>
               <div className="text-xs text-white/60">Load</div>
+              <div className="text-xs font-bold text-white mt-1">340</div>
             </div>
           </div>
           
@@ -682,26 +685,54 @@ const SwipeDashboard: React.FC = () => {
       content: (
         <div>
           {/* Friends Avatars */}
-          <div className="flex justify-center mb-4">
+          <div className="flex justify-center mb-3">
             <div className="flex -space-x-2">
-              <div className="w-8 h-8 bg-primary-cyan-500/30 rounded-full flex items-center justify-center text-white text-xs font-bold border border-primary-cyan-500/30">
+              <div className="w-10 h-10 bg-gradient-to-br from-primary-cyan-500 to-primary-teal-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-primary-cyan-500/50 shadow-lg">
                 JS
               </div>
-              <div className="w-8 h-8 bg-primary-cyan-500/30 rounded-full flex items-center justify-center text-white text-xs font-bold border border-primary-cyan-500/30">
+              <div className="w-10 h-10 bg-gradient-to-br from-primary-teal-500 to-primary-cyan-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-primary-teal-500/50 shadow-lg">
                 KM
               </div>
-              <div className="w-8 h-8 bg-primary-cyan-500/30 rounded-full flex items-center justify-center text-white text-xs font-bold border border-primary-cyan-500/30">
+              <div className="w-10 h-10 bg-gradient-to-br from-primary-cyan-500 to-primary-teal-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-primary-cyan-500/50 shadow-lg">
                 AR
               </div>
-              <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white text-xs font-bold border border-white/30">
+              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white/30 shadow-lg">
                 +2
               </div>
             </div>
           </div>
           
           {/* Active Status */}
-          <div className="text-center">
-            <div className="text-sm text-white">3 friends active now</div>
+          <div className="text-center mb-3">
+            <div className="text-sm font-bold text-white">3 friends active now</div>
+            <div className="text-xs text-white/60">Join them for a workout!</div>
+          </div>
+          
+          {/* Recent Activity */}
+          <div className="space-y-2">
+            <div className="bg-white/5 rounded-lg p-2">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <div className="w-6 h-6 bg-primary-cyan-500/30 rounded-full flex items-center justify-center">
+                    <Dumbbell className="text-primary-cyan-400" size={12} />
+                  </div>
+                  <span className="text-xs text-white">JS completed workout</span>
+                </div>
+                <span className="text-xs text-white/60">2h ago</span>
+              </div>
+            </div>
+            
+            <div className="bg-white/5 rounded-lg p-2">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <div className="w-6 h-6 bg-primary-teal-500/30 rounded-full flex items-center justify-center">
+                    <Target className="text-primary-teal-400" size={12} />
+                  </div>
+                  <span className="text-xs text-white">KM reached new goal</span>
+                </div>
+                <span className="text-xs text-white/60">4h ago</span>
+              </div>
+            </div>
           </div>
         </div>
       )
@@ -714,33 +745,56 @@ const SwipeDashboard: React.FC = () => {
       content: (
         <div>
           {/* Weekly Progress Chart */}
-          <div className="mb-4">
-            <div className="text-sm text-white mb-3">Weekly Progress</div>
-            <div className="relative h-16">
+          <div className="mb-3">
+            <div className="text-sm font-bold text-white mb-3">Weekly Progress</div>
+            <div className="relative h-20">
               {/* Chart Bars */}
-              <div className="flex items-end justify-between h-12">
-                <div className="w-4 h-4 bg-white/20 rounded-sm"></div>
-                <div className="w-4 h-6 bg-white/20 rounded-sm"></div>
-                <div className="w-4 h-8 bg-white/20 rounded-sm"></div>
-                <div className="w-4 h-5 bg-white/20 rounded-sm"></div>
-                <div className="w-4 h-7 bg-white/20 rounded-sm"></div>
-                <div className="w-4 h-6 bg-white/20 rounded-sm"></div>
-                <div className="w-4 h-12 bg-primary-cyan-500 rounded-sm relative">
-                  <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-primary-cyan-500 text-white text-xs px-2 py-1 rounded">
-                    90%
+              <div className="flex items-end justify-between h-16 space-x-1">
+                <div className="flex flex-col items-center">
+                  <div className="w-5 h-4 bg-white/20 rounded-t-sm mb-1"></div>
+                  <div className="text-xs text-white/60">M</div>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="w-5 h-6 bg-white/20 rounded-t-sm mb-1"></div>
+                  <div className="text-xs text-white/60">T</div>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="w-5 h-8 bg-white/20 rounded-t-sm mb-1"></div>
+                  <div className="text-xs text-white/60">W</div>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="w-5 h-5 bg-white/20 rounded-t-sm mb-1"></div>
+                  <div className="text-xs text-white/60">T</div>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="w-5 h-7 bg-white/20 rounded-t-sm mb-1"></div>
+                  <div className="text-xs text-white/60">F</div>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="w-5 h-6 bg-white/20 rounded-t-sm mb-1"></div>
+                  <div className="text-xs text-white/60">S</div>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="w-5 h-14 bg-gradient-to-t from-primary-cyan-500 to-primary-teal-500 rounded-t-sm mb-1 relative">
+                    <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-primary-cyan-500 text-white text-xs px-2 py-1 rounded shadow-lg">
+                      90%
+                    </div>
                   </div>
+                  <div className="text-xs text-white/60">S</div>
                 </div>
               </div>
-              {/* Day Labels */}
-              <div className="flex justify-between text-xs text-white/60 mt-2">
-                <span>M</span>
-                <span>T</span>
-                <span>W</span>
-                <span>T</span>
-                <span>F</span>
-                <span>S</span>
-                <span>S</span>
-              </div>
+            </div>
+          </div>
+          
+          {/* Key Stats */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-white/5 rounded-lg p-2">
+              <div className="text-xs text-white/60 mb-1">This Week</div>
+              <div className="text-sm font-bold text-white">5 workouts</div>
+            </div>
+            <div className="bg-white/5 rounded-lg p-2">
+              <div className="text-xs text-white/60 mb-1">Streak</div>
+              <div className="text-sm font-bold text-primary-cyan-400">3 days</div>
             </div>
           </div>
         </div>
