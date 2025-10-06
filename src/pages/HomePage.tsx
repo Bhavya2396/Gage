@@ -3,11 +3,22 @@ import { motion } from 'framer-motion';
 import MainLayout from '@/layouts/MainLayout';
 import { useActivityPoints } from '@/contexts/ActivityPointsContext';
 import { getRecoveryColor } from '@/lib/utils';
-import { Sun, Cloud, CloudRain, Snowflake, Award, Zap, Heart, Thermometer, Target, TrendingUp, Clock, Users } from 'lucide-react';
+import { 
+  Heart, 
+  Zap, 
+  Target, 
+  TrendingUp, 
+  Play, 
+  BarChart3, 
+  Thermometer, 
+  Sun,
+  Cloud,
+  CloudRain,
+  Snowflake
+} from 'lucide-react';
 
 const HomePage: React.FC = () => {
   const { activityPoints, getProgressPercentage } = useActivityPoints();
-  const [isMountainFocused, setIsMountainFocused] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [weather, setWeather] = useState<{
     temp: number;
@@ -37,195 +48,198 @@ const HomePage: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowContent(true);
-    }, 800);
+    }, 1000);
     
     return () => clearTimeout(timer);
   }, []);
   
   const weatherIcons = {
-    sunny: <Sun className="text-cyan-400" size={20} />,
-    cloudy: <Cloud className="text-gray-400" size={20} />,
-    rainy: <CloudRain className="text-teal-400" size={20} />,
-    snowy: <Snowflake className="text-blue-300" size={20} />
+    sunny: <Sun className="text-yellow-400" size={16} />,
+    cloudy: <Cloud className="text-gray-400" size={16} />,
+    rainy: <CloudRain className="text-blue-400" size={16} />,
+    snowy: <Snowflake className="text-blue-300" size={16} />
   };
 
   return (
-    <MainLayout isMountainFocused={isMountainFocused}>
-      {/* Clean, minimal overlay content */}
+    <MainLayout>
       {showContent && (
-        <div className="absolute inset-0 z-10 flex flex-col justify-between p-6">
-          {/* Top Section - Weather and Progress */}
-          <div className="flex justify-between items-start">
-            {/* Weather Display */}
-            <motion.div 
-              className="flex items-center space-x-3 bg-black/20 backdrop-blur-md rounded-2xl px-4 py-3 border border-white/10"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-            >
-              <div className="flex items-center space-x-2">
-                {weatherIcons[weather.condition]}
-                <div className="flex items-center space-x-1">
-                  <Thermometer size={14} className="text-gray-300" />
-                  <span className="text-white font-medium">{weather.temp}°C</span>
-                </div>
-              </div>
-            </motion.div>
+        <div className="absolute inset-0 z-10 overflow-hidden">
+          {/* Floating Cards positioned around the mountain */}
+          
+          {/* Top Left - Weather Card */}
+          <motion.div
+            className="absolute top-8 left-8 w-20 h-20 bg-black/30 backdrop-blur-lg rounded-2xl border border-white/20 flex flex-col items-center justify-center"
+            initial={{ opacity: 0, scale: 0, y: -50 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.8, type: "spring", stiffness: 200 }}
+            whileHover={{ scale: 1.05, y: -5 }}
+          >
+            {weatherIcons[weather.condition]}
+            <span className="text-white font-bold text-sm mt-1">{weather.temp}°</span>
+          </motion.div>
 
-            {/* Progress Indicator */}
-            <motion.div 
-              className="text-center"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.6 }}
-            >
-              <div className="w-16 h-16 relative">
-                <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 100 100">
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="40"
-                    stroke="rgba(255,255,255,0.1)"
-                    strokeWidth="8"
-                    fill="none"
-                  />
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="40"
-                    stroke="url(#progressGradient)"
-                    strokeWidth="8"
-                    fill="none"
-                    strokeDasharray={`${getProgressPercentage() * 2.51} 251`}
-                    strokeLinecap="round"
-                  />
-                  <defs>
-                    <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#00CCFF" />
-                      <stop offset="100%" stopColor="#20B2AA" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">{getProgressPercentage()}%</span>
-                </div>
-              </div>
-              <p className="text-white/70 text-xs mt-1">Progress</p>
-            </motion.div>
-          </div>
+          {/* Top Right - Progress Card */}
+          <motion.div
+            className="absolute top-8 right-8 w-20 h-20 bg-black/30 backdrop-blur-lg rounded-2xl border border-white/20 flex flex-col items-center justify-center"
+            initial={{ opacity: 0, scale: 0, y: -50 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.8, type: "spring", stiffness: 200 }}
+            whileHover={{ scale: 1.05, y: -5 }}
+          >
+            <div className="w-8 h-8 relative">
+              <svg className="w-8 h-8 transform -rotate-90" viewBox="0 0 100 100">
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="35"
+                  stroke="rgba(255,255,255,0.2)"
+                  strokeWidth="6"
+                  fill="none"
+                />
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="35"
+                  stroke="url(#progressGradient)"
+                  strokeWidth="6"
+                  fill="none"
+                  strokeDasharray={`${getProgressPercentage() * 2.2} 220`}
+                  strokeLinecap="round"
+                />
+                <defs>
+                  <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#00CCFF" />
+                    <stop offset="100%" stopColor="#20B2AA" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <span className="text-white font-bold text-xs mt-1">{getProgressPercentage()}%</span>
+          </motion.div>
 
-          {/* Bottom Section - Clean Stats Display */}
-          <motion.div 
-            className="bg-black/20 backdrop-blur-md rounded-3xl p-6 border border-white/10"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.6 }}
+          {/* Left Side - Recovery Card */}
+          <motion.div
+            className="absolute left-8 top-1/2 transform -translate-y-1/2 w-16 h-16 bg-black/30 backdrop-blur-lg rounded-2xl border border-white/20 flex flex-col items-center justify-center"
+            initial={{ opacity: 0, scale: 0, x: -50 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ delay: 0.9, duration: 0.8, type: "spring", stiffness: 200 }}
+            whileHover={{ scale: 1.05, x: -5 }}
+          >
+            <Heart className="text-green-400" size={20} />
+            <span className="text-white font-bold text-xs mt-1">{recoveryScore}</span>
+          </motion.div>
+
+          {/* Right Side - Heart Rate Card */}
+          <motion.div
+            className="absolute right-8 top-1/2 transform -translate-y-1/2 w-16 h-16 bg-black/30 backdrop-blur-lg rounded-2xl border border-white/20 flex flex-col items-center justify-center"
+            initial={{ opacity: 0, scale: 0, x: 50 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ delay: 1.1, duration: 0.8, type: "spring", stiffness: 200 }}
+            whileHover={{ scale: 1.05, x: 5 }}
+          >
+            <motion.div
+              animate={{ 
+                scale: [1, 1.2, 1],
+                opacity: [0.7, 1, 0.7]
+              }}
+              transition={{ 
+                duration: 1.5, 
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <Heart className="text-red-400" size={20} />
+            </motion.div>
+            <span className="text-white font-bold text-xs mt-1">68</span>
+          </motion.div>
+
+          {/* Bottom Left - Load Card */}
+          <motion.div
+            className="absolute bottom-32 left-8 w-16 h-16 bg-black/30 backdrop-blur-lg rounded-2xl border border-white/20 flex flex-col items-center justify-center"
+            initial={{ opacity: 0, scale: 0, y: 50 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: 1.3, duration: 0.8, type: "spring", stiffness: 200 }}
+            whileHover={{ scale: 1.05, y: 5 }}
+          >
+            <Zap className="text-yellow-400" size={20} />
+            <span className="text-white font-bold text-xs mt-1">340</span>
+          </motion.div>
+
+          {/* Bottom Right - Streak Card */}
+          <motion.div
+            className="absolute bottom-32 right-8 w-16 h-16 bg-black/30 backdrop-blur-lg rounded-2xl border border-white/20 flex flex-col items-center justify-center"
+            initial={{ opacity: 0, scale: 0, y: 50 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: 1.5, duration: 0.8, type: "spring", stiffness: 200 }}
+            whileHover={{ scale: 1.05, y: 5 }}
+          >
+            <Target className="text-orange-400" size={20} />
+            <span className="text-white font-bold text-xs mt-1">7</span>
+          </motion.div>
+
+          {/* Center Bottom - Main Action Card */}
+          <motion.div
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-80 bg-black/40 backdrop-blur-xl rounded-3xl border border-white/30 p-6"
+            initial={{ opacity: 0, y: 100, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 1.7, duration: 1, type: "spring", stiffness: 150 }}
+            whileHover={{ y: -5, scale: 1.02 }}
           >
             {/* Goal Display */}
             <div className="text-center mb-6">
               <motion.h1 
-                className="text-2xl font-bold text-white mb-2"
+                className="text-xl font-bold text-white mb-2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.2, duration: 0.5 }}
+                transition={{ delay: 2, duration: 0.5 }}
               >
                 {activityPoints.goalName}
               </motion.h1>
               <p className="text-white/60 text-sm">Your fitness journey</p>
             </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              {/* Recovery Score */}
+            {/* Quick Stats Row */}
+            <div className="flex justify-center space-x-6 mb-6">
               <div className="text-center">
-                <div className="w-12 h-12 mx-auto mb-2 relative">
-                  <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 100 100">
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="20"
-                      stroke="rgba(255,255,255,0.1)"
-                      strokeWidth="6"
-                      fill="none"
-                    />
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="20"
-                      stroke={getRecoveryColor(recoveryScore)}
-                      strokeWidth="6"
-                      fill="none"
-                      strokeDasharray={`${recoveryScore * 1.26} 126`}
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-white font-bold text-xs">{recoveryScore}</span>
-                  </div>
+                <div className="w-8 h-8 mx-auto mb-1 flex items-center justify-center">
+                  <Heart className="text-green-400" size={16} />
                 </div>
-                <p className="text-white/70 text-xs">Recovery</p>
+                <span className="text-white font-bold text-sm">{recoveryScore}</span>
+                <p className="text-white/60 text-xs">Recovery</p>
               </div>
-
-              {/* Heart Rate */}
               <div className="text-center">
-                <div className="w-12 h-12 mx-auto mb-2 flex items-center justify-center">
-                  <motion.div
-                    className="w-8 h-8 rounded-full bg-teal-500/20 flex items-center justify-center"
-                    animate={{ 
-                      scale: [1, 1.1, 1],
-                      opacity: [0.7, 1, 0.7]
-                    }}
-                    transition={{ 
-                      duration: 1.5, 
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  >
-                    <Heart className="text-teal-400" size={16} />
-                  </motion.div>
+                <div className="w-8 h-8 mx-auto mb-1 flex items-center justify-center">
+                  <TrendingUp className="text-cyan-400" size={16} />
                 </div>
-                <p className="text-white font-bold text-sm">68</p>
-                <p className="text-white/70 text-xs">BPM</p>
+                <span className="text-white font-bold text-sm">{getProgressPercentage()}%</span>
+                <p className="text-white/60 text-xs">Progress</p>
               </div>
-
-              {/* Daily Load */}
               <div className="text-center">
-                <div className="w-12 h-12 mx-auto mb-2 flex items-center justify-center">
-                  <div className="w-8 h-8 bg-gradient-to-t from-cyan-500 to-teal-500 rounded-lg flex items-center justify-center">
-                    <Zap className="text-white" size={16} />
-                  </div>
+                <div className="w-8 h-8 mx-auto mb-1 flex items-center justify-center">
+                  <Zap className="text-yellow-400" size={16} />
                 </div>
-                <p className="text-white font-bold text-sm">340</p>
-                <p className="text-white/70 text-xs">Load</p>
-              </div>
-
-              {/* Streak */}
-              <div className="text-center">
-                <div className="w-12 h-12 mx-auto mb-2 flex items-center justify-center">
-                  <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
-                    <Target className="text-white" size={16} />
-                  </div>
-                </div>
-                <p className="text-white font-bold text-sm">7</p>
-                <p className="text-white/70 text-xs">Days</p>
+                <span className="text-white font-bold text-sm">340</span>
+                <p className="text-white/60 text-xs">Load</p>
               </div>
             </div>
 
-            {/* Quick Actions */}
+            {/* Action Buttons */}
             <div className="flex space-x-3">
               <motion.button
-                className="flex-1 bg-gradient-to-r from-cyan-500 to-teal-500 text-white py-3 px-4 rounded-2xl font-medium text-sm"
+                className="flex-1 bg-gradient-to-r from-cyan-500 to-teal-500 text-white py-3 px-4 rounded-2xl font-medium text-sm flex items-center justify-center space-x-2"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Start Workout
+                <Play size={16} />
+                <span>Start Workout</span>
               </motion.button>
               <motion.button
-                className="flex-1 bg-white/10 backdrop-blur-md text-white py-3 px-4 rounded-2xl font-medium text-sm border border-white/20"
+                className="flex-1 bg-white/10 backdrop-blur-md text-white py-3 px-4 rounded-2xl font-medium text-sm flex items-center justify-center space-x-2 border border-white/20"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                View Stats
+                <BarChart3 size={16} />
+                <span>View Stats</span>
               </motion.button>
             </div>
           </motion.div>
