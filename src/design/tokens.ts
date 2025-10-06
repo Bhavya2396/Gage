@@ -30,7 +30,7 @@ export const colors = {
     },
   },
   
-  // UI colors - Updated for better readability and professional look
+  // UI colors - Updated for better readability with translucent glassmorphism
   ui: {
     background: '#0F172A', // Dark blue background
     card: 'rgba(255, 255, 255, 0.25)', // More opaque for better readability

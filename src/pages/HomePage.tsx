@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import MainLayout from '@/layouts/MainLayout';
 import BottomCard from '@/components/ui/BottomCard';
-import CleanDashboard from '@/components/home/CleanDashboard';
+import EnhancedDashboard from '@/components/home/EnhancedDashboard';
 import StickyHeader from '@/components/ui/StickyHeader';
 import { useActivityPoints } from '@/contexts/ActivityPointsContext';
 import { getRecoveryColor } from '@/lib/utils';
@@ -317,7 +317,7 @@ const HomePage: React.FC = () => {
       {/* Bottom card with expandable content */}
       {showContent && (
         <BottomCard
-          expandedContent={<CleanDashboard />}
+          expandedContent={<EnhancedDashboard />}
         >
           {mainCardContent}
         </BottomCard>

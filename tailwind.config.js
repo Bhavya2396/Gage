@@ -32,7 +32,7 @@ export default {
           800: '#234E52',
           900: '#1D4044',
         },
-        // UI colors - Updated for better readability and professional look
+        // UI colors - Updated for better readability with translucent glassmorphism
         'ui-background': '#0F172A',
         'ui-card': 'rgba(255, 255, 255, 0.25)',
         'ui-card-dark': 'rgba(15, 23, 42, 0.9)',
