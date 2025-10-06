@@ -51,11 +51,11 @@ const InsightsPage: React.FC = () => {
       <div className="flex items-center mb-6">
         <button 
           onClick={() => navigate(-1)}
-          className="mr-4 p-2 rounded-full bg-glass-background bg-opacity-70 backdrop-blur-sm border border-white/30 shadow-lg text-white hover:bg-glass-background hover:bg-opacity-80 hover:border-white/50"
+          className="mr-4 p-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/20 shadow-lg text-white hover:bg-white/10 hover:border-white/30"
         >
-          <ArrowLeft size={18} />
+          <ArrowLeft size={16} />
         </button>
-        <h1 className="text-xl sm:text-2xl font-semibold text-alpine-mist bg-glass-background bg-opacity-40 px-3 py-1 rounded-lg">Summit Preparation Log</h1>
+        <h1 className="text-sm font-bold text-white">Insights</h1>
       </div>
       
       {/* Overall Progress */}

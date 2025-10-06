@@ -83,7 +83,7 @@ function App() {
             )
           } />
           <Route path="/slide" element={<PageTransition><SlideHomePage /></PageTransition>} />
-          <Route path="/health" element={<PageTransition><HealthDashboardPage /></PageTransition>} />
+          <Route path="/health" element={<PageTransition><HealthTrendsPage /></PageTransition>} /> {/* Enhanced health dashboard with trends */}
           <Route path="/health/trends" element={<PageTransition><HealthTrendsPage /></PageTransition>} /> {/* Health trends and analytics page */}
           <Route path="/goals/progress" element={<PageTransition><GoalProgressPage /></PageTransition>} /> {/* Goal progress tracking page */}
           <Route path="/workout" element={<PageTransition><WorkoutPage /></PageTransition>} />

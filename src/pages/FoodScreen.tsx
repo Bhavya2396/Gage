@@ -114,17 +114,18 @@ const FoodScreen: React.FC = () => {
                   size="sm"
                   onClick={() => navigate('/')}
                   icon={<ChevronLeft size={16} />}
-                  className="font-medium"
+                  className="text-white"
                 >
                   Back
                 </Button>
-                <h1 className="text-xl font-medium text-alpine-mist bg-glass-background bg-opacity-40 px-3 py-1 rounded-lg ml-2">The Fuel Depot</h1>
+                <h1 className="text-sm font-bold text-white ml-2">Nutrition</h1>
               </div>
               <Button
-                variant="primary"
+                variant="outline"
                 size="sm"
                 onClick={handleAddMeal}
-                icon={<Plus size={16} />}
+                icon={<Plus size={14} />}
+                className="border-primary-cyan-500 text-primary-cyan-400"
               >
                 Add Meal
               </Button>

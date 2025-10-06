@@ -3,6 +3,9 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import MainLayout from '@/layouts/MainLayout';
 import GlassCard from '@/components/ui/GlassCard';
+import Button from '@/components/ui/Button';
+import RecoveryScoreCard from '@/components/health/RecoveryScoreCard';
+import HealthMetricsGrid from '@/components/health/HealthMetricsGrid';
 import { 
   ChevronLeft, 
   Heart, 
@@ -474,21 +477,43 @@ const HealthTrendsPage: React.FC = () => {
     <MainLayout>
       <div className="w-full max-w-md mx-auto px-4 pt-20 pb-24">
         {/* Header */}
-        <div className="mb-6 flex items-center">
-          <button 
-            onClick={() => navigate('/health')}
-            className="mr-4 p-2 rounded-full bg-glass-background bg-opacity-70 backdrop-blur-sm border border-white/30 shadow-lg text-white hover:bg-glass-background hover:bg-opacity-80 hover:border-white/50"
+        <div className="mb-4 flex items-center">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={() => navigate('/')}
+            icon={<ChevronLeft size={16} />}
+            className="text-white"
           >
-            <ChevronLeft size={18} />
-          </button>
-          <h1 className="text-xl sm:text-2xl font-semibold text-alpine-mist bg-glass-background bg-opacity-40 px-3 py-1 rounded-lg">Health Trends</h1>
+            Back
+          </Button>
+          <h1 className="text-sm font-bold text-white ml-2">Health & Trends</h1>
         </div>
         
-        {/* Time period selector */}
-        <TimePeriodSelector 
-          selectedPeriod={timePeriod} 
-          onChange={setTimePeriod} 
-        />
+        {/* Health Overview Section */}
+        <motion.div 
+          className="grid gap-4 mb-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div variants={itemVariants}>
+            <RecoveryScoreCard score={78} />
+          </motion.div>
+          
+          <motion.div variants={itemVariants}>
+            <HealthMetricsGrid />
+          </motion.div>
+        </motion.div>
+        
+        {/* Trends Section Header */}
+        <div className="mb-4">
+          <h2 className="text-sm font-bold text-white mb-3">Trends Analysis</h2>
+          <TimePeriodSelector 
+            selectedPeriod={timePeriod} 
+            onChange={setTimePeriod} 
+          />
+        </div>
         
         {/* Metric selector */}
         <motion.div 

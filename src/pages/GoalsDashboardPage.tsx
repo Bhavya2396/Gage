@@ -38,11 +38,11 @@ const GoalsDashboardPage: React.FC = () => {
             size="sm" 
             onClick={() => navigate('/')}
             icon={<ChevronLeft size={16} />}
-            className="font-medium"
+            className="text-white"
           >
             Back
           </Button>
-          <h1 className="text-xl font-medium text-white bg-white/10 px-3 py-1 rounded-lg ml-2">Goal Progress</h1>
+          <h1 className="text-sm font-bold text-white ml-2">Goals</h1>
         </div>
         
         <motion.div

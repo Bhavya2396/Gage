@@ -220,15 +220,17 @@ const FriendsPage: React.FC = () => {
   
   return (
     <MainLayout>
-      <div className="mb-4">
+      <div className="mb-4 flex items-center">
         <Button 
           variant="ghost" 
           size="sm" 
           onClick={() => navigate('/')}
           icon={<ChevronLeft size={16} />}
+          className="text-white"
         >
           Back
         </Button>
+        <h1 className="text-sm font-bold text-white ml-2">Friends</h1>
       </div>
       
       <div className="max-w-md mx-auto pb-20">

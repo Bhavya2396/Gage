@@ -175,7 +175,7 @@ const SplineMountain: React.FC<SplineMountainProps> = ({
         getBackgroundGradient()
       )} 
       style={{
-        background: 'linear-gradient(to bottom, rgba(135, 206, 235, 0.4) 0%, rgba(100, 149, 237, 0.3) 25%, rgba(25, 25, 112, 0.5) 100%)'
+        background: 'linear-gradient(to bottom, rgba(34, 197, 94, 0.4) 0%, rgba(16, 185, 129, 0.3) 25%, rgba(5, 46, 22, 0.5) 100%)'
       }} />
       
       {/* Spline 3D Scene - Adjusted camera angle */}
@@ -183,13 +183,13 @@ const SplineMountain: React.FC<SplineMountainProps> = ({
         <div 
           className="w-full h-full"
           style={{
-            transform: 'scale(2.0) translateY(-10%) translateX(-15%) rotateX(8deg) rotateY(-3deg)',
+            transform: 'scale(1.6) translateY(-10%) translateX(10%) rotateX(8deg) rotateY(-3deg)',
             transformOrigin: 'center center',
             transformStyle: 'preserve-3d'
           }}
         >
           <Spline
-            scene="https://prod.spline.design/f-qFANpTJ4bTeNKt/scene.splinecode"
+            scene="https://prod.spline.design/MCIyTJ13Oka7Jwmi/scene.splinecode"
             onLoad={handleLoad}
             onError={handleError}
             style={{
