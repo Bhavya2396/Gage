@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Timer, Check, X, Camera, Plus, Minus, Info } from 'lucide-react';
+import { Timer, Check, X, Camera, Plus, Minus, Info, Dumbbell } from 'lucide-react';
 import GlassCard from '@/components/ui/GlassCard';
 import AIFormCoach from './AIFormCoach';
 import ExerciseVisual from './ExerciseVisual';
