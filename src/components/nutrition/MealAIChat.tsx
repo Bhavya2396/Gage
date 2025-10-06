@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, MessageSquare, X, Sparkles, User, Bot } from 'lucide-react';
+import { Send, MessageSquare, X, Sparkles, User, Bot, ChefHat, AlertTriangle, RefreshCw } from 'lucide-react';
 import GlassCard from '@/components/ui/GlassCard';
 import Button from '@/components/ui/Button';
 
@@ -27,12 +27,12 @@ interface MealAIChatProps {
 }
 
 const MealAIChat: React.FC<MealAIChatProps> = ({ currentTotals, targets }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
       role: 'ai',
-      content: `Hi! I'm your AI nutrition coach. I can help you with meal planning, nutrition advice, and tracking your daily targets. You're currently at ${currentTotals.calories}/${targets.calories} calories for today. How can I help?`,
+      content: `I can help you understand your meals, suggest replacements, or adjust your plan if you've deviated. What would you like to know about your nutrition today?`,
       timestamp: new Date()
     }
   ]);
@@ -50,55 +50,46 @@ const MealAIChat: React.FC<MealAIChatProps> = ({ currentTotals, targets }) => {
   }, [messages]);
 
   useEffect(() => {
-    if (isOpen && inputRef.current) {
+    if (isExpanded && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [isOpen]);
+  }, [isExpanded]);
 
   const generateAIResponse = (userMessage: string): string => {
     const lowerMessage = userMessage.toLowerCase();
     
-    // Calorie-related queries
-    if (lowerMessage.includes('calorie') || lowerMessage.includes('calories')) {
+    // Meal understanding queries
+    if (lowerMessage.includes('what') && (lowerMessage.includes('eat') || lowerMessage.includes('meal'))) {
+      return `Based on your current intake, you've had a good balance today. Your meals are providing solid nutrition. Would you like me to analyze any specific meal or suggest improvements?`;
+    }
+    
+    // Deviation from plan
+    if (lowerMessage.includes('deviate') || lowerMessage.includes('off track') || lowerMessage.includes('cheat')) {
       const remaining = targets.calories - currentTotals.calories;
-      if (remaining > 0) {
-        return `You have ${remaining} calories left for today. I'd recommend focusing on nutrient-dense foods like lean proteins, vegetables, and whole grains to meet your remaining target.`;
-      } else if (remaining < 0) {
-        return `You've exceeded your calorie target by ${Math.abs(remaining)} calories. Consider lighter options for your remaining meals or add some extra activity to your day.`;
+      if (remaining < 0) {
+        return `I see you've gone over your calorie target by ${Math.abs(remaining)} calories. Don't worry! We can adjust your remaining meals to lighter options or add some extra activity. What would you prefer?`;
       } else {
-        return `Perfect! You've hit your calorie target exactly. Great job on your nutrition tracking today!`;
+        return `You're still on track with your plan. You have ${remaining} calories remaining. Would you like me to suggest some healthy options for your next meal?`;
       }
     }
     
-    // Protein-related queries
-    if (lowerMessage.includes('protein')) {
-      const proteinRemaining = targets.protein - currentTotals.protein;
-      if (proteinRemaining > 0) {
-        return `You need ${proteinRemaining}g more protein today. Great sources include chicken breast, Greek yogurt, eggs, or plant-based options like tofu and legumes.`;
-      } else {
-        return `Excellent! You've met your protein target. This will help with muscle recovery and satiety.`;
-      }
+    // Meal replacements
+    if (lowerMessage.includes('replace') || lowerMessage.includes('substitute') || lowerMessage.includes('alternative')) {
+      return `I can help you find healthier alternatives! What specific food or meal would you like to replace? I can suggest options that fit your remaining calorie and macro targets.`;
     }
     
-    // Meal suggestions
-    if (lowerMessage.includes('meal') || lowerMessage.includes('suggest') || lowerMessage.includes('recommend')) {
-      const remaining = targets.calories - currentTotals.calories;
-      if (remaining > 300) {
-        return `For your remaining ${remaining} calories, I suggest a balanced meal with lean protein (chicken/fish), complex carbs (quinoa/brown rice), and vegetables. This will help you meet your macro targets.`;
-      } else if (remaining > 100) {
-        return `With ${remaining} calories left, consider a light snack like Greek yogurt with berries or a small handful of nuts to round out your day.`;
-      } else {
-        return `You're very close to your calorie target. A small piece of fruit or some vegetables would be perfect to finish your day.`;
-      }
+    // Ingredient substitutions
+    if (lowerMessage.includes('ingredient') || lowerMessage.includes('swap')) {
+      return `I can suggest ingredient swaps to make your meals healthier or fit your dietary preferences. What ingredient would you like to replace?`;
     }
     
-    // General nutrition advice
-    if (lowerMessage.includes('healthy') || lowerMessage.includes('nutrition')) {
-      return `Focus on whole foods, stay hydrated, and aim for a variety of colors in your meals. Your current macro balance looks good - keep up the great work!`;
+    // Meal analysis
+    if (lowerMessage.includes('analyze') || lowerMessage.includes('breakdown')) {
+      return `Let me analyze your current nutrition: You're at ${Math.round((currentTotals.calories/targets.calories)*100)}% of your calorie target. Your macro balance looks good. Would you like specific recommendations for your remaining meals?`;
     }
     
     // Default response
-    return `I'm here to help with your nutrition goals! I can assist with meal planning, macro tracking, and healthy eating advice. What specific question do you have about your nutrition today?`;
+    return `I'm here to help you understand your meals, suggest replacements, or adjust your plan. What specific aspect of your nutrition would you like to discuss?`;
   };
 
   const handleSendMessage = async () => {
@@ -141,107 +132,122 @@ const MealAIChat: React.FC<MealAIChatProps> = ({ currentTotals, targets }) => {
   };
 
   return (
-    <>
-      {/* Chat Toggle Button */}
-      <motion.button
-        className="fixed bottom-6 right-6 z-20 p-3 rounded-full bg-primary-cyan-500 text-white shadow-lg shadow-cyan-primary/20"
-        whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(0, 204, 255, 0.4)' }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {isOpen ? <X size={18} /> : <MessageSquare size={18} />}
-      </motion.button>
+    <GlassCard variant="default" size="sm" className="w-full">
+      {/* Chat Header */}
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center">
+          <div className="w-6 h-6 rounded-full bg-primary-cyan-500/20 flex items-center justify-center mr-2">
+            <ChefHat className="text-primary-cyan-400" size={14} />
+          </div>
+          <h3 className="text-xs font-bold text-white">Meal AI Assistant</h3>
+        </div>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="p-1.5 bg-white/10 rounded-md"
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
+          {isExpanded ? <X size={14} className="text-white" /> : <MessageSquare size={14} className="text-white" />}
+        </motion.button>
+      </div>
+
+      {/* Quick Action Buttons */}
+      <div className="grid grid-cols-3 gap-2 mb-3">
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="p-2 bg-white/5 rounded-lg text-xs text-white border border-white/10"
+          onClick={() => setInputMessage("What should I eat next?")}
+        >
+          <ChefHat size={12} className="mx-auto mb-1" />
+          Next Meal
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="p-2 bg-white/5 rounded-lg text-xs text-white border border-white/10"
+          onClick={() => setInputMessage("I deviated from my plan")}
+        >
+          <AlertTriangle size={12} className="mx-auto mb-1" />
+          Off Track
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="p-2 bg-white/5 rounded-lg text-xs text-white border border-white/10"
+          onClick={() => setInputMessage("Suggest a replacement")}
+        >
+          <RefreshCw size={12} className="mx-auto mb-1" />
+          Replace
+        </motion.button>
+      </div>
 
       {/* Chat Interface */}
       <AnimatePresence>
-        {isOpen && (
+        {isExpanded && (
           <motion.div
-            className="fixed bottom-20 right-6 w-[90%] max-w-sm z-20"
-            initial={{ opacity: 0, y: 50, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 50, scale: 0.9 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="border-t border-white/10 pt-3"
           >
-            <GlassCard variant="default" size="lg" className="w-full backdrop-blur-lg border border-glass-highlight overflow-hidden">
-              {/* Chat Header */}
-              <div className="flex items-center justify-between mb-3 pb-2 border-b border-ui-border">
-                <div className="flex items-center">
-                  <div className="w-6 h-6 rounded-full bg-primary-cyan-500/20 flex items-center justify-center mr-2">
-                    <Sparkles className="text-primary-cyan-400" size={12} />
-                  </div>
-                  <h3 className="text-xs font-bold text-white">Nutrition AI</h3>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-white/60"
-                  onClick={() => setIsOpen(false)}
+            {/* Messages Container */}
+            <div className="h-[200px] overflow-y-auto mb-3 pr-2 scrollbar-thin scrollbar-thumb-ui-border scrollbar-track-transparent">
+              {messages.map((message) => (
+                <div
+                  key={message.id}
+                  className={`mb-2 ${message.role === 'user' ? 'text-right' : 'text-left'}`}
                 >
-                  <X size={14} />
-                </Button>
-              </div>
-
-              {/* Messages Container */}
-              <div className="h-[300px] overflow-y-auto mb-3 pr-2 scrollbar-thin scrollbar-thumb-ui-border scrollbar-track-transparent">
-                {messages.map((message) => (
                   <div
-                    key={message.id}
-                    className={`mb-2 ${message.role === 'user' ? 'text-right' : 'text-left'}`}
+                    className={`inline-block max-w-[80%] px-2 py-1 rounded-lg ${
+                      message.role === 'user'
+                        ? 'bg-primary-cyan-500/20 text-white'
+                        : 'bg-white/5 text-white'
+                    }`}
                   >
-                    <div
-                      className={`inline-block max-w-[80%] px-2 py-1 rounded-lg ${
-                        message.role === 'user'
-                          ? 'bg-primary-cyan-500/20 text-white'
-                          : 'bg-white/5 text-white'
-                      }`}
-                    >
-                      <div className="text-xs">{message.content}</div>
-                    </div>
-                    <div className="text-xs text-white/60 mt-1">
-                      {formatTime(message.timestamp)}
+                    <div className="text-xs">{message.content}</div>
+                  </div>
+                </div>
+              ))}
+              
+              {/* AI Typing Indicator */}
+              {isTyping && (
+                <div className="mb-2 text-left">
+                  <div className="inline-block max-w-[80%] px-2 py-1 rounded-lg bg-white/5 text-white">
+                    <div className="flex space-x-1">
+                      <div className="w-1.5 h-1.5 bg-primary-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                      <div className="w-1.5 h-1.5 bg-primary-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                      <div className="w-1.5 h-1.5 bg-primary-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                     </div>
                   </div>
-                ))}
-                
-                {/* AI Typing Indicator */}
-                {isTyping && (
-                  <div className="mb-2 text-left">
-                    <div className="inline-block max-w-[80%] px-2 py-1 rounded-lg bg-white/5 text-white">
-                      <div className="flex space-x-1">
-                        <div className="w-1.5 h-1.5 bg-primary-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                        <div className="w-1.5 h-1.5 bg-primary-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                        <div className="w-1.5 h-1.5 bg-primary-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                <div ref={messagesEndRef} />
-              </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
 
-              {/* Input Area */}
-              <div className="flex items-center">
-                <input
-                  ref={inputRef}
-                  type="text"
-                  className="flex-1 bg-white/5 text-white rounded-l-lg px-2 py-1.5 outline-none border border-ui-border focus:border-primary-cyan-500 text-xs"
-                  placeholder="Ask about your nutrition..."
-                  value={inputMessage}
-                  onChange={(e) => setInputMessage(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                />
-                <button
-                  className="bg-primary-cyan-500 text-white rounded-r-lg px-2 py-1.5 disabled:opacity-50"
-                  onClick={handleSendMessage}
-                  disabled={!inputMessage.trim() || isTyping}
-                >
-                  <Send size={14} />
-                </button>
-              </div>
-            </GlassCard>
+            {/* Input Area */}
+            <div className="flex items-center">
+              <input
+                ref={inputRef}
+                type="text"
+                className="flex-1 bg-white/5 text-white rounded-l-lg px-2 py-1.5 outline-none border border-white/20 focus:border-primary-cyan-500 text-xs"
+                placeholder="Ask about your meals..."
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+              />
+              <button
+                className="bg-primary-cyan-500 text-white rounded-r-lg px-2 py-1.5 disabled:opacity-50"
+                onClick={handleSendMessage}
+                disabled={!inputMessage.trim() || isTyping}
+              >
+                <Send size={12} />
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </GlassCard>
   );
 };
 

@@ -132,6 +132,19 @@ const FoodScreen: React.FC = () => {
         <div className="mb-4">
           <NutritionalTargets {...getUpdatedTargets()} />
         </div>
+        
+        {/* AI Chat for Meals */}
+        <div className="mb-4">
+          <MealAIChat 
+            currentTotals={currentTotals}
+            targets={{
+              calories: nutritionalTargets.calories.target,
+              protein: nutritionalTargets.protein.target,
+              carbs: nutritionalTargets.carbs.target,
+              fat: nutritionalTargets.fat.target
+            }}
+          />
+        </div>
       
         {/* Meal Cards */}
         <div className="space-y-3">
@@ -162,17 +175,6 @@ const FoodScreen: React.FC = () => {
             </span>
           </div>
         </GlassCard>
-        
-        {/* AI Chat for Meals */}
-        <MealAIChat 
-          currentTotals={currentTotals}
-          targets={{
-            calories: nutritionalTargets.calories.target,
-            protein: nutritionalTargets.protein.target,
-            carbs: nutritionalTargets.carbs.target,
-            fat: nutritionalTargets.fat.target
-          }}
-        />
           
         {/* Add/Edit Meal Modal (simplified placeholder) */}
         {showAddMealModal && (
