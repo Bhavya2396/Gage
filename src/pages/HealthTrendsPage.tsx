@@ -6,6 +6,7 @@ import GlassCard from '@/components/ui/GlassCard';
 import Button from '@/components/ui/Button';
 import RecoveryScoreCard from '@/components/health/RecoveryScoreCard';
 import HealthMetricsGrid from '@/components/health/HealthMetricsGrid';
+import HealthAIChat from '@/components/health/HealthAIChat';
 import { 
   ChevronLeft, 
   Heart, 
@@ -637,6 +638,31 @@ const HealthTrendsPage: React.FC = () => {
           
           <motion.div variants={itemVariants}>
             <EnhancedHealthMetrics />
+          </motion.div>
+        </motion.div>
+        
+        {/* Health AI Chat */}
+        <motion.div 
+          className="mb-4"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div variants={itemVariants}>
+            <HealthAIChat 
+              currentMetrics={{
+                recovery: 78,
+                strain: 12.4,
+                sleep: 7.5,
+                hrv: 65
+              }}
+              targets={{
+                recovery: 80,
+                strain: 15,
+                sleep: 8,
+                hrv: 70
+              }}
+            />
           </motion.div>
         </motion.div>
         
