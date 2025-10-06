@@ -41,7 +41,7 @@ const ProgressChart: React.FC<ProgressChartProps> = ({
   return (
     <GlassCard variant="default" size="sm" className="w-full mb-4">
       <div className="flex items-center mb-3">
-        <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center mr-2">
+        <div className="w-6 h-6 rounded-full bg-primary-cyan-500/20 flex items-center justify-center mr-2">
           {icon}
         </div>
         <h3 className="text-sm font-bold text-white">{title}</h3>

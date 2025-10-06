@@ -28,7 +28,7 @@ const GoalsOverview: React.FC = () => {
             <TrendingUp className="text-primary-teal-400" size={16} />
           </div>
           <div className="text-lg font-bold text-white">3</div>
-              <div className="text-xs text-white/60">Completed</div>
+          <div className="text-xs text-white/60">Completed</div>
         </div>
         <div className="text-center">
           <div className="w-8 h-8 rounded-full bg-primary-cyan-500/20 flex items-center justify-center mx-auto mb-2">
@@ -47,7 +47,12 @@ const QuickGoalActions: React.FC<{ onCreateGoal: () => void }> = ({ onCreateGoal
   return (
     <GlassCard variant="default" size="sm" className="w-full mb-4">
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-xs font-bold text-white">Quick Actions</h3>
+        <div className="flex items-center">
+          <div className="w-6 h-6 rounded-full bg-primary-cyan-500/20 flex items-center justify-center mr-2">
+            <Target className="text-primary-cyan-400" size={14} />
+          </div>
+          <h3 className="text-xs font-bold text-white">Quick Actions</h3>
+        </div>
         <Button
           variant="outline"
           size="sm"

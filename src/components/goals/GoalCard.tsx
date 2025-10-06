@@ -76,14 +76,16 @@ const GoalCard: React.FC<GoalCardProps> = ({
       className="w-full mb-3"
       interactive
       animate
-      whileHover={{ scale: 1.01, y: -2 }}
-      whileTap={{ scale: 0.99 }}
+      whileHover={{ scale: 1.02, y: -4 }}
+      whileTap={{ scale: 0.98 }}
     >
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1">
           <div className="flex items-center mb-2">
-            {getStatusIcon()}
-            <h3 className={`text-sm font-bold ml-2 ${isCompleted ? 'text-white/70' : 'text-white'}`}>
+            <div className="p-1.5 rounded-full bg-primary-cyan-500/20 mr-2">
+              {getStatusIcon()}
+            </div>
+            <h3 className={`text-sm font-bold ${isCompleted ? 'text-white/70' : 'text-white'}`}>
               {title}
             </h3>
             <div className="ml-2 px-2 py-0.5 rounded-full text-xs font-bold bg-primary-cyan-500/20 text-primary-cyan-400">
