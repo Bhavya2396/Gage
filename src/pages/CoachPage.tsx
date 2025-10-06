@@ -142,19 +142,19 @@ const CoachPage: React.FC = () => {
 
   return (
     <MainLayout>
-      <div className="w-full max-w-md mx-auto px-4 pt-4 pb-4 flex flex-col h-full">
+      <div className="w-full max-w-md mx-auto px-4 pt-20 pb-24 flex flex-col h-full">
         {/* Header */}
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center justify-between mb-4">
           <Button 
             variant="ghost" 
             size="sm" 
             onClick={() => navigate('/')}
             icon={<ChevronLeft size={16} />}
-            className="text-ui-text-primary"
+            className="text-white"
           >
             Back
           </Button>
-          <h1 className="text-sm font-bold text-ui-text-primary">AI Coach</h1>
+          <h1 className="text-sm font-bold text-white">AI Coach</h1>
           <div className="w-8"></div> {/* Spacer for centering */}
         </div>
         
@@ -163,35 +163,35 @@ const CoachPage: React.FC = () => {
           {/* Topic selection */}
           {messages.length === 1 && !selectedTopic && (
             <div className="p-3 border-b border-ui-border">
-              <h3 className="text-xs font-bold text-ui-text-primary mb-3">What would you like to discuss?</h3>
+              <h3 className="text-xs font-bold text-white mb-3">What would you like to discuss?</h3>
               <div className="grid grid-cols-2 gap-2">
                 <button 
                   className="bg-white/5 p-2 rounded-lg flex flex-col items-center justify-center hover:bg-primary-cyan-500/20 transition-colors"
                   onClick={() => handleTopicSelect('workout')}
                 >
-                  <Dumbbell size={16} className="text-primary-cyan-500 mb-1" />
-                  <span className="text-xs text-ui-text-primary">Workouts</span>
+                  <Dumbbell size={16} className="text-primary-cyan-400 mb-1" />
+                  <span className="text-xs text-white">Workouts</span>
                 </button>
                 <button 
                   className="bg-white/5 p-2 rounded-lg flex flex-col items-center justify-center hover:bg-primary-cyan-500/20 transition-colors"
                   onClick={() => handleTopicSelect('nutrition')}
                 >
-                  <Utensils size={16} className="text-primary-cyan-500 mb-1" />
-                  <span className="text-xs text-ui-text-primary">Nutrition</span>
+                  <Utensils size={16} className="text-primary-cyan-400 mb-1" />
+                  <span className="text-xs text-white">Nutrition</span>
                 </button>
                 <button 
                   className="bg-white/5 p-2 rounded-lg flex flex-col items-center justify-center hover:bg-primary-cyan-500/20 transition-colors"
                   onClick={() => handleTopicSelect('recovery')}
                 >
-                  <Zap size={16} className="text-primary-cyan-500 mb-1" />
-                  <span className="text-xs text-ui-text-primary">Recovery</span>
+                  <Zap size={16} className="text-primary-cyan-400 mb-1" />
+                  <span className="text-xs text-white">Recovery</span>
                 </button>
                 <button 
                   className="bg-white/5 p-2 rounded-lg flex flex-col items-center justify-center hover:bg-primary-cyan-500/20 transition-colors"
                   onClick={() => handleTopicSelect('goals')}
                 >
-                  <Brain size={16} className="text-primary-cyan-500 mb-1" />
-                  <span className="text-xs text-ui-text-primary">Goals</span>
+                  <Brain size={16} className="text-primary-cyan-400 mb-1" />
+                  <span className="text-xs text-white">Goals</span>
                 </button>
               </div>
             </div>
@@ -213,19 +213,19 @@ const CoachPage: React.FC = () => {
                 <div 
                   className={`max-w-[75%] p-2 rounded-lg ${
                     message.role === 'user' 
-                      ? 'bg-primary-cyan-500/20 text-ui-text-primary rounded-br-none' 
-                      : 'bg-white/5 text-ui-text-primary rounded-tl-none'
+                      ? 'bg-primary-cyan-500/20 text-white rounded-br-none' 
+                      : 'bg-white/5 text-white rounded-tl-none'
                   }`}
                 >
                   <div className="text-xs">{message.content}</div>
-                  <div className="text-xs text-ui-text-muted mt-1 text-right">
+                  <div className="text-xs text-white/60 mt-1 text-right">
                     {formatTime(message.timestamp)}
                   </div>
                 </div>
                 
                 {message.role === 'user' && (
-                  <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center ml-2 flex-shrink-0">
-                    <User size={12} className="text-ui-text-primary" />
+                  <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center ml-2 flex-shrink-0">
+                    <User size={12} className="text-white" />
                   </div>
                 )}
               </div>
@@ -239,9 +239,9 @@ const CoachPage: React.FC = () => {
                 </div>
                 <div className="bg-white/5 p-2 rounded-lg rounded-tl-none">
                   <div className="flex space-x-1">
-                    <div className="w-1.5 h-1.5 rounded-full bg-ui-text-muted animate-bounce"></div>
-                    <div className="w-1.5 h-1.5 rounded-full bg-ui-text-muted animate-bounce delay-75"></div>
-                    <div className="w-1.5 h-1.5 rounded-full bg-ui-text-muted animate-bounce delay-150"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-white/70 animate-bounce"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-white/70 animate-bounce delay-75"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-white/70 animate-bounce delay-150"></div>
                   </div>
                 </div>
               </div>
@@ -257,7 +257,7 @@ const CoachPage: React.FC = () => {
               <input
                 ref={inputRef}
                 type="text"
-                className="flex-1 bg-white/5 border border-ui-border rounded-lg px-3 py-2 text-xs text-ui-text-primary focus:outline-none focus:border-primary-cyan-500"
+                className="flex-1 bg-white/5 border border-ui-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-primary-cyan-500"
                 placeholder="Ask your AI coach..."
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
