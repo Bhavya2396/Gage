@@ -158,8 +158,11 @@ const CoachPage: React.FC = () => {
           <div className="w-8"></div> {/* Spacer for centering */}
         </div>
         
-        {/* Chat container */}
-        <GlassCard variant="default" size="lg" className="flex-1 flex flex-col overflow-hidden">
+        {/* Spacer to push chat to bottom */}
+        <div className="flex-1"></div>
+        
+        {/* Chat container - positioned at bottom */}
+        <GlassCard variant="default" size="lg" className="flex flex-col overflow-hidden max-h-[70vh]">
           {/* Topic selection */}
           {messages.length === 1 && !selectedTopic && (
             <div className="p-3 border-b border-ui-border">
