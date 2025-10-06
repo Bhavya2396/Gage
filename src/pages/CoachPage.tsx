@@ -142,9 +142,9 @@ const CoachPage: React.FC = () => {
 
   return (
     <MainLayout>
-      <div className="w-full max-w-md mx-auto px-4 pt-20 pb-24 flex flex-col h-full">
+      <div className="w-full max-w-md mx-auto px-4 pt-4 pb-4 flex flex-col h-full">
         {/* Header */}
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-2">
           <Button 
             variant="ghost" 
             size="sm" 
