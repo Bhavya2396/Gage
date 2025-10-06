@@ -183,7 +183,7 @@ const SplineMountain: React.FC<SplineMountainProps> = ({
         <div 
           className="w-full h-full"
           style={{
-            transform: 'scale(1.8) translateY(-25%) translateX(5%) rotateX(5deg)',
+            transform: 'scale(1.6) translateY(-15%) translateX(5%) rotateX(5deg)',
             transformOrigin: 'center center',
             transformStyle: 'preserve-3d'
           }}
