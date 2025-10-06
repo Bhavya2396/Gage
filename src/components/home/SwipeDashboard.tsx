@@ -174,14 +174,16 @@ const SwipeDashboard: React.FC = () => {
             <div className="text-center">
               <div className="relative w-12 h-12 mx-auto mb-2">
                 <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 24 24">
+                  {/* Background circle */}
                   <circle
                     cx="12"
                     cy="12"
                     r="5"
-                    stroke="rgba(255, 255, 255, 0.2)"
-                    strokeWidth="2"
-                    fill="none"
+                    stroke="rgba(255, 255, 255, 0.1)"
+                    strokeWidth="3"
+                    fill="rgba(0, 0, 0, 0.3)"
                   />
+                  {/* Progress circle */}
                   <circle
                     cx="12"
                     cy="12"
@@ -195,7 +197,7 @@ const SwipeDashboard: React.FC = () => {
                   />
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-xs font-bold text-green-400">78</div>
+                  <div className="text-xs font-bold text-white bg-black/20 px-1 py-0.5 rounded">78</div>
                 </div>
               </div>
               <div className="text-xs text-white/60">Recovery</div>
@@ -425,14 +427,16 @@ const SwipeDashboard: React.FC = () => {
               </div>
               <div className="relative w-12 h-12">
                 <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 24 24">
+                  {/* Background circle */}
                   <circle
                     cx="12"
                     cy="12"
                     r="4"
                     stroke="rgba(255, 255, 255, 0.1)"
-                    strokeWidth="2"
-                    fill="none"
+                    strokeWidth="3"
+                    fill="rgba(0, 0, 0, 0.3)"
                   />
+                  {/* Progress circle */}
                   <circle
                     cx="12"
                     cy="12"
@@ -446,7 +450,7 @@ const SwipeDashboard: React.FC = () => {
                   />
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-xs font-bold text-white">69%</div>
+                  <div className="text-xs font-bold text-white bg-black/20 px-1 py-0.5 rounded">69%</div>
                 </div>
               </div>
             </div>
