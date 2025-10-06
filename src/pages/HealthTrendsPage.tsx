@@ -23,19 +23,19 @@ const TimePeriodSelector: React.FC<{
   selectedPeriod: string;
   onChange: (period: string) => void;
 }> = ({ selectedPeriod, onChange }) => {
-  const periods = ['7 Days', '30 Days', '90 Days', '1 Year'];
+  const periods = ['7D', '30D', '90D', '1Y'];
   
   return (
-    <div className="flex space-x-2 mb-4 overflow-x-auto pb-1 scrollbar-hide">
+    <div className="flex space-x-1">
       {periods.map((period) => (
         <button
           key={period}
-          className={`px-3 py-1.5 text-sm rounded-full transition-all flex-shrink-0 ${
-            selectedPeriod === period
-              ? 'bg-primary-cyan-500 text-white shadow-lg shadow-cyan-primary/20'
-              : 'bg-glass-background text-alpine-mist hover:bg-glass-highlight'
+          className={`px-2 py-1 text-xs rounded transition-all ${
+            selectedPeriod === (period === '7D' ? '7 Days' : period === '30D' ? '30 Days' : period === '90D' ? '90 Days' : '1 Year')
+              ? 'bg-primary-cyan-500 text-white'
+              : 'bg-white/10 text-white/70 hover:bg-white/20'
           }`}
-          onClick={() => onChange(period)}
+          onClick={() => onChange(period === '7D' ? '7 Days' : period === '30D' ? '30 Days' : period === '90D' ? '90 Days' : '1 Year')}
         >
           {period}
         </button>
@@ -332,14 +332,12 @@ const InsightCard: React.FC<{
   );
 };
 
-// AI Health Insights Component
+// Simplified AI Insights Component
 const AIHealthInsights: React.FC<{
   insights: Array<{
     title: string;
-    summary: string;
     recommendation: string;
     priority: 'high' | 'medium' | 'low';
-    category: 'recovery' | 'training' | 'sleep' | 'nutrition';
   }>;
 }> = ({ insights }) => {
   const getPriorityColor = (priority: string) => {
@@ -351,53 +349,20 @@ const AIHealthInsights: React.FC<{
     }
   };
 
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case 'recovery': return <Zap size={16} />;
-      case 'training': return <Activity size={16} />;
-      case 'sleep': return <Moon size={16} />;
-      case 'nutrition': return <Heart size={16} />;
-      default: return <Zap size={16} />;
-    }
-  };
-
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       {insights.map((insight, index) => (
-        <GlassCard key={index} size="md" className="w-full">
-          <div className="flex items-start justify-between mb-3">
+        <GlassCard key={index} size="sm" className="w-full">
+          <div className="flex items-center justify-between">
             <div className="flex items-center">
               <div 
-                className="p-2 rounded-full mr-3"
-                style={{ backgroundColor: `${getPriorityColor(insight.priority)}20` }}
-              >
-                {React.cloneElement(getCategoryIcon(insight.category), { 
-                  style: { color: getPriorityColor(insight.priority) }
-                })}
-              </div>
+                className="w-2 h-2 rounded-full mr-3"
+                style={{ backgroundColor: getPriorityColor(insight.priority) }}
+              />
               <div>
-                <h3 className="text-sm font-bold text-white">{insight.title}</h3>
-                <div className="flex items-center mt-1">
-                  <span 
-                    className="text-xs px-2 py-1 rounded-full font-medium"
-                    style={{ 
-                      backgroundColor: `${getPriorityColor(insight.priority)}20`,
-                      color: getPriorityColor(insight.priority)
-                    }}
-                  >
-                    {insight.priority.toUpperCase()}
-                  </span>
-                  <span className="text-xs text-white/60 ml-2 capitalize">{insight.category}</span>
-                </div>
+                <h3 className="text-xs font-bold text-white">{insight.title}</h3>
+                <p className="text-xs text-white/70">{insight.recommendation}</p>
               </div>
-            </div>
-          </div>
-          
-          <div className="space-y-2">
-            <p className="text-xs text-white/80">{insight.summary}</p>
-            <div className="bg-white/5 p-3 rounded-lg">
-              <p className="text-xs text-primary-cyan-400 font-medium">💡 Recommendation:</p>
-              <p className="text-xs text-white/90 mt-1">{insight.recommendation}</p>
             </div>
           </div>
         </GlassCard>
@@ -406,7 +371,7 @@ const AIHealthInsights: React.FC<{
   );
 };
 
-// Enhanced Health Metrics with WHOOP-style data
+// Simplified Health Metrics
 const EnhancedHealthMetrics: React.FC = () => {
   const metrics = [
     {
@@ -415,10 +380,8 @@ const EnhancedHealthMetrics: React.FC = () => {
       unit: '%',
       trend: '+5%',
       trendColor: '#10b981',
-      icon: <Zap size={20} />,
-      color: '#00CCFF',
-      status: 'Good',
-      description: 'Your body is ready for training'
+      icon: <Zap size={16} />,
+      color: '#00CCFF'
     },
     {
       title: 'Strain',
@@ -426,10 +389,8 @@ const EnhancedHealthMetrics: React.FC = () => {
       unit: '',
       trend: '+0.8',
       trendColor: '#f59e0b',
-      icon: <Activity size={20} />,
-      color: '#f59e0b',
-      status: 'Moderate',
-      description: 'Optimal training load'
+      icon: <Activity size={16} />,
+      color: '#f59e0b'
     },
     {
       title: 'Sleep',
@@ -437,10 +398,8 @@ const EnhancedHealthMetrics: React.FC = () => {
       unit: 'hrs',
       trend: '+0.3',
       trendColor: '#10b981',
-      icon: <Moon size={20} />,
-      color: '#8b5cf6',
-      status: 'Good',
-      description: 'Quality sleep achieved'
+      icon: <Moon size={16} />,
+      color: '#8b5cf6'
     },
     {
       title: 'HRV',
@@ -448,32 +407,29 @@ const EnhancedHealthMetrics: React.FC = () => {
       unit: 'ms',
       trend: '+3',
       trendColor: '#10b981',
-      icon: <Heart size={20} />,
-      color: '#06b6d4',
-      status: 'Excellent',
-      description: 'Autonomic balance optimal'
+      icon: <Heart size={16} />,
+      color: '#06b6d4'
     }
   ];
 
   return (
     <div className="grid grid-cols-2 gap-3">
       {metrics.map((metric, index) => (
-        <GlassCard key={index} size="md" className="w-full">
-          <div className="flex items-center justify-between mb-3">
+        <GlassCard key={index} size="sm" className="w-full">
+          <div className="flex items-center justify-between">
             <div className="flex items-center">
               <div 
-                className="p-2 rounded-full mr-2"
+                className="p-1.5 rounded-full mr-2"
                 style={{ backgroundColor: `${metric.color}20` }}
               >
                 <div style={{ color: metric.color }}>{metric.icon}</div>
               </div>
               <div>
                 <h3 className="text-xs font-bold text-white">{metric.title}</h3>
-                <div className="text-xs text-white/60">{metric.status}</div>
               </div>
             </div>
             <div className="text-right">
-              <div className="text-lg font-bold text-white">
+              <div className="text-sm font-bold text-white">
                 {metric.value}
                 <span className="text-xs ml-1">{metric.unit}</span>
               </div>
@@ -485,7 +441,6 @@ const EnhancedHealthMetrics: React.FC = () => {
               </div>
             </div>
           </div>
-          <p className="text-xs text-white/70">{metric.description}</p>
         </GlassCard>
       ))}
     </div>
@@ -498,28 +453,22 @@ const HealthTrendsPage: React.FC = () => {
   const [timePeriod, setTimePeriod] = useState('7 Days');
   const [selectedMetric, setSelectedMetric] = useState('HRV');
   
-  // AI-generated health insights
+  // Simplified AI insights
   const aiInsights = [
     {
-      title: 'Recovery Optimization',
-      summary: 'Your recovery score has improved 5% this week. Your consistent sleep schedule and reduced alcohol intake are showing positive effects.',
-      recommendation: 'Continue your current sleep routine and consider adding 10 minutes of meditation before bed to further enhance recovery.',
-      priority: 'medium' as const,
-      category: 'recovery' as const
+      title: 'Recovery Improved',
+      recommendation: 'Add 10min meditation before bed',
+      priority: 'medium' as const
     },
     {
-      title: 'Training Load Management',
-      summary: 'Your strain levels are optimal for your current fitness level. You\'re hitting the sweet spot for adaptation without overreaching.',
-      recommendation: 'Maintain current training intensity. Consider adding one high-intensity session this week to maximize gains.',
-      priority: 'low' as const,
-      category: 'training' as const
+      title: 'Training Optimal',
+      recommendation: 'Add one high-intensity session this week',
+      priority: 'low' as const
     },
     {
-      title: 'Sleep Quality Alert',
-      summary: 'Your deep sleep has decreased 15% over the past 3 days. This may impact your recovery and performance.',
-      recommendation: 'Avoid screens 1 hour before bed and maintain a consistent sleep schedule. Consider a cool bedroom temperature (65-68°F).',
-      priority: 'high' as const,
-      category: 'sleep' as const
+      title: 'Sleep Alert',
+      recommendation: 'Avoid screens 1hr before bed',
+      priority: 'high' as const
     }
   ];
   
@@ -693,20 +642,20 @@ const HealthTrendsPage: React.FC = () => {
         
         {/* AI Health Insights */}
         <motion.div 
-          className="mb-6"
+          className="mb-4"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          <h2 className="text-sm font-bold text-white mb-3">AI Health Insights</h2>
+          <h2 className="text-xs font-bold text-white mb-2">AI Insights</h2>
           <motion.div variants={itemVariants}>
             <AIHealthInsights insights={aiInsights} />
           </motion.div>
         </motion.div>
         
         {/* Trends Section Header */}
-        <div className="mb-4">
-          <h2 className="text-sm font-bold text-white mb-3">Trends Analysis</h2>
+        <div className="mb-3">
+          <h2 className="text-xs font-bold text-white mb-2">Trends</h2>
           <TimePeriodSelector 
             selectedPeriod={timePeriod} 
             onChange={setTimePeriod} 
@@ -804,39 +753,31 @@ const HealthTrendsPage: React.FC = () => {
           </GlassCard>
         </motion.div>
         
-        {/* Metric-specific insights */}
+        {/* Metric-specific insights - simplified */}
         <motion.div 
-          className="mb-6"
+          className="mb-4"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          <h2 className="text-sm font-bold text-white mb-3">{currentMetric.title} Insights</h2>
+          <h2 className="text-xs font-bold text-white mb-2">{currentMetric.title} Insights</h2>
           <motion.div variants={itemVariants}>
-            <div className="space-y-3">
-              {currentMetric.insights.map((insight, index) => (
-                <GlassCard key={index} size="md" className="w-full">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex items-center">
-                      <div 
-                        className="p-2 rounded-full mr-3"
-                        style={{ backgroundColor: `${insight.color}20` }}
-                      >
-                        {React.cloneElement(insight.icon, { 
-                          style: { color: insight.color },
-                          size: 16
-                        })}
-                      </div>
-                      <div>
-                        <h3 className="text-sm font-bold text-white">{insight.title}</h3>
-                      </div>
+            <div className="space-y-2">
+              {currentMetric.insights.slice(0, 1).map((insight, index) => (
+                <GlassCard key={index} size="sm" className="w-full">
+                  <div className="flex items-center">
+                    <div 
+                      className="p-1.5 rounded-full mr-3"
+                      style={{ backgroundColor: `${insight.color}20` }}
+                    >
+                      {React.cloneElement(insight.icon, { 
+                        style: { color: insight.color },
+                        size: 14
+                      })}
                     </div>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <p className="text-xs text-white/80">{insight.summary}</p>
-                    <div className="bg-white/5 p-3 rounded-lg">
-                      <p className="text-xs text-white/90">{insight.details}</p>
+                    <div>
+                      <h3 className="text-xs font-bold text-white">{insight.title}</h3>
+                      <p className="text-xs text-white/70">{insight.summary}</p>
                     </div>
                   </div>
                 </GlassCard>
