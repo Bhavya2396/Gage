@@ -205,7 +205,7 @@ const BottomCard: React.FC<BottomCardProps> = ({
             "w-full transition-all duration-300 backdrop-blur-md relative",
             expanded ? "rounded-xl" : "rounded-t-xl",
             fullScreen && "h-full rounded-none",
-            fullScreen ? "border-0" : "border-t border-glass-borderHighlight"
+            "border-0"
           )}
           noPadding={false}
           borderHighlight={borderHighlight}
