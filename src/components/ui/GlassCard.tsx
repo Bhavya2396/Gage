@@ -87,18 +87,18 @@ export const GlassCard: React.FC<GlassCardProps> = ({
   const smoothMouseX = useSpring(mouseX, springConfig);
   const smoothMouseY = useSpring(mouseY, springConfig);
   
-  // Define variant styles - updated for seamless glassmorphism with no borders
+  // Define variant styles - updated for visible glassmorphism with no borders
   const variants = {
-    default: 'bg-ui-card backdrop-blur-md shadow-card-light',
-    highlight: 'bg-ui-card backdrop-blur-md shadow-card-medium',
-    muted: 'bg-ui-card/70 backdrop-blur-sm shadow-card-light',
-    accent: 'bg-ui-card backdrop-blur-md shadow-card-medium',
-    frosted: 'bg-ui-card-glass backdrop-blur-lg shadow-card-light',
-    dark: 'bg-ui-card-dark backdrop-blur-md shadow-card-medium',
-    elevated: 'bg-ui-card backdrop-blur-md shadow-card-strong',
-    primary: 'bg-primary-cyan-500/20 backdrop-blur-md shadow-card-medium',
-    teal: 'bg-primary-teal-500/20 backdrop-blur-md shadow-card-medium',
-    purple: 'bg-primary-cyan-500/20 backdrop-blur-md shadow-card-medium',
+    default: 'bg-ui-card backdrop-blur-lg shadow-card-light',
+    highlight: 'bg-ui-card backdrop-blur-lg shadow-card-medium',
+    muted: 'bg-ui-card/70 backdrop-blur-md shadow-card-light',
+    accent: 'bg-ui-card backdrop-blur-lg shadow-card-medium',
+    frosted: 'bg-ui-card-glass backdrop-blur-xl shadow-card-light',
+    dark: 'bg-ui-card-dark backdrop-blur-lg shadow-card-medium',
+    elevated: 'bg-ui-card backdrop-blur-lg shadow-card-strong',
+    primary: 'bg-primary-cyan-500/20 backdrop-blur-lg shadow-card-medium',
+    teal: 'bg-primary-teal-500/20 backdrop-blur-lg shadow-card-medium',
+    purple: 'bg-primary-cyan-500/20 backdrop-blur-lg shadow-card-medium',
   };
   
   // Padding based on size (with no padding option) - updated for more consistent spacing

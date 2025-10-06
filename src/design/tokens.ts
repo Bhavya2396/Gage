@@ -30,15 +30,15 @@ export const colors = {
     },
   },
   
-  // UI colors - Updated for ultra-transparent cards with no borders
+  // UI colors - Updated for visible glassmorphism cards
   ui: {
     background: '#0F172A', // Dark blue background
-    card: 'rgba(255, 255, 255, 0.1)', // Ultra transparent for seamless glassmorphism
-    cardDark: 'rgba(15, 23, 42, 0.6)', // Dark card for contrast
-    cardGlass: 'rgba(255, 255, 255, 0.05)', // Glass effect card
+    card: 'rgba(255, 255, 255, 0.25)', // More visible while maintaining glassmorphism
+    cardDark: 'rgba(15, 23, 42, 0.8)', // Dark card for contrast
+    cardGlass: 'rgba(255, 255, 255, 0.15)', // Glass effect card
     border: 'transparent', // No borders for seamless look
     borderLight: 'transparent', // No borders for seamless look
-    highlight: 'rgba(0, 204, 255, 0.2)', // Cyan highlight
+    highlight: 'rgba(0, 204, 255, 0.3)', // Cyan highlight
     text: {
       primary: '#FFFFFF', // White text for translucent cards
       secondary: '#FFFFFF', // Pure white for better contrast
