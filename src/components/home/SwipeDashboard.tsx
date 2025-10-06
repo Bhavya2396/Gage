@@ -167,29 +167,42 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/calendar'),
       content: (
         <div className="relative">
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-white/90">Morning</span>
-              <span className="text-sm font-semibold text-primary-cyan-400">9:00 AM</span>
-            </div>
+          <div className="space-y-3">
+            {/* Morning Workout */}
             <div className="bg-gradient-to-r from-primary-cyan-500/20 to-primary-teal-500/20 rounded-xl p-4 border border-primary-cyan-500/30 shadow-lg shadow-cyan-500/10">
-              <div className="flex items-center space-x-4">
-                <div className="p-2 rounded-lg bg-primary-cyan-500/30">
-                  <Dumbbell className="text-primary-cyan-400" size={18} />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="p-3 rounded-full bg-primary-cyan-500/30">
+                    <Dumbbell className="text-primary-cyan-400" size={20} />
+                  </div>
+                  <div>
+                    <div className="text-lg font-bold text-white">Foundation Strength</div>
+                    <div className="text-sm text-primary-cyan-400">45 min</div>
+                  </div>
                 </div>
-                <span className="text-base font-semibold text-white">Foundation Strength</span>
+                <div className="text-right">
+                  <div className="text-sm text-white/60">Morning</div>
+                  <div className="text-sm font-bold text-primary-cyan-400">9:00 AM</div>
+                </div>
               </div>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-white/90">Afternoon</span>
-              <span className="text-sm font-semibold text-primary-cyan-400">2:00 PM</span>
-            </div>
+            
+            {/* Afternoon Nutrition */}
             <div className="bg-gradient-to-r from-primary-teal-500/20 to-primary-cyan-500/20 rounded-xl p-4 border border-primary-teal-500/30 shadow-lg shadow-teal-500/10">
-              <div className="flex items-center space-x-4">
-                <div className="p-2 rounded-lg bg-primary-teal-500/30">
-                  <Utensils className="text-primary-teal-400" size={18} />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="p-3 rounded-full bg-primary-teal-500/30">
+                    <Utensils className="text-primary-teal-400" size={20} />
+                  </div>
+                  <div>
+                    <div className="text-lg font-bold text-white">Nutrition Check</div>
+                    <div className="text-sm text-primary-teal-400">30 min</div>
+                  </div>
                 </div>
-                <span className="text-base font-semibold text-white">Nutrition Check</span>
+                <div className="text-right">
+                  <div className="text-sm text-white/60">Afternoon</div>
+                  <div className="text-sm font-bold text-primary-teal-400">2:00 PM</div>
+                </div>
               </div>
             </div>
           </div>
@@ -205,32 +218,62 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/workout'),
       content: (
         <div>
-          <div className="mb-5">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-base font-semibold text-white">Foundation Strength</span>
-              <span className="text-sm bg-gradient-to-r from-primary-cyan-500/30 to-primary-teal-500/30 text-white font-bold px-4 py-2 rounded-full border border-primary-cyan-500/50">
-                45 min
-              </span>
-            </div>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between bg-white/5 rounded-lg p-3">
-                <span className="text-base font-semibold text-white">Core Stability</span>
-                <span className="text-sm text-primary-cyan-400 font-medium">3 sets</span>
-              </div>
-              <div className="flex items-center justify-between bg-white/5 rounded-lg p-3">
-                <span className="text-base font-semibold text-white">Leg Strength</span>
-                <span className="text-sm text-primary-cyan-400 font-medium">4 sets</span>
+          {/* Workout Progress Ring */}
+          <div className="flex justify-center mb-4">
+            <div className="relative w-24 h-24">
+              <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 24 24">
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="rgba(255, 255, 255, 0.1)"
+                  strokeWidth="2"
+                  fill="none"
+                />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="#00ccff"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeDasharray="62.83"
+                  strokeDashoffset="31.42"
+                  strokeLinecap="round"
+                />
+              </svg>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="text-lg font-bold text-white">50%</div>
+                  <div className="text-xs text-white/60">Complete</div>
+                </div>
               </div>
             </div>
           </div>
-          <div className="bg-gradient-to-r from-primary-cyan-500/20 to-primary-teal-500/20 rounded-xl p-4 border border-primary-cyan-500/30 shadow-lg shadow-cyan-500/10">
-            <div className="flex items-center space-x-4">
-              <div className="p-2 rounded-lg bg-primary-cyan-500/30">
-                <Lightbulb className="text-primary-cyan-400" size={18} />
+          
+          {/* Exercise Icons */}
+          <div className="grid grid-cols-2 gap-3 mb-4">
+            <div className="bg-white/5 rounded-lg p-3 text-center">
+              <div className="w-8 h-8 bg-primary-cyan-500/30 rounded-full flex items-center justify-center mx-auto mb-2">
+                <Target className="text-primary-cyan-400" size={16} />
               </div>
-              <span className="text-sm font-semibold text-white">
-                Focus on core stability for golf drive power
-              </span>
+              <div className="text-sm font-semibold text-white">Core</div>
+              <div className="text-xs text-primary-cyan-400">3 sets</div>
+            </div>
+            <div className="bg-white/5 rounded-lg p-3 text-center">
+              <div className="w-8 h-8 bg-primary-teal-500/30 rounded-full flex items-center justify-center mx-auto mb-2">
+                <Activity className="text-primary-teal-400" size={16} />
+              </div>
+              <div className="text-sm font-semibold text-white">Legs</div>
+              <div className="text-xs text-primary-teal-400">4 sets</div>
+            </div>
+          </div>
+          
+          {/* AI Tip */}
+          <div className="bg-gradient-to-r from-primary-cyan-500/20 to-primary-teal-500/20 rounded-xl p-3 border border-primary-cyan-500/30">
+            <div className="flex items-center space-x-2">
+              <Lightbulb className="text-primary-cyan-400" size={16} />
+              <span className="text-sm font-medium text-white">Focus on core stability</span>
             </div>
           </div>
         </div>
@@ -243,28 +286,78 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/food'),
       content: (
         <div>
-          <div className="grid grid-cols-2 gap-4 mb-5">
-            <div className="bg-gradient-to-br from-primary-cyan-500/20 to-primary-teal-500/20 rounded-xl p-4 border border-primary-cyan-500/30 shadow-lg shadow-cyan-500/10">
-              <div className="text-2xl font-bold text-white mb-1">
-                {nutritionSummary?.calories?.current || 0}
+          {/* Calorie Progress Ring */}
+          <div className="flex justify-center mb-4">
+            <div className="relative w-20 h-20">
+              <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 24 24">
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="8"
+                  stroke="rgba(255, 255, 255, 0.1)"
+                  strokeWidth="2"
+                  fill="none"
+                />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="8"
+                  stroke="#00ccff"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeDasharray="50.27"
+                  strokeDashoffset="15.08"
+                  strokeLinecap="round"
+                />
+              </svg>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="text-sm font-bold text-white">69%</div>
+                </div>
               </div>
-              <div className="text-sm text-primary-cyan-400 font-medium">Calories</div>
-            </div>
-            <div className="bg-gradient-to-br from-primary-teal-500/20 to-primary-cyan-500/20 rounded-xl p-4 border border-primary-teal-500/30 shadow-lg shadow-teal-500/10">
-              <div className="text-2xl font-bold text-white mb-1">
-                {nutritionSummary?.protein?.current || 0}g
-              </div>
-              <div className="text-sm text-primary-teal-400 font-medium">Protein</div>
             </div>
           </div>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between bg-white/5 rounded-lg p-3">
-              <span className="text-base font-semibold text-white">Breakfast</span>
-              <span className="text-sm text-green-400 font-medium">✓ Complete</span>
+          
+          {/* Macro Icons */}
+          <div className="grid grid-cols-3 gap-2 mb-4">
+            <div className="bg-white/5 rounded-lg p-2 text-center">
+              <div className="w-6 h-6 bg-primary-cyan-500/30 rounded-full flex items-center justify-center mx-auto mb-1">
+                <Flame className="text-primary-cyan-400" size={12} />
+              </div>
+              <div className="text-xs text-white font-semibold">1650</div>
+              <div className="text-xs text-white/60">kcal</div>
             </div>
-            <div className="flex items-center justify-between bg-white/5 rounded-lg p-3">
-              <span className="text-base font-semibold text-white">Lunch</span>
-              <span className="text-sm text-primary-cyan-400 font-medium">Pending</span>
+            <div className="bg-white/5 rounded-lg p-2 text-center">
+              <div className="w-6 h-6 bg-primary-teal-500/30 rounded-full flex items-center justify-center mx-auto mb-1">
+                <Zap className="text-primary-teal-400" size={12} />
+              </div>
+              <div className="text-xs text-white font-semibold">95g</div>
+              <div className="text-xs text-white/60">protein</div>
+            </div>
+            <div className="bg-white/5 rounded-lg p-2 text-center">
+              <div className="w-6 h-6 bg-primary-cyan-500/30 rounded-full flex items-center justify-center mx-auto mb-1">
+                <Droplet className="text-primary-cyan-400" size={12} />
+              </div>
+              <div className="text-xs text-white font-semibold">2.1L</div>
+              <div className="text-xs text-white/60">water</div>
+            </div>
+          </div>
+          
+          {/* Meal Status */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                <span className="text-sm text-white">Breakfast</span>
+              </div>
+              <span className="text-xs text-green-400">✓</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-primary-cyan-400 rounded-full"></div>
+                <span className="text-sm text-white">Lunch</span>
+              </div>
+              <span className="text-xs text-primary-cyan-400">⏳</span>
             </div>
           </div>
         </div>
@@ -277,26 +370,71 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/health'),
       content: (
         <div>
-          <div className="grid grid-cols-2 gap-4 mb-4">
-            <div className="text-center">
-              <div className="text-xl font-bold text-white">
-                {baseHealthMetrics[0]?.value || 68}
+          {/* Health Metrics Grid */}
+          <div className="grid grid-cols-2 gap-3 mb-4">
+            <div className="bg-white/5 rounded-lg p-3 text-center">
+              <div className="w-8 h-8 bg-primary-cyan-500/30 rounded-full flex items-center justify-center mx-auto mb-2">
+                <Heart className="text-primary-cyan-400" size={16} />
               </div>
+              <div className="text-lg font-bold text-white">68</div>
               <div className="text-xs text-white/60">BPM</div>
             </div>
-            <div className="text-center">
-              <div className="text-xl font-bold text-white">
-                7.5
+            <div className="bg-white/5 rounded-lg p-3 text-center">
+              <div className="w-8 h-8 bg-primary-teal-500/30 rounded-full flex items-center justify-center mx-auto mb-2">
+                <Clock className="text-primary-teal-400" size={16} />
               </div>
-              <div className="text-xs text-white/60">Hours</div>
+              <div className="text-lg font-bold text-white">7.5h</div>
+              <div className="text-xs text-white/60">Sleep</div>
             </div>
           </div>
-          <div className="bg-primary-cyan-500/20 rounded-lg p-3 border border-primary-cyan-500/30">
-            <div className="flex items-center space-x-3">
-              <Brain className="text-primary-cyan-500" size={16} />
-              <span className="text-xs text-white font-medium">
-                Recovery: 78%
-              </span>
+          
+          {/* Recovery Ring */}
+          <div className="flex justify-center mb-3">
+            <div className="relative w-16 h-16">
+              <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 24 24">
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="6"
+                  stroke="rgba(255, 255, 255, 0.1)"
+                  strokeWidth="2"
+                  fill="none"
+                />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="6"
+                  stroke="#4ade80"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeDasharray="37.7"
+                  strokeDashoffset="8.3"
+                  strokeLinecap="round"
+                />
+              </svg>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="text-xs font-bold text-white">78%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Status Indicators */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                <span className="text-sm text-white">Recovery</span>
+              </div>
+              <span className="text-xs text-green-400">Good</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-primary-cyan-400 rounded-full"></div>
+                <span className="text-sm text-white">HRV</span>
+              </div>
+              <span className="text-xs text-primary-cyan-400">↑ +5</span>
             </div>
           </div>
         </div>
@@ -309,30 +447,68 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/goals/progress'),
       content: (
         <div>
-          <div className="mb-4">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-sm text-white/80">Foundation Phase</span>
-              <span className="text-xs text-white/60">{getProgressPercentage()}%</span>
-            </div>
-            <div className="w-full bg-white/20 rounded-full h-2">
-              <div 
-                className="bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 h-2 rounded-full transition-all duration-500"
-                style={{ width: `${getProgressPercentage()}%` }}
-              />
+          {/* Progress Ring */}
+          <div className="flex justify-center mb-4">
+            <div className="relative w-20 h-20">
+              <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 24 24">
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="8"
+                  stroke="rgba(255, 255, 255, 0.1)"
+                  strokeWidth="2"
+                  fill="none"
+                />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="8"
+                  stroke="#00ccff"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeDasharray="50.27"
+                  strokeDashoffset="50.27"
+                  strokeLinecap="round"
+                />
+              </svg>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="text-sm font-bold text-white">0%</div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-white font-medium">Points to go</span>
-              <span className="text-xs text-white/60">
-                {(activityPoints?.targetPoints || 0) - (activityPoints?.currentPoints || 0)}
-              </span>
+          
+          {/* Goal Icons */}
+          <div className="grid grid-cols-3 gap-2 mb-4">
+            <div className="bg-white/5 rounded-lg p-2 text-center">
+              <div className="w-6 h-6 bg-primary-cyan-500/30 rounded-full flex items-center justify-center mx-auto mb-1">
+                <Target className="text-primary-cyan-400" size={12} />
+              </div>
+              <div className="text-xs text-white font-semibold">0</div>
+              <div className="text-xs text-white/60">points</div>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-white font-medium">Days remaining</span>
-              <span className="text-xs text-white/60">12</span>
+            <div className="bg-white/5 rounded-lg p-2 text-center">
+              <div className="w-6 h-6 bg-primary-teal-500/30 rounded-full flex items-center justify-center mx-auto mb-1">
+                <Award className="text-primary-teal-400" size={12} />
+              </div>
+              <div className="text-xs text-white font-semibold">518</div>
+              <div className="text-xs text-white/60">target</div>
+            </div>
+            <div className="bg-white/5 rounded-lg p-2 text-center">
+              <div className="w-6 h-6 bg-primary-cyan-500/30 rounded-full flex items-center justify-center mx-auto mb-1">
+                <Clock className="text-primary-cyan-400" size={12} />
+              </div>
+              <div className="text-xs text-white font-semibold">12</div>
+              <div className="text-xs text-white/60">days</div>
             </div>
           </div>
+          
+          {/* Progress Bar */}
+          <div className="w-full bg-white/20 rounded-full h-2 mb-2">
+            <div className="bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 h-2 rounded-full" style={{ width: '0%' }} />
+          </div>
+          <div className="text-center text-xs text-white/60">Foundation Phase</div>
         </div>
       )
     },
@@ -343,21 +519,40 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/coach'),
       content: (
         <div>
-          <div className="mb-4">
-            <div className="flex items-center space-x-3 mb-3">
-              <Sparkles className="text-primary-cyan-500" size={16} />
-              <span className="text-sm text-white/80">Latest Insight</span>
+          {/* AI Avatar */}
+          <div className="flex justify-center mb-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-primary-cyan-500/30 to-primary-teal-500/30 rounded-full flex items-center justify-center border border-primary-cyan-500/30">
+              <Brain className="text-primary-cyan-400" size={24} />
             </div>
-            <p className="text-sm text-white font-medium">
-              "Your core stability is improving! Focus on rotational exercises for golf power."
-            </p>
           </div>
-          <div className="bg-primary-cyan-500/20 rounded-lg p-3 border border-primary-cyan-500/30">
-            <div className="flex items-center space-x-3">
-              <Brain className="text-primary-cyan-500" size={16} />
-              <span className="text-xs text-white font-medium">
-                Personalized recommendations available
-              </span>
+          
+          {/* AI Status */}
+          <div className="text-center mb-4">
+            <div className="text-sm font-bold text-white mb-1">AI Coach Active</div>
+            <div className="text-xs text-primary-cyan-400">5 day streak</div>
+          </div>
+          
+          {/* Quick Actions */}
+          <div className="grid grid-cols-2 gap-2 mb-4">
+            <div className="bg-white/5 rounded-lg p-2 text-center">
+              <div className="w-6 h-6 bg-primary-cyan-500/30 rounded-full flex items-center justify-center mx-auto mb-1">
+                <MessageCircle className="text-primary-cyan-400" size={12} />
+              </div>
+              <div className="text-xs text-white font-semibold">Chat</div>
+            </div>
+            <div className="bg-white/5 rounded-lg p-2 text-center">
+              <div className="w-6 h-6 bg-primary-teal-500/30 rounded-full flex items-center justify-center mx-auto mb-1">
+                <Sparkles className="text-primary-teal-400" size={12} />
+              </div>
+              <div className="text-xs text-white font-semibold">Insights</div>
+            </div>
+          </div>
+          
+          {/* Next Session */}
+          <div className="bg-gradient-to-r from-primary-cyan-500/20 to-primary-teal-500/20 rounded-lg p-3 border border-primary-cyan-500/30">
+            <div className="flex items-center space-x-2">
+              <Clock className="text-primary-cyan-400" size={14} />
+              <span className="text-sm text-white">Next session: 2:00 PM</span>
             </div>
           </div>
         </div>
@@ -371,18 +566,42 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/friends'),
       content: (
         <div>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-white font-medium">Alex</span>
-              <span className="text-xs text-white/60">Online</span>
+          {/* Friends Avatars */}
+          <div className="flex justify-center mb-4">
+            <div className="flex -space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-primary-cyan-500/30 to-primary-teal-500/30 rounded-full flex items-center justify-center text-white text-sm font-bold border-2 border-primary-cyan-500/30">
+                A
+              </div>
+              <div className="w-10 h-10 bg-gradient-to-br from-primary-teal-500/30 to-primary-cyan-500/30 rounded-full flex items-center justify-center text-white text-sm font-bold border-2 border-primary-teal-500/30">
+                S
+              </div>
+              <div className="w-10 h-10 bg-gradient-to-br from-primary-cyan-500/30 to-primary-teal-500/30 rounded-full flex items-center justify-center text-white text-sm font-bold border-2 border-primary-cyan-500/30">
+                M
+              </div>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-white font-medium">Sarah</span>
-              <span className="text-xs text-white/60">Working out</span>
+          </div>
+          
+          {/* Active Status */}
+          <div className="text-center mb-4">
+            <div className="text-sm font-bold text-white mb-1">3 Active Friends</div>
+            <div className="text-xs text-primary-cyan-400">2 working out now</div>
+          </div>
+          
+          {/* Friend Status */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between bg-white/5 rounded-lg p-2">
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                <span className="text-sm text-white">Alex</span>
+              </div>
+              <span className="text-xs text-green-400">Online</span>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-white font-medium">Mike</span>
-              <span className="text-xs text-white/60">Just finished</span>
+            <div className="flex items-center justify-between bg-white/5 rounded-lg p-2">
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-primary-cyan-400 rounded-full"></div>
+                <span className="text-sm text-white">Sarah</span>
+              </div>
+              <span className="text-xs text-primary-cyan-400">Workout</span>
             </div>
           </div>
         </div>
@@ -395,18 +614,41 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/health/trends'),
       content: (
         <div>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-white font-medium">Weekly Progress</span>
-              <span className="text-xs text-white/60">+12%</span>
+          {/* Weekly Chart */}
+          <div className="mb-4">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm font-bold text-white">Weekly Progress</span>
+              <span className="text-xs text-primary-cyan-400">+12%</span>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-white font-medium">Best Day</span>
-              <span className="text-xs text-white/60">Tuesday</span>
+            <div className="flex items-center justify-between h-12">
+              <div className="w-4 h-6 bg-primary-cyan-500/30 rounded-sm"></div>
+              <div className="w-4 h-8 bg-primary-cyan-500/50 rounded-sm"></div>
+              <div className="w-4 h-10 bg-primary-cyan-500 rounded-sm"></div>
+              <div className="w-4 h-7 bg-primary-cyan-500/70 rounded-sm"></div>
+              <div className="w-4 h-9 bg-primary-cyan-500/50 rounded-sm"></div>
+              <div className="w-4 h-8 bg-primary-cyan-500/30 rounded-sm"></div>
+              <div className="w-4 h-12 bg-primary-teal-500 rounded-sm"></div>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-white font-medium">Streak</span>
-              <span className="text-xs text-white/60">5 days</span>
+            <div className="flex justify-between text-xs text-white/60 mt-1">
+              <span>Mon</span>
+              <span>Tue</span>
+              <span>Wed</span>
+              <span>Thu</span>
+              <span>Fri</span>
+              <span>Sat</span>
+              <span>Sun</span>
+            </div>
+          </div>
+          
+          {/* Metrics */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-white/5 rounded-lg p-3 text-center">
+              <div className="text-lg font-bold text-white mb-1">5</div>
+              <div className="text-xs text-white/60">Day Streak</div>
+            </div>
+            <div className="bg-white/5 rounded-lg p-3 text-center">
+              <div className="text-lg font-bold text-white mb-1">Tue</div>
+              <div className="text-xs text-white/60">Best Day</div>
             </div>
           </div>
         </div>
