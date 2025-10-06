@@ -145,6 +145,9 @@ const SwipeDashboard: React.FC = () => {
 
   // Calculate progress percentage
   const getProgressPercentage = () => {
+    if (!activityPoints || !activityPoints.targetPoints || activityPoints.targetPoints === 0) {
+      return 0;
+    }
     return Math.min(Math.round((activityPoints.currentPoints / activityPoints.targetPoints) * 100), 100);
   };
 
@@ -243,13 +246,13 @@ const SwipeDashboard: React.FC = () => {
           <div className="grid grid-cols-2 gap-4 mb-5">
             <div className="bg-gradient-to-br from-primary-cyan-500/20 to-primary-teal-500/20 rounded-xl p-4 border border-primary-cyan-500/30 shadow-lg shadow-cyan-500/10">
               <div className="text-2xl font-bold text-white mb-1">
-                {nutritionSummary.calories.current}
+                {nutritionSummary?.calories?.current || 0}
               </div>
               <div className="text-sm text-primary-cyan-400 font-medium">Calories</div>
             </div>
             <div className="bg-gradient-to-br from-primary-teal-500/20 to-primary-cyan-500/20 rounded-xl p-4 border border-primary-teal-500/30 shadow-lg shadow-teal-500/10">
               <div className="text-2xl font-bold text-white mb-1">
-                {nutritionSummary.protein.current}g
+                {nutritionSummary?.protein?.current || 0}g
               </div>
               <div className="text-sm text-primary-teal-400 font-medium">Protein</div>
             </div>
@@ -322,7 +325,7 @@ const SwipeDashboard: React.FC = () => {
             <div className="flex items-center justify-between">
               <span className="text-sm text-white font-medium">Points to go</span>
               <span className="text-xs text-white/60">
-                {activityPoints.targetPoints - activityPoints.currentPoints}
+                {(activityPoints?.targetPoints || 0) - (activityPoints?.currentPoints || 0)}
               </span>
             </div>
             <div className="flex items-center justify-between">
