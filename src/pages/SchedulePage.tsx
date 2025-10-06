@@ -285,23 +285,23 @@ const SchedulePage: React.FC = () => {
   return (
     <MainLayout>
       <div className="w-full max-w-md mx-auto px-4 pt-6 pb-24">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-4">
           <Button 
             variant="ghost" 
             size="sm" 
             onClick={() => navigate(-1)}
-            icon={<ArrowLeft size={18} />}
-            className="font-medium"
+            icon={<ArrowLeft size={16} />}
+            className="text-white"
           >
             Back
           </Button>
-          <h1 className="text-xl font-medium text-alpine-mist bg-glass-background bg-opacity-40 px-3 py-1 rounded-lg">Schedule</h1>
-          <div className="w-10"></div> {/* Empty div for balance */}
+          <h1 className="text-sm font-bold text-white">Schedule</h1>
+          <div className="w-8"></div> {/* Empty div for balance */}
         </div>
 
         {/* Date Navigation */}
         <motion.div 
-          className="flex items-center justify-between mb-6"
+          className="flex items-center justify-between mb-4"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -310,34 +310,34 @@ const SchedulePage: React.FC = () => {
             variant="ghost" 
             size="icon" 
             onClick={() => navigateDate('prev')}
-            className="text-alpine-mist"
+            className="text-white"
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={16} />
           </Button>
-          <div className="flex items-center bg-glass-background bg-opacity-50 px-3 py-1.5 rounded-lg">
-            <CalendarIcon className="text-primary-cyan-500 mr-2" size={18} />
-            <h2 className="text-lg font-medium text-alpine-mist">{formatDate(currentDate)}</h2>
+          <div className="flex items-center bg-white/5 px-3 py-1.5 rounded-lg">
+            <CalendarIcon className="text-primary-cyan-400 mr-2" size={14} />
+            <h2 className="text-sm font-bold text-white">{formatDate(currentDate)}</h2>
           </div>
           <Button 
             variant="ghost" 
             size="icon" 
             onClick={() => navigateDate('next')}
-            className="text-alpine-mist"
+            className="text-white"
           >
-            <ChevronRight size={20} />
+            <ChevronRight size={16} />
           </Button>
         </motion.div>
 
         {/* Calendar View Title */}
         <motion.div 
-          className="flex justify-center mb-4"
+          className="flex justify-center mb-3"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <div className="bg-glass-background bg-opacity-30 rounded-lg p-2 px-4 flex items-center">
-            <Calendar size={16} className="mr-2 text-primary-cyan-500" />
-            <span className="text-alpine-mist font-medium">Calendar View</span>
+          <div className="bg-white/5 rounded-lg p-2 px-3 flex items-center">
+            <Calendar size={14} className="mr-2 text-primary-cyan-400" />
+            <span className="text-xs font-bold text-white">Calendar View</span>
           </div>
         </motion.div>
 
@@ -357,25 +357,25 @@ const SchedulePage: React.FC = () => {
           />
           
           {/* Events list for selected day in calendar view */}
-          <div className="mt-4">
-            <h3 className="text-md font-medium text-alpine-mist mb-2">Events</h3>
+          <div className="mt-3">
+            <h3 className="text-xs font-bold text-white mb-2">Events</h3>
             {getCurrentDateEvents().length === 0 ? (
-              <div className="text-center py-6 text-alpine-mist/50">
-                <Calendar size={24} className="mx-auto mb-2 opacity-50" />
-                <p>No events scheduled for this day</p>
+              <div className="text-center py-4 text-white/50">
+                <Calendar size={16} className="mx-auto mb-2 opacity-50" />
+                <p className="text-xs">No events scheduled for this day</p>
               </div>
             ) : (
               <motion.div
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="space-y-2"
+                className="space-y-1"
               >
                 {getCurrentDateEvents().map((event) => (
                   <motion.div
                     key={event.id}
                     variants={itemVariants}
-                    className={`p-3 rounded-lg border-l-2 border-${event.color} bg-glass-background bg-opacity-30 cursor-pointer hover:bg-glass-highlight transition-colors duration-200`}
+                    className={`p-2 rounded-lg border-l-2 border-${event.color} bg-white/5 cursor-pointer hover:bg-white/10 transition-colors duration-200`}
                     onClick={() => {
                       setSelectedEvent(event);
                       setShowEditEventForm(true);
@@ -387,17 +387,17 @@ const SchedulePage: React.FC = () => {
                           {getEventIcon(event.type)}
                         </div>
                         <div>
-                          <h4 className="text-sm font-medium text-alpine-mist">{event.title}</h4>
-                          <div className="flex items-center text-xs text-alpine-mist/70">
-                            <Clock size={12} className="mr-1" />
+                          <h4 className="text-xs font-bold text-white">{event.title}</h4>
+                          <div className="flex items-center text-xs text-white/60">
+                            <Clock size={10} className="mr-1" />
                             <span>{event.time} · {event.duration >= 60 
                               ? `${Math.floor(event.duration / 60)}h ${event.duration % 60 > 0 ? `${event.duration % 60}m` : ''}`
                               : `${event.duration}m`}</span>
                           </div>
                         </div>
                       </div>
-                      <button className="p-1 text-alpine-mist/50 hover:text-alpine-mist">
-                        <MoreHorizontal size={16} />
+                      <button className="p-1 text-white/50 hover:text-white">
+                        <MoreHorizontal size={12} />
                       </button>
                     </div>
                   </motion.div>
@@ -409,34 +409,34 @@ const SchedulePage: React.FC = () => {
         
         {/* Quick Summary */}
         <motion.div 
-          className="mb-6 bg-glass-background bg-opacity-30 p-3 rounded-lg"
+          className="mb-4 bg-white/5 p-2 rounded-lg"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-alpine-mist">Summary</h3>
-            <span className="text-xs text-alpine-mist/70">{getCurrentDateEvents().length} events today</span>
+          <div className="flex items-center justify-between mb-1">
+            <h3 className="text-xs font-bold text-white">Summary</h3>
+            <span className="text-xs text-white/60">{getCurrentDateEvents().length} events today</span>
           </div>
           
           <div className="flex justify-between items-center">
             {/* Event type counts */}
-            <div className="flex space-x-3">
+            <div className="flex space-x-2">
               <div className="flex items-center">
-                <Dumbbell size={14} className="text-primary-cyan-500 mr-1" />
-                <span className="text-xs text-alpine-mist">
+                <Dumbbell size={12} className="text-primary-cyan-400 mr-1" />
+                <span className="text-xs text-white">
                   {getCurrentDateEvents().filter(e => e.type === 'workout').length}
                 </span>
               </div>
               <div className="flex items-center">
-                <Utensils size={14} className="text-primary-teal-500 mr-1" />
-                <span className="text-xs text-alpine-mist">
+                <Utensils size={12} className="text-primary-teal-400 mr-1" />
+                <span className="text-xs text-white">
                   {getCurrentDateEvents().filter(e => e.type === 'nutrition').length}
                 </span>
               </div>
               <div className="flex items-center">
-                <Activity size={14} className="text-teal-secondary mr-1" />
-                <span className="text-xs text-alpine-mist">
+                <Activity size={12} className="text-primary-teal-400 mr-1" />
+                <span className="text-xs text-white">
                   {getCurrentDateEvents().filter(e => e.type === 'recovery').length}
                 </span>
               </div>
@@ -445,8 +445,8 @@ const SchedulePage: React.FC = () => {
             {/* Next event */}
             {getCurrentDateEvents().length > 0 && (
               <div className="flex items-center">
-                <Clock size={14} className="text-alpine-mist/70 mr-1" />
-                <span className="text-xs text-alpine-mist/70">
+                <Clock size={12} className="text-white/60 mr-1" />
+                <span className="text-xs text-white/60">
                   Next: {getCurrentDateEvents()[0]?.time}
                 </span>
               </div>
@@ -456,7 +456,7 @@ const SchedulePage: React.FC = () => {
 
         {/* Add New Event Button */}
         <motion.div 
-          className="flex justify-center mb-6"
+          className="flex justify-center mb-4"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
@@ -464,8 +464,8 @@ const SchedulePage: React.FC = () => {
           <Button
             variant="outline"
             size="sm"
-            className="border-primary-cyan-500 text-primary-cyan-500"
-            icon={<Plus size={16} />}
+            className="border-primary-cyan-500 text-primary-cyan-400"
+            icon={<Plus size={14} />}
             onClick={() => setShowAddEventForm(true)}
           >
             Add Event
@@ -475,12 +475,12 @@ const SchedulePage: React.FC = () => {
         {/* AI Chat Button */}
         <div className="fixed bottom-6 right-6 z-20">
           <motion.button
-            className="p-4 rounded-full bg-primary-cyan-500 text-bg-primary shadow-lg shadow-cyan-primary/20"
+            className="p-3 rounded-full bg-primary-cyan-500 text-white shadow-lg shadow-cyan-primary/20"
             whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(0, 204, 255, 0.4)' }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setShowChat(!showChat)}
           >
-            {showChat ? <X size={24} /> : <MessageSquare size={24} />}
+            {showChat ? <X size={18} /> : <MessageSquare size={18} />}
           </motion.button>
         </div>
 
@@ -499,51 +499,51 @@ const SchedulePage: React.FC = () => {
                 size="lg"
                 className="w-full backdrop-blur-lg border border-glass-highlight overflow-hidden"
               >
-                <div className="flex items-center justify-between mb-3 pb-2 border-b border-glass-border">
+                <div className="flex items-center justify-between mb-3 pb-2 border-b border-ui-border">
                   <div className="flex items-center">
-                    <div className="w-8 h-8 rounded-full bg-primary-cyan-500/20 flex items-center justify-center mr-2">
-                      <Sparkles className="text-primary-cyan-500" size={16} />
+                    <div className="w-6 h-6 rounded-full bg-primary-cyan-500/20 flex items-center justify-center mr-2">
+                      <Sparkles className="text-primary-cyan-400" size={12} />
                     </div>
-                    <h3 className="text-alpine-mist font-medium">Gage AI</h3>
+                    <h3 className="text-xs font-bold text-white">Gage AI</h3>
                   </div>
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-text-secondary"
+                    className="text-white/60"
                     onClick={() => setShowChat(false)}
                   >
-                    <X size={18} />
+                    <X size={14} />
                   </Button>
                 </div>
 
                 {/* Messages Container */}
-                <div className="h-[300px] overflow-y-auto mb-3 pr-2 scrollbar-thin scrollbar-thumb-glass-border scrollbar-track-transparent">
+                <div className="h-[300px] overflow-y-auto mb-3 pr-2 scrollbar-thin scrollbar-thumb-ui-border scrollbar-track-transparent">
                   {messages.map((message) => (
                     <div
                       key={message.id}
-                      className={`mb-3 ${message.sender === 'user' ? 'text-right' : 'text-left'}`}
+                      className={`mb-2 ${message.sender === 'user' ? 'text-right' : 'text-left'}`}
                     >
                       <div
-                        className={`inline-block max-w-[80%] px-3 py-2 rounded-lg ${
+                        className={`inline-block max-w-[80%] px-2 py-1 rounded-lg ${
                           message.sender === 'user'
-                            ? 'bg-primary-cyan-500/20 text-alpine-mist'
-                            : 'bg-glass-background text-alpine-mist'
+                            ? 'bg-primary-cyan-500/20 text-white'
+                            : 'bg-white/5 text-white'
                         }`}
                       >
-                        {message.text}
+                        <div className="text-xs">{message.text}</div>
                       </div>
-                      <div className="text-xs text-text-secondary mt-1">
+                      <div className="text-xs text-white/60 mt-1">
                         {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </div>
                     </div>
                   ))}
                   {isTyping && (
-                    <div className="mb-3 text-left">
-                      <div className="inline-block max-w-[80%] px-3 py-2 rounded-lg bg-glass-background text-alpine-mist">
+                    <div className="mb-2 text-left">
+                      <div className="inline-block max-w-[80%] px-2 py-1 rounded-lg bg-white/5 text-white">
                         <div className="flex space-x-1">
-                          <div className="w-2 h-2 bg-primary-cyan-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                          <div className="w-2 h-2 bg-primary-cyan-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                          <div className="w-2 h-2 bg-primary-cyan-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                          <div className="w-1.5 h-1.5 bg-primary-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                          <div className="w-1.5 h-1.5 bg-primary-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                          <div className="w-1.5 h-1.5 bg-primary-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                         </div>
                       </div>
                     </div>
@@ -555,18 +555,18 @@ const SchedulePage: React.FC = () => {
                 <div className="flex items-center">
                   <input
                     type="text"
-                    className="flex-1 bg-glass-background text-alpine-mist rounded-l-lg px-3 py-2 outline-none border border-glass-border focus:border-primary-cyan-500"
+                    className="flex-1 bg-white/5 text-white rounded-l-lg px-2 py-1.5 outline-none border border-ui-border focus:border-primary-cyan-500 text-xs"
                     placeholder="Ask about your schedule..."
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyPress={handleKeyPress}
                   />
                   <button
-                    className="bg-primary-cyan-500 text-bg-primary rounded-r-lg px-3 py-2 disabled:opacity-50"
+                    className="bg-primary-cyan-500 text-white rounded-r-lg px-2 py-1.5 disabled:opacity-50"
                     onClick={handleSendMessage}
                     disabled={!inputValue.trim()}
                   >
-                    <Send size={18} />
+                    <Send size={14} />
                   </button>
                 </div>
               </GlassCard>
