@@ -178,13 +178,14 @@ const SplineMountain: React.FC<SplineMountainProps> = ({
         background: 'linear-gradient(to bottom, rgba(135, 206, 235, 0.3) 0%, rgba(100, 149, 237, 0.2) 30%, rgba(25, 25, 112, 0.4) 100%)'
       }} />
       
-      {/* Spline 3D Scene - Increased size */}
-      <div className="absolute inset-0 w-full h-full">
+      {/* Spline 3D Scene - Adjusted camera angle */}
+      <div className="absolute inset-0 w-full h-full" style={{ perspective: '1000px' }}>
         <div 
           className="w-full h-full"
           style={{
-            transform: 'scale(1.5) translateY(-15%)',
-            transformOrigin: 'center center'
+            transform: 'scale(1.5) translateY(-20%) translateX(5%) rotateX(5deg)',
+            transformOrigin: 'center center',
+            transformStyle: 'preserve-3d'
           }}
         >
           <Spline
