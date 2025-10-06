@@ -7,7 +7,7 @@ import Button from '@/components/ui/Button';
 import GlassCard from '@/components/ui/GlassCard';
 import MealCard from '@/components/nutrition/MealCard';
 import NutritionalTargets from '@/components/nutrition/NutritionalTargets';
-import AINutritionAdvisor from '@/components/nutrition/AINutritionAdvisor';
+import MealAIChat from '@/components/nutrition/MealAIChat';
 
 // Import centralized mock data
 import { sampleMeals, nutritionalTargets, userMetrics } from '@/data/mockData';
@@ -162,6 +162,17 @@ const FoodScreen: React.FC = () => {
             </span>
           </div>
         </GlassCard>
+        
+        {/* AI Chat for Meals */}
+        <MealAIChat 
+          currentTotals={currentTotals}
+          targets={{
+            calories: nutritionalTargets.calories.target,
+            protein: nutritionalTargets.protein.target,
+            carbs: nutritionalTargets.carbs.target,
+            fat: nutritionalTargets.fat.target
+          }}
+        />
           
         {/* Add/Edit Meal Modal (simplified placeholder) */}
         {showAddMealModal && (
