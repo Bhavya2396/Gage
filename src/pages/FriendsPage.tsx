@@ -5,13 +5,15 @@ import MainLayout from '@/layouts/MainLayout';
 import GlassCard from '@/components/ui/GlassCard';
 import Button from '@/components/ui/Button';
 import GeneralAIChat from '@/components/ai/GeneralAIChat';
+import AddUsernameModal from '@/components/social/AddUsernameModal';
+import CreateGroupModal from '@/components/social/CreateGroupModal';
 import { ChevronLeft, MessageCircle, Mountain, Users, Send, Heart, Trophy, Activity, TrendingUp } from 'lucide-react';
 import { formatAltitude } from '@/lib/utils';
 
 // Friend activity component
 interface FriendActivityProps {
   name: string;
-  avatar: string;
+  initials: string;
   altitude: number;
   lastActivity: string;
   timeAgo: string;
@@ -20,7 +22,7 @@ interface FriendActivityProps {
 
 const FriendActivity: React.FC<FriendActivityProps> = ({
   name,
-  avatar,
+  initials,
   altitude,
   lastActivity,
   timeAgo,
@@ -30,10 +32,12 @@ const FriendActivity: React.FC<FriendActivityProps> = ({
     <GlassCard variant="default" size="sm" className="w-full mb-3" interactive animate>
       <div className="flex items-center">
         <div 
-          className="w-12 h-12 rounded-full flex items-center justify-center mr-3 text-lg"
+          className="w-12 h-12 rounded-full flex items-center justify-center mr-3"
           style={{ backgroundColor: `${color}20`, border: `2px solid ${color}60` }}
         >
-          {avatar}
+          <span className="text-sm font-bold" style={{ color }}>
+            {initials}
+          </span>
         </div>
         
         <div className="flex-1">
@@ -168,36 +172,38 @@ const FriendsPage: React.FC = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'mountain' | 'chat'>('mountain');
   const [messageInput, setMessageInput] = useState('');
+  const [showAddUsername, setShowAddUsername] = useState(false);
+  const [showCreateGroup, setShowCreateGroup] = useState(false);
   
   // Sample friends data
   const friends = [
     {
-      name: 'Alex',
-      avatar: '🧗‍♂️',
+      name: 'Alex Johnson',
+      initials: 'AJ',
       altitude: 2450,
       lastActivity: 'Completed a HIIT workout',
       timeAgo: '2h ago',
       color: '#4CAF50'
     },
     {
-      name: 'Sarah',
-      avatar: '🏃‍♀️',
+      name: 'Sarah Chen',
+      initials: 'SC',
       altitude: 3200,
       lastActivity: 'Reached a new milestone',
       timeAgo: '5h ago',
       color: '#9C27B0'
     },
     {
-      name: 'Mike',
-      avatar: '🏋️‍♂️',
+      name: 'Mike Rodriguez',
+      initials: 'MR',
       altitude: 1800,
       lastActivity: 'Logged today\'s nutrition',
       timeAgo: '1d ago',
       color: '#FFC107'
     },
     {
-      name: 'Emma',
-      avatar: '🚴‍♀️',
+      name: 'Emma Wilson',
+      initials: 'EW',
       altitude: 2100,
       lastActivity: 'Completed a cycling session',
       timeAgo: '2d ago',
@@ -247,6 +253,27 @@ const FriendsPage: React.FC = () => {
       setMessageInput('');
     }
   };
+
+  // Handle username addition
+  const handleUsernameAdded = (username: string) => {
+    console.log('Username added:', username);
+    // In a real app, this would save the username
+  };
+
+  // Handle group creation
+  const handleGroupCreated = (groupName: string, selectedFriends: any[]) => {
+    console.log('Group created:', groupName, selectedFriends);
+    // In a real app, this would create the group
+  };
+
+  // Prepare friends data for group creation
+  const friendsForGroup = friends.map(friend => ({
+    id: friend.name.toLowerCase().replace(' ', '_'),
+    name: friend.name,
+    username: friend.name.toLowerCase().replace(' ', '_'),
+    initials: friend.initials,
+    isSelected: false
+  }));
   
   return (
     <MainLayout>
@@ -270,7 +297,11 @@ const FriendsPage: React.FC = () => {
         
         {/* AI Chat */}
         <div className="mb-4">
-          <GeneralAIChat topic="social" />
+          <GeneralAIChat 
+            topic="social" 
+            onConnect={() => setShowAddUsername(true)}
+            onCommunity={() => setShowCreateGroup(true)}
+          />
         </div>
         
         {/* Tabs */}
@@ -317,7 +348,7 @@ const FriendsPage: React.FC = () => {
               <FriendActivity 
                 key={index}
                 name={friend.name}
-                avatar={friend.avatar}
+                initials={friend.initials}
                 altitude={friend.altitude}
                 lastActivity={friend.lastActivity}
                 timeAgo={friend.timeAgo}
@@ -384,6 +415,20 @@ const FriendsPage: React.FC = () => {
             </GlassCard>
           </motion.div>
         )}
+        
+        {/* Modals */}
+        <AddUsernameModal
+          isOpen={showAddUsername}
+          onClose={() => setShowAddUsername(false)}
+          onUsernameAdded={handleUsernameAdded}
+        />
+        
+        <CreateGroupModal
+          isOpen={showCreateGroup}
+          onClose={() => setShowCreateGroup(false)}
+          onGroupCreated={handleGroupCreated}
+          friends={friendsForGroup}
+        />
       </div>
     </MainLayout>
   );

@@ -13,9 +13,11 @@ interface Message {
 interface GeneralAIChatProps {
   topic: 'schedule' | 'goals' | 'social' | 'insights' | 'settings';
   context?: any;
+  onConnect?: () => void;
+  onCommunity?: () => void;
 }
 
-const GeneralAIChat: React.FC<GeneralAIChatProps> = ({ topic, context }) => {
+const GeneralAIChat: React.FC<GeneralAIChatProps> = ({ topic, context, onConnect, onCommunity }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -63,9 +65,9 @@ const GeneralAIChat: React.FC<GeneralAIChatProps> = ({ topic, context }) => {
         ];
       case 'social':
         return [
-          { icon: <Users size={12} />, label: 'Connect', message: 'Help me connect with friends' },
+          { icon: <User size={12} />, label: 'Connect', message: 'Add username to connect', action: onConnect },
           { icon: <Share size={12} />, label: 'Share', message: 'Share my achievements' },
-          { icon: <Heart size={12} />, label: 'Community', message: 'Build my community' }
+          { icon: <Users size={12} />, label: 'Community', message: 'Create group with friends', action: onCommunity }
         ];
       case 'insights':
         return [
@@ -221,7 +223,13 @@ const GeneralAIChat: React.FC<GeneralAIChatProps> = ({ topic, context }) => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className="p-2 bg-white/5 rounded-lg text-xs text-white border border-white/10"
-            onClick={() => setInputMessage(action.message)}
+            onClick={() => {
+              if (action.action) {
+                action.action();
+              } else {
+                setInputMessage(action.message);
+              }
+            }}
           >
             {action.icon}
             <div className="mt-1">{action.label}</div>
