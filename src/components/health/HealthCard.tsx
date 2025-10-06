@@ -147,21 +147,21 @@ const HealthCard: React.FC<HealthMetricCardProps> = ({
       <div className="flex justify-between items-start">
         <div className="flex items-center">
           {icon && (
-            <div className="mr-3 p-2 rounded-lg bg-gradient-to-br from-primary-cyan-500/20 to-primary-teal-500/20 border border-primary-cyan-500/30">
-              <div className="text-primary-cyan-500">{icon}</div>
+            <div className="mr-4 p-3 rounded-full bg-gradient-to-br from-primary-cyan-500/20 to-primary-teal-500/20 border border-primary-cyan-500/30 shadow-lg shadow-cyan-500/20">
+              <div className="text-primary-cyan-400">{icon}</div>
             </div>
           )}
           <div>
-            <h3 className="text-sm font-semibold text-white">{title}</h3>
-            <div className="text-xs text-white/60">Last 7 days</div>
+            <h3 className="text-base font-bold text-white">{title}</h3>
+            <div className="text-sm text-white/70 font-medium">Last 7 days</div>
           </div>
         </div>
         
         {trend && (
-          <div className="flex items-center bg-white/10 rounded-lg px-2 py-1">
+          <div className="flex items-center bg-gradient-to-r from-white/10 to-white/5 rounded-xl px-3 py-2 border border-white/20">
             {trendIcons[trend]}
             {trendValue && (
-              <span className="text-xs ml-1 font-medium" style={{ color: trend === 'up' ? '#4ade80' : trend === 'down' ? '#f87171' : '#60a5fa' }}>
+              <span className="text-sm ml-2 font-bold" style={{ color: trend === 'up' ? '#4ade80' : trend === 'down' ? '#f87171' : '#60a5fa' }}>
                 {trendValue}
               </span>
             )}
@@ -169,11 +169,11 @@ const HealthCard: React.FC<HealthMetricCardProps> = ({
         )}
       </div>
       
-      <div className="flex justify-between items-end mt-4">
-        <div className="flex items-baseline space-x-2">
-          <span className="text-3xl font-bold text-white" style={{ color }}>{value}</span>
+      <div className="flex justify-between items-end mt-5">
+        <div className="flex items-baseline space-x-3">
+          <span className="text-4xl font-bold text-white" style={{ color }}>{value}</span>
           {unit && (
-            <span className="text-white/60 text-sm bg-white/10 px-2 py-1 rounded-lg font-medium">
+            <span className="text-white/80 text-sm bg-gradient-to-r from-white/10 to-white/5 px-3 py-1.5 rounded-lg font-semibold border border-white/20">
               {unit}
             </span>
           )}
@@ -181,7 +181,7 @@ const HealthCard: React.FC<HealthMetricCardProps> = ({
         
         <div className="flex flex-col items-end">
           <MiniChart />
-          <div className="text-xs text-white/50 mt-1">Weekly trend</div>
+          <div className="text-sm text-white/60 mt-2 font-medium">Weekly trend</div>
         </div>
       </div>
       

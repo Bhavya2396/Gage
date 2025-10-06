@@ -81,20 +81,30 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
         size="md" 
         className={`h-full w-full cursor-pointer overflow-hidden ${isHovered ? 'border-primary-cyan-500/50 shadow-xl shadow-cyan-primary/20' : 'shadow-lg'}`}
         onClick={handleClick}
+        interactive
+        animate
+        whileHover={{ 
+          scale: 1.02, 
+          y: -4,
+          boxShadow: '0 20px 40px rgba(0, 204, 255, 0.15), 0 8px 16px rgba(0, 0, 0, 0.1)'
+        }}
+        whileTap={{ scale: 0.98 }}
+        glow={highlight}
+        glowColor="#00ccff"
       >
         <div className="flex flex-col h-full">
           {/* Card Header */}
           <div className="flex justify-between items-center mb-3 sm:mb-4">
             <div className="flex items-center">
-              <div className={`p-2.5 sm:p-3 rounded-full ${isHovered ? 'bg-gradient-to-br from-primary-cyan-500 to-primary-teal-500' : 'bg-glass-highlight bg-opacity-80'} mr-3 sm:mr-4 transition-colors`}>
-                <div className={`${isHovered ? 'text-white' : 'text-primary-cyan-500'}`}>
+              <div className={`p-3 sm:p-4 rounded-full ${isHovered ? 'bg-gradient-to-br from-primary-cyan-500 to-primary-teal-500 shadow-lg shadow-cyan-500/30' : 'bg-gradient-to-br from-primary-cyan-500/20 to-primary-teal-500/20 border border-primary-cyan-500/30'} mr-4 sm:mr-5 transition-all duration-300`}>
+                <div className={`${isHovered ? 'text-white' : 'text-primary-cyan-500'} transition-colors`}>
                   {icon}
                 </div>
               </div>
               <div className="flex items-center">
-                <h3 className="text-white font-medium text-base sm:text-lg">{title}</h3>
+                <h3 className="text-white font-semibold text-lg sm:text-xl">{title}</h3>
                 {badge && (
-                  <span className="ml-2 sm:ml-3 text-[10px] sm:text-xs bg-primary-cyan-500/30 text-white font-medium px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
+                  <span className="ml-3 sm:ml-4 text-xs sm:text-sm bg-primary-cyan-500/30 text-white font-semibold px-3 py-1.5 rounded-full border border-primary-cyan-500/50">
                     {badge}
                   </span>
                 )}
@@ -154,25 +164,29 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/calendar'),
       content: (
         <div className="relative">
-          <div className="space-y-3">
+          <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-white/80">Morning</span>
-              <span className="text-xs text-white/60">9:00 AM</span>
+              <span className="text-sm font-medium text-white/90">Morning</span>
+              <span className="text-sm font-semibold text-primary-cyan-400">9:00 AM</span>
             </div>
-            <div className="bg-primary-cyan-500/20 rounded-lg p-3 border border-primary-cyan-500/30">
-              <div className="flex items-center space-x-3">
-                <Dumbbell className="text-primary-cyan-500" size={16} />
-                <span className="text-sm text-white font-medium">Foundation Strength</span>
+            <div className="bg-gradient-to-r from-primary-cyan-500/20 to-primary-teal-500/20 rounded-xl p-4 border border-primary-cyan-500/30 shadow-lg shadow-cyan-500/10">
+              <div className="flex items-center space-x-4">
+                <div className="p-2 rounded-lg bg-primary-cyan-500/30">
+                  <Dumbbell className="text-primary-cyan-400" size={18} />
+                </div>
+                <span className="text-base font-semibold text-white">Foundation Strength</span>
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-white/80">Afternoon</span>
-              <span className="text-xs text-white/60">2:00 PM</span>
+              <span className="text-sm font-medium text-white/90">Afternoon</span>
+              <span className="text-sm font-semibold text-primary-cyan-400">2:00 PM</span>
             </div>
-            <div className="bg-primary-teal-500/20 rounded-lg p-3 border border-primary-teal-500/30">
-              <div className="flex items-center space-x-3">
-                <Utensils className="text-primary-teal-500" size={16} />
-                <span className="text-sm text-white font-medium">Nutrition Check</span>
+            <div className="bg-gradient-to-r from-primary-teal-500/20 to-primary-cyan-500/20 rounded-xl p-4 border border-primary-teal-500/30 shadow-lg shadow-teal-500/10">
+              <div className="flex items-center space-x-4">
+                <div className="p-2 rounded-lg bg-primary-teal-500/30">
+                  <Utensils className="text-primary-teal-400" size={18} />
+                </div>
+                <span className="text-base font-semibold text-white">Nutrition Check</span>
               </div>
             </div>
           </div>
@@ -188,28 +202,30 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/workout'),
       content: (
         <div>
-          <div className="mb-4">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-sm text-white/80">Foundation Strength</span>
-              <span className="text-xs bg-primary-cyan-500/30 text-white font-medium px-2.5 py-1 rounded-full">
+          <div className="mb-5">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-base font-semibold text-white">Foundation Strength</span>
+              <span className="text-sm bg-gradient-to-r from-primary-cyan-500/30 to-primary-teal-500/30 text-white font-bold px-4 py-2 rounded-full border border-primary-cyan-500/50">
                 45 min
               </span>
             </div>
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-white font-medium">Core Stability</span>
-                <span className="text-xs text-white/60">3 sets</span>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between bg-white/5 rounded-lg p-3">
+                <span className="text-base font-semibold text-white">Core Stability</span>
+                <span className="text-sm text-primary-cyan-400 font-medium">3 sets</span>
               </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-white font-medium">Leg Strength</span>
-                <span className="text-xs text-white/60">4 sets</span>
+              <div className="flex items-center justify-between bg-white/5 rounded-lg p-3">
+                <span className="text-base font-semibold text-white">Leg Strength</span>
+                <span className="text-sm text-primary-cyan-400 font-medium">4 sets</span>
               </div>
             </div>
           </div>
-          <div className="bg-primary-cyan-500/20 rounded-lg p-3 border border-primary-cyan-500/30">
-            <div className="flex items-center space-x-3">
-              <Lightbulb className="text-primary-cyan-500" size={16} />
-              <span className="text-xs text-white font-medium">
+          <div className="bg-gradient-to-r from-primary-cyan-500/20 to-primary-teal-500/20 rounded-xl p-4 border border-primary-cyan-500/30 shadow-lg shadow-cyan-500/10">
+            <div className="flex items-center space-x-4">
+              <div className="p-2 rounded-lg bg-primary-cyan-500/30">
+                <Lightbulb className="text-primary-cyan-400" size={18} />
+              </div>
+              <span className="text-sm font-semibold text-white">
                 Focus on core stability for golf drive power
               </span>
             </div>
@@ -224,28 +240,28 @@ const SwipeDashboard: React.FC = () => {
       onClick: () => navigate('/food'),
       content: (
         <div>
-          <div className="grid grid-cols-2 gap-4 mb-4">
-            <div className="text-center">
-              <div className="text-xl font-bold text-white">
+          <div className="grid grid-cols-2 gap-4 mb-5">
+            <div className="bg-gradient-to-br from-primary-cyan-500/20 to-primary-teal-500/20 rounded-xl p-4 border border-primary-cyan-500/30 shadow-lg shadow-cyan-500/10">
+              <div className="text-2xl font-bold text-white mb-1">
                 {nutritionSummary.calories.current}
               </div>
-              <div className="text-xs text-white/60">Calories</div>
+              <div className="text-sm text-primary-cyan-400 font-medium">Calories</div>
             </div>
-            <div className="text-center">
-              <div className="text-xl font-bold text-white">
+            <div className="bg-gradient-to-br from-primary-teal-500/20 to-primary-cyan-500/20 rounded-xl p-4 border border-primary-teal-500/30 shadow-lg shadow-teal-500/10">
+              <div className="text-2xl font-bold text-white mb-1">
                 {nutritionSummary.protein.current}g
               </div>
-              <div className="text-xs text-white/60">Protein</div>
+              <div className="text-sm text-primary-teal-400 font-medium">Protein</div>
             </div>
           </div>
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-white font-medium">Breakfast</span>
-              <span className="text-xs text-white/60">✓ Complete</span>
+          <div className="space-y-3">
+            <div className="flex items-center justify-between bg-white/5 rounded-lg p-3">
+              <span className="text-base font-semibold text-white">Breakfast</span>
+              <span className="text-sm text-green-400 font-medium">✓ Complete</span>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-white font-medium">Lunch</span>
-              <span className="text-xs text-white/60">Pending</span>
+            <div className="flex items-center justify-between bg-white/5 rounded-lg p-3">
+              <span className="text-base font-semibold text-white">Lunch</span>
+              <span className="text-sm text-primary-cyan-400 font-medium">Pending</span>
             </div>
           </div>
         </div>
@@ -523,3 +539,4 @@ const SwipeDashboard: React.FC = () => {
 };
 
 export default SwipeDashboard;
+

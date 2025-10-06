@@ -92,14 +92,14 @@ const MealCard: React.FC<MealCardProps> = ({
             </div>
           </div>
           
-          <div className="grid grid-cols-2 gap-3 mb-3">
-            <div className="bg-white/10 rounded-lg p-2">
-              <div className="text-lg font-bold text-white">{macros.calories}</div>
-              <div className="text-xs text-white/60">kcal</div>
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="bg-gradient-to-br from-primary-cyan-500/20 to-primary-teal-500/20 rounded-xl p-4 border border-primary-cyan-500/30 shadow-lg shadow-cyan-500/10">
+              <div className="text-2xl font-bold text-white mb-1">{macros.calories}</div>
+              <div className="text-sm text-primary-cyan-400 font-semibold">kcal</div>
             </div>
-            <div className="bg-white/10 rounded-lg p-2">
-              <div className="text-lg font-bold text-white">{macros.protein}g</div>
-              <div className="text-xs text-white/60">protein</div>
+            <div className="bg-gradient-to-br from-primary-teal-500/20 to-primary-cyan-500/20 rounded-xl p-4 border border-primary-teal-500/30 shadow-lg shadow-teal-500/10">
+              <div className="text-2xl font-bold text-white mb-1">{macros.protein}g</div>
+              <div className="text-sm text-primary-teal-400 font-semibold">protein</div>
             </div>
           </div>
         </div>

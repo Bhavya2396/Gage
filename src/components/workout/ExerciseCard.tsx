@@ -135,14 +135,14 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
               <Dumbbell size={16} className={isActive ? 'text-primary-cyan-500' : 'text-white/60'} />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-white">{name}</h3>
-              <div className="flex flex-wrap gap-2 mt-1">
+              <h3 className="text-xl font-bold text-white">{name}</h3>
+              <div className="flex flex-wrap gap-3 mt-2">
                 {muscleGroup && (
-                  <span className="text-xs px-2 py-1 bg-white/10 rounded-lg text-white/60">
+                  <span className="text-sm px-3 py-1.5 bg-white/10 rounded-lg text-white/80 font-semibold border border-white/20">
                     {muscleGroup}
                   </span>
                 )}
-                <span className="text-xs px-2 py-1 bg-primary-cyan-500/20 rounded-lg text-primary-cyan-400 font-medium">
+                <span className="text-sm px-3 py-1.5 bg-gradient-to-r from-primary-cyan-500/20 to-primary-teal-500/20 rounded-lg text-primary-cyan-400 font-bold border border-primary-cyan-500/30">
                   {typeof reps === 'string' ? reps : `${reps} reps`} × {sets} sets
                 </span>
               </div>
