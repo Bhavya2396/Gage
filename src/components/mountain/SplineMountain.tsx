@@ -169,18 +169,21 @@ const SplineMountain: React.FC<SplineMountainProps> = ({
         className
       )}
     >
-      {/* Background gradient */}
+      {/* Background gradient - adjusted for lower camera angle */}
       <div className={cn(
         "absolute inset-0 bg-gradient-to-b transition-colors duration-1000",
         getBackgroundGradient()
-      )} />
+      )} 
+      style={{
+        background: 'linear-gradient(to bottom, rgba(135, 206, 235, 0.3) 0%, rgba(100, 149, 237, 0.2) 30%, rgba(25, 25, 112, 0.4) 100%)'
+      }} />
       
       {/* Spline 3D Scene - Increased size */}
       <div className="absolute inset-0 w-full h-full">
         <div 
           className="w-full h-full"
           style={{
-            transform: 'scale(1.3)',
+            transform: 'scale(1.3) translateY(-15%)',
             transformOrigin: 'center center'
           }}
         >
