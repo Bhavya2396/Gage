@@ -727,8 +727,8 @@ const SwipeDashboard: React.FC = () => {
 
   return (
     <div className="w-full h-full flex flex-col">
-      {/* Navigation indicators */}
-      <div className="flex items-center justify-between px-4 py-2 mb-2">
+      {/* Navigation indicators - moved down */}
+      <div className="flex items-center justify-between px-4 py-4 mb-4">
         <button
           onClick={goToPrevious}
           disabled={currentIndex === 0}
@@ -812,14 +812,6 @@ const SwipeDashboard: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* Swipe instruction */}
-      <div className="px-4 py-2">
-        <div className="text-center">
-          <span className="text-xs text-ui-text-muted text-shadow-light">
-            Swipe left/right to explore • {currentIndex + 1} of {dashboardCards.length}
-          </span>
-        </div>
-      </div>
     </div>
   );
 };
