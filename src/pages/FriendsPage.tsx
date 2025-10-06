@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import MainLayout from '@/layouts/MainLayout';
 import GlassCard from '@/components/ui/GlassCard';
 import Button from '@/components/ui/Button';
-import { ChevronLeft, MessageCircle, Mountain, Users, Send } from 'lucide-react';
+import GeneralAIChat from '@/components/ai/GeneralAIChat';
+import { ChevronLeft, MessageCircle, Mountain, Users, Send, Heart, Trophy, Activity, TrendingUp } from 'lucide-react';
 import { formatAltitude } from '@/lib/utils';
 
 // Friend activity component
@@ -26,26 +27,29 @@ const FriendActivity: React.FC<FriendActivityProps> = ({
   color
 }) => {
   return (
-    <GlassCard variant="default" size="sm" className="w-full mb-3">
+    <GlassCard variant="default" size="sm" className="w-full mb-3" interactive animate>
       <div className="flex items-center">
         <div 
-          className="w-10 h-10 rounded-full flex items-center justify-center mr-3"
-          style={{ backgroundColor: `${color}30`, border: `2px solid ${color}` }}
+          className="w-12 h-12 rounded-full flex items-center justify-center mr-3 text-lg"
+          style={{ backgroundColor: `${color}20`, border: `2px solid ${color}60` }}
         >
           {avatar}
         </div>
         
         <div className="flex-1">
-          <div className="flex justify-between">
-            <h3 className="text-text-primary font-medium">{name}</h3>
-            <span className="text-text-secondary text-xs">{timeAgo}</span>
+          <div className="flex justify-between items-center mb-1">
+            <h3 className="text-sm font-bold text-white">{name}</h3>
+            <span className="text-xs text-white/60">{timeAgo}</span>
           </div>
           
-          <div className="flex justify-between mt-1">
-            <p className="text-text-secondary text-sm">{lastActivity}</p>
-            <span className="text-xs" style={{ color }}>
-              {formatAltitude(altitude)}
-            </span>
+          <div className="flex justify-between items-center">
+            <p className="text-xs text-white/70">{lastActivity}</p>
+            <div className="flex items-center">
+              <Mountain size={12} className="text-white/60 mr-1" />
+              <span className="text-xs font-bold" style={{ color }}>
+                {formatAltitude(altitude)}
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -68,23 +72,23 @@ const Message: React.FC<MessageProps> = ({
   isCurrentUser
 }) => {
   return (
-    <div className={`mb-4 ${isCurrentUser ? 'text-right' : 'text-left'}`}>
-      <div className={`inline-block max-w-xs ${isCurrentUser ? 'ml-auto' : 'mr-auto'}`}>
+    <div className={`mb-3 ${isCurrentUser ? 'text-right' : 'text-left'}`}>
+      <div className={`inline-block max-w-[80%] ${isCurrentUser ? 'ml-auto' : 'mr-auto'}`}>
         {!isCurrentUser && (
-          <div className="text-text-secondary text-xs mb-1">{sender}</div>
+          <div className="text-white/60 text-xs mb-1">{sender}</div>
         )}
         
         <div 
-          className={`p-3 rounded-lg backdrop-blur ${
+          className={`p-2 rounded-lg ${
             isCurrentUser 
-              ? 'bg-accent-primary/20 border border-accent-primary/30 text-text-primary' 
-              : 'bg-glass border border-glass-border text-text-primary'
+              ? 'bg-primary-cyan-500/20 text-white' 
+              : 'bg-white/5 text-white'
           }`}
         >
-          {content}
+          <div className="text-xs">{content}</div>
         </div>
         
-        <div className="text-text-secondary text-xs mt-1">{timestamp}</div>
+        <div className="text-white/50 text-xs mt-1">{timestamp}</div>
       </div>
     </div>
   );
@@ -107,30 +111,56 @@ const SharedWorkout: React.FC<SharedWorkoutProps> = ({
   timestamp
 }) => {
   return (
-    <div className="mb-4">
-      <div className="text-text-secondary text-xs mb-1">{user}</div>
+    <div className="mb-3">
+      <div className="text-white/60 text-xs mb-1">{user}</div>
       <GlassCard variant="default" size="sm" className="w-full">
         <div className="flex items-center">
-          <div className="w-10 h-10 rounded-full bg-accent-primary/20 flex items-center justify-center mr-3">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-accent-primary">
-              <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-              <path d="M6 8H5a4 4 0 0 0 0 8h1"></path>
-              <path d="M8 8a2 2 0 1 1 4 0v8"></path>
-              <path d="M12 16a2 2 0 1 1 4 0"></path>
-            </svg>
+          <div className="w-10 h-10 rounded-full bg-primary-cyan-500/20 flex items-center justify-center mr-3">
+            <Activity className="text-primary-cyan-400" size={16} />
           </div>
           
           <div className="flex-1">
-            <h3 className="text-text-primary font-medium">{workoutType}</h3>
+            <h3 className="text-sm font-bold text-white">{workoutType}</h3>
             <div className="flex justify-between mt-1">
-              <span className="text-text-secondary text-sm">{duration}</span>
-              <span className="text-accent-primary text-sm">{calories} kcal</span>
+              <span className="text-white/70 text-xs">{duration}</span>
+              <span className="text-primary-cyan-400 text-xs font-bold">{calories} kcal</span>
             </div>
           </div>
         </div>
       </GlassCard>
-      <div className="text-text-secondary text-xs mt-1 text-right">{timestamp}</div>
+      <div className="text-white/50 text-xs mt-1 text-right">{timestamp}</div>
     </div>
+  );
+};
+
+// Social stats component
+const SocialStats: React.FC = () => {
+  return (
+    <GlassCard variant="default" size="sm" className="w-full mb-4">
+      <div className="grid grid-cols-3 gap-4">
+        <div className="text-center">
+          <div className="w-8 h-8 rounded-full bg-primary-cyan-500/20 flex items-center justify-center mx-auto mb-2">
+            <Users className="text-primary-cyan-400" size={16} />
+          </div>
+          <div className="text-lg font-bold text-white">12</div>
+          <div className="text-xs text-white/60">Friends</div>
+        </div>
+        <div className="text-center">
+          <div className="w-8 h-8 rounded-full bg-primary-teal-500/20 flex items-center justify-center mx-auto mb-2">
+            <Trophy className="text-primary-teal-400" size={16} />
+          </div>
+          <div className="text-lg font-bold text-white">8</div>
+          <div className="text-xs text-white/60">Challenges</div>
+        </div>
+        <div className="text-center">
+          <div className="w-8 h-8 rounded-full bg-primary-purple-500/20 flex items-center justify-center mx-auto mb-2">
+            <TrendingUp className="text-primary-purple-400" size={16} />
+          </div>
+          <div className="text-lg font-bold text-white">24</div>
+          <div className="text-xs text-white/60">Activities</div>
+        </div>
+      </div>
+    </GlassCard>
   );
 };
 
@@ -220,38 +250,47 @@ const FriendsPage: React.FC = () => {
   
   return (
     <MainLayout>
-      <div className="mb-4 flex items-center">
-        <Button 
-          variant="ghost" 
-          size="sm" 
-          onClick={() => navigate('/')}
-          icon={<ChevronLeft size={16} />}
-          className="text-white"
-        >
-          Back
-        </Button>
-        <h1 className="text-sm font-bold text-white ml-2">Friends</h1>
-      </div>
-      
-      <div className="max-w-md mx-auto pb-20">
+      <div className="w-full max-w-md mx-auto px-4 pt-20 pb-24">
+        {/* Header */}
+        <div className="mb-4 flex items-center">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={() => navigate('/')}
+            icon={<ChevronLeft size={16} />}
+            className="text-white"
+          >
+            Back
+          </Button>
+          <h1 className="text-sm font-bold text-white ml-2">Friends</h1>
+        </div>
+        
+        {/* Social Stats */}
+        <SocialStats />
+        
+        {/* AI Chat */}
+        <div className="mb-4">
+          <GeneralAIChat topic="social" />
+        </div>
+        
         {/* Tabs */}
         <div className="flex mb-4">
           <Button 
             variant={activeTab === 'mountain' ? 'primary' : 'ghost'} 
-            size="md" 
+            size="sm" 
             className="flex-1 rounded-r-none"
             onClick={() => setActiveTab('mountain')}
-            icon={<Mountain size={16} />}
+            icon={<Mountain size={14} />}
           >
             Mountain View
           </Button>
           
           <Button 
             variant={activeTab === 'chat' ? 'primary' : 'ghost'} 
-            size="md" 
+            size="sm" 
             className="flex-1 rounded-l-none"
             onClick={() => setActiveTab('chat')}
-            icon={<MessageCircle size={16} />}
+            icon={<MessageCircle size={14} />}
           >
             Group Chat
           </Button>
@@ -264,12 +303,12 @@ const FriendsPage: React.FC = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
           >
-            <GlassCard variant="default" size="md" className="w-full mb-4">
+            <GlassCard variant="default" size="sm" className="w-full mb-4">
               <div className="flex items-center">
-                <Users className="text-accent-primary mr-2" size={20} />
-                <h2 className="text-xl font-medium text-text-primary">Climbing Together</h2>
+                <Users className="text-primary-cyan-400 mr-2" size={16} />
+                <h2 className="text-sm font-bold text-white">Climbing Together</h2>
               </div>
-              <p className="text-text-secondary text-sm mt-2">
+              <p className="text-white/70 text-xs mt-1">
                 See how your friends are progressing on their own mountains.
               </p>
             </GlassCard>
@@ -296,13 +335,13 @@ const FriendsPage: React.FC = () => {
             transition={{ duration: 0.3 }}
             className="relative"
           >
-            <GlassCard variant="default" size="lg" className="w-full mb-4">
-              <div className="flex items-center mb-4">
-                <MessageCircle className="text-accent-primary mr-2" size={20} />
-                <h2 className="text-xl font-medium text-text-primary">Group Chat</h2>
+            <GlassCard variant="default" size="sm" className="w-full mb-4">
+              <div className="flex items-center mb-3">
+                <MessageCircle className="text-primary-cyan-400 mr-2" size={16} />
+                <h2 className="text-sm font-bold text-white">Group Chat</h2>
               </div>
               
-              <div className="max-h-96 overflow-y-auto mb-4">
+              <div className="max-h-80 overflow-y-auto mb-3">
                 {messages.map((message, index) => (
                   message.isWorkout ? (
                     <SharedWorkout 
@@ -331,15 +370,15 @@ const FriendsPage: React.FC = () => {
                   value={messageInput}
                   onChange={(e) => setMessageInput(e.target.value)}
                   placeholder="Type a message..."
-                  className="flex-1 bg-glass border border-glass-border rounded-full py-2 px-4 text-text-primary focus:border-accent-primary outline-none"
+                  className="flex-1 bg-white/5 border border-white/20 rounded-full py-2 px-3 text-white text-xs focus:border-primary-cyan-500 outline-none"
                 />
                 <Button 
                   variant="primary" 
                   size="sm" 
-                  className="ml-2 w-10 h-10 p-0 flex items-center justify-center"
+                  className="ml-2 w-8 h-8 p-0 flex items-center justify-center"
                   onClick={handleSendMessage}
                 >
-                  <Send size={16} />
+                  <Send size={12} />
                 </Button>
               </div>
             </GlassCard>
