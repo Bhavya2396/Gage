@@ -18,6 +18,7 @@ import {
   Target, 
   BarChart3,
   Users,
+  MapPin,
   Zap,
   ChevronRight,
   Droplet,
