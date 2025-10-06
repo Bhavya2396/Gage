@@ -140,9 +140,9 @@ export const MountainBackground: React.FC<MountainBackgroundProps> = React.memo(
           timeOfDay={timeOfDay}
           weatherCondition={weatherCondition}
           alwaysShowIndicators={true}
-          use3D={isFocused && !isReducedMotion()} // Only load 3D when focused and not in reduced motion mode
-          autoUpgradeTo3D={!isFocused && !isReducedMotion()} // Auto-upgrade after delay if not in reduced motion mode
-          autoUpgradeDelay={2000}
+          use3D={true} // Always use Spline 3D scene
+          autoUpgradeTo3D={false} // No need for auto-upgrade since we're using Spline
+          autoUpgradeDelay={0}
           ambientEffects={ambientEffects && shouldShowFeature('showWeatherEffects')}
           reducedMotion={isReducedMotion()}
         />

@@ -34,29 +34,29 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   disabled,
   ...props
 }, ref) => {
-  // Define variant styles
+  // Define variant styles - updated to match reference design
   const variants = {
-    primary: 'bg-gradient-to-r from-primary-cyan to-primary-teal text-white shadow-md hover:shadow-lg',
-    secondary: 'bg-glass-background border border-glass-border text-alpine-mist hover:bg-glass-highlight',
-    outline: 'bg-transparent border border-primary-cyan text-primary-cyan hover:bg-primary-cyan/10',
-    ghost: 'text-alpine-mist hover:bg-glass-background',
-    glass: 'backdrop-blur-md bg-glass-background/70 border border-glass-border text-alpine-mist hover:bg-glass-highlight/80 shadow-sm',
+    primary: 'bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 text-white shadow-lg hover:shadow-xl hover:from-primary-cyan-400 hover:to-primary-teal-400 transition-all duration-300',
+    secondary: 'bg-glass-background backdrop-blur-md border border-glass-border text-alpine-mist hover:bg-glass-highlight hover:border-white/20 transition-all duration-300',
+    outline: 'bg-transparent border border-primary-cyan-500 text-primary-cyan-400 hover:bg-primary-cyan-500/10 hover:border-primary-cyan-400 transition-all duration-300',
+    ghost: 'text-alpine-mist hover:bg-glass-background hover:text-white transition-all duration-300',
+    glass: 'backdrop-blur-md bg-glass-background/70 border border-glass-border text-alpine-mist hover:bg-glass-highlight/80 hover:border-white/20 shadow-sm transition-all duration-300',
   };
 
-  // Define size styles
+  // Define size styles - updated for better proportions
   const sizes = {
-    xs: 'text-xs py-1 px-2',
-    sm: 'text-xs py-1.5 px-3',
-    md: 'text-sm py-2 px-4',
-    lg: 'text-base py-2.5 px-5',
-    icon: icon ? 'p-2' : 'p-2.5',
+    xs: 'text-xs py-1.5 px-3',
+    sm: 'text-sm py-2 px-4',
+    md: 'text-sm py-2.5 px-5',
+    lg: 'text-base py-3 px-6',
+    icon: icon ? 'p-2.5' : 'p-3',
   };
   
-  // Define rounded styles
+  // Define rounded styles - updated to match reference design
   const roundedStyles = {
     full: 'rounded-full',
-    lg: 'rounded-lg',
-    md: 'rounded-md',
+    lg: 'rounded-xl',
+    md: 'rounded-lg',
     none: 'rounded-none',
   };
   

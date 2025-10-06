@@ -116,26 +116,27 @@ export const borderRadius = {
   full: '9999px',
 };
 
-// Typography
+// Typography - Enhanced for better hierarchy and readability
 export const typography = {
   fontFamily: {
     sans: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
     mono: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+    display: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   },
   fontSize: {
-    xs: '0.75rem',
-    sm: '0.875rem',
-    base: '1rem',
-    lg: '1.125rem',
-    xl: '1.25rem',
-    '2xl': '1.5rem',
-    '3xl': '1.875rem',
-    '4xl': '2.25rem',
-    '5xl': '3rem',
-    '6xl': '3.75rem',
-    '7xl': '4.5rem',
-    '8xl': '6rem',
-    '9xl': '8rem',
+    xs: '0.75rem',      // 12px
+    sm: '0.875rem',     // 14px
+    base: '1rem',       // 16px
+    lg: '1.125rem',     // 18px
+    xl: '1.25rem',      // 20px
+    '2xl': '1.5rem',    // 24px
+    '3xl': '1.875rem',  // 30px
+    '4xl': '2.25rem',   // 36px
+    '5xl': '3rem',      // 48px
+    '6xl': '3.75rem',   // 60px
+    '7xl': '4.5rem',    // 72px
+    '8xl': '6rem',      // 96px
+    '9xl': '8rem',      // 128px
   },
   fontWeight: {
     thin: '100',
@@ -163,6 +164,39 @@ export const typography = {
     wide: '0.025em',
     wider: '0.05em',
     widest: '0.1em',
+  },
+  // Text styles for consistent usage
+  textStyles: {
+    heading: {
+      fontFamily: 'Inter',
+      fontWeight: '600',
+      lineHeight: '1.2',
+      letterSpacing: '-0.025em',
+    },
+    subheading: {
+      fontFamily: 'Inter',
+      fontWeight: '500',
+      lineHeight: '1.3',
+      letterSpacing: '-0.01em',
+    },
+    body: {
+      fontFamily: 'Inter',
+      fontWeight: '400',
+      lineHeight: '1.5',
+      letterSpacing: '0',
+    },
+    caption: {
+      fontFamily: 'Inter',
+      fontWeight: '400',
+      lineHeight: '1.4',
+      letterSpacing: '0.025em',
+    },
+    label: {
+      fontFamily: 'Inter',
+      fontWeight: '500',
+      lineHeight: '1.4',
+      letterSpacing: '0.025em',
+    },
   },
 };
 

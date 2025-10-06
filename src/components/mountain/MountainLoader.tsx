@@ -1,6 +1,7 @@
 import React, { lazy, Suspense, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import LightweightMountain from './LightweightMountain';
+import SplineMountain from './SplineMountain';
 import { fadeIn } from '@/design/animations';
 
 // Lazy load the heavy Mountain3D component
@@ -133,52 +134,25 @@ const MountainLoader: React.FC<MountainLoaderProps> = ({
         </motion.div>
       )}
       
-      {/* 3D mountain view with suspense fallback */}
+      {/* Spline 3D mountain view */}
       {shouldLoad3D && !loadFailed && (
-        <Suspense 
-          fallback={
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="w-full h-full"
-            >
-              <LightweightMountain
-                progressPercentage={progressPercentage}
-                blurred={blurred}
-                className={className}
-                timeOfDay={timeOfDay}
-                weatherCondition={weatherCondition}
-                ambientEffects={ambientEffects}
-              />
-            </motion.div>
-          }
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="w-full h-full"
         >
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            className="w-full h-full"
-          >
-            <ErrorBoundary onError={handleLoadError}>
-              <Mountain3D 
-                progressPercentage={progressPercentage}
-                blurred={blurred}
-                interactive={interactive}
-                timeOfDay={timeOfDay}
-                weatherCondition={weatherCondition}
-                showFriends={showFriends}
-                className={className}
-                alwaysShowIndicators={alwaysShowIndicators}
-                showPlottingAnimation={showPlottingAnimation}
-                showJourneyAnimation={showJourneyAnimation}
-                onPlottingComplete={onPlottingComplete}
-                onJourneyComplete={onJourneyComplete}
-                onLoadComplete={handleLoadComplete}
-                ambientEffects={ambientEffects}
-              />
-            </ErrorBoundary>
-          </motion.div>
-        </Suspense>
+          <SplineMountain
+            progressPercentage={progressPercentage}
+            className={className}
+            timeOfDay={timeOfDay}
+            weatherCondition={weatherCondition}
+            ambientEffects={ambientEffects}
+            interactive={interactive}
+            onLoad={handleLoadComplete}
+            onError={handleLoadError}
+          />
+        </motion.div>
       )}
     </div>
   );
