@@ -34,13 +34,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   disabled,
   ...props
 }, ref) => {
-  // Define variant styles - updated for visible glassmorphism
+  // Define variant styles - updated for seamless glassmorphism
   const variants = {
     primary: 'bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 text-white shadow-card-medium hover:shadow-card-strong hover:from-primary-cyan-400 hover:to-primary-teal-400 transition-all duration-300',
-    secondary: 'bg-ui-card backdrop-blur-lg text-ui-text-primary hover:bg-ui-highlight transition-all duration-300',
+    secondary: 'bg-ui-card backdrop-blur-md text-ui-text-primary hover:bg-ui-highlight transition-all duration-300',
     outline: 'bg-transparent text-primary-cyan-400 hover:bg-primary-cyan-500/20 transition-all duration-300',
     ghost: 'text-ui-text-primary hover:bg-ui-card hover:text-primary-cyan-400 transition-all duration-300',
-    glass: 'backdrop-blur-lg bg-ui-card-glass text-ui-text-white hover:bg-ui-highlight/80 shadow-card-light transition-all duration-300',
+    glass: 'backdrop-blur-md bg-ui-card-glass text-ui-text-white hover:bg-ui-highlight/80 shadow-card-light transition-all duration-300',
   };
 
   // Define size styles - updated for better proportions
