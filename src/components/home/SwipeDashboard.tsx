@@ -172,32 +172,32 @@ const SwipeDashboard: React.FC = () => {
           <div className="grid grid-cols-4 gap-3 mb-4">
             {/* Recovery Metric */}
             <div className="text-center">
-              <div className="relative w-12 h-12 mx-auto mb-2">
-                <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 24 24">
+              <div className="relative w-16 h-16 mx-auto mb-2">
+                <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 24 24">
                   {/* Background circle */}
                   <circle
                     cx="12"
                     cy="12"
-                    r="5"
+                    r="7"
                     stroke="rgba(255, 255, 255, 0.1)"
-                    strokeWidth="3"
+                    strokeWidth="2"
                     fill="rgba(0, 0, 0, 0.3)"
                   />
                   {/* Progress circle */}
                   <circle
                     cx="12"
                     cy="12"
-                    r="5"
+                    r="7"
                     stroke="#00ff88"
                     strokeWidth="2"
                     fill="none"
-                    strokeDasharray="31.4"
-                    strokeDashoffset="6.9"
+                    strokeDasharray="44"
+                    strokeDashoffset="9.7"
                     strokeLinecap="round"
                   />
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-xs font-bold text-white bg-black/20 px-1 py-0.5 rounded">78</div>
+                  <div className="text-sm font-bold text-white bg-black/30 px-2 py-1 rounded">78</div>
                 </div>
               </div>
               <div className="text-xs text-white/60">Recovery</div>
@@ -205,8 +205,8 @@ const SwipeDashboard: React.FC = () => {
             
             {/* Progress Metric */}
             <div className="text-center">
-              <div className="w-12 h-12 mx-auto mb-2 bg-white/10 rounded-full flex items-center justify-center border border-primary-cyan-500/30">
-                <Award className="text-primary-cyan-400" size={16} />
+              <div className="w-16 h-16 mx-auto mb-2 bg-white/10 rounded-full flex items-center justify-center border border-primary-cyan-500/30">
+                <Award className="text-primary-cyan-400" size={18} />
               </div>
               <div className="text-xs text-white/60">Progress</div>
               <div className="text-xs font-bold text-primary-cyan-400 mt-1">0%</div>
@@ -214,8 +214,8 @@ const SwipeDashboard: React.FC = () => {
             
             {/* BPM Metric */}
             <div className="text-center">
-              <div className="w-12 h-12 mx-auto mb-2 bg-white/10 rounded-full flex items-center justify-center border border-primary-cyan-500/30">
-                <Heart className="text-primary-cyan-400" size={16} />
+              <div className="w-16 h-16 mx-auto mb-2 bg-white/10 rounded-full flex items-center justify-center border border-primary-cyan-500/30">
+                <Heart className="text-primary-cyan-400" size={18} />
               </div>
               <div className="text-xs text-white/60">BPM</div>
               <div className="text-xs font-bold text-white mt-1">68</div>
@@ -223,8 +223,8 @@ const SwipeDashboard: React.FC = () => {
             
             {/* Load Metric */}
             <div className="text-center">
-              <div className="w-12 h-12 mx-auto mb-2 bg-primary-cyan-500/20 rounded-lg flex items-center justify-center border border-primary-cyan-500/30">
-                <Zap className="text-white" size={16} />
+              <div className="w-16 h-16 mx-auto mb-2 bg-primary-cyan-500/20 rounded-lg flex items-center justify-center border border-primary-cyan-500/30">
+                <Zap className="text-white" size={18} />
               </div>
               <div className="text-xs text-white/60">Load</div>
               <div className="text-xs font-bold text-white mt-1">340</div>
