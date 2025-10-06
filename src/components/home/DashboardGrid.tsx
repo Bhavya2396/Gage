@@ -74,7 +74,7 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
       <GlassCard 
         variant="default" 
         size="md" 
-        className={`h-full w-full cursor-pointer overflow-hidden ${isHovered ? 'border-cyan-primary/50' : ''}`}
+        className={`h-full w-full cursor-pointer overflow-hidden ${isHovered ? 'border-primary-cyan-500/50' : ''}`}
         onClick={handleClick}
       >
         <div className="flex flex-col h-full">
@@ -92,7 +92,7 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
                 animate={{ x: isHovered ? 0 : 5, opacity: isHovered ? 1 : 0.5 }}
                 transition={{ duration: 0.2 }}
               >
-                <ChevronRight size={16} className="text-cyan-primary" />
+                <ChevronRight size={16} className="text-primary-cyan-500" />
               </motion.div>
             )}
             
@@ -101,7 +101,7 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
                 animate={{ x: isHovered ? 0 : 5, opacity: isHovered ? 1 : 0.5 }}
                 transition={{ duration: 0.2 }}
               >
-                <ArrowUpRight size={16} className="text-cyan-primary" />
+                <ArrowUpRight size={16} className="text-primary-cyan-500" />
               </motion.div>
             )}
           </div>
@@ -135,7 +135,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ content, sender }) => {
       <div
         className={`max-w-[80%] p-3 rounded-lg ${
           sender === 'user'
-            ? 'bg-cyan-primary/20 text-alpine-mist'
+            ? 'bg-primary-cyan-500/20 text-alpine-mist'
             : 'bg-glass-highlight text-text-secondary'
         }`}
       >
@@ -191,7 +191,7 @@ const DashboardGrid: React.FC = () => {
   const getRecoveryColor = (score: number) => {
     if (score < 40) return 'text-red-500';
     if (score < 70) return 'text-amber-400';
-    return 'text-cyan-primary';
+    return 'text-primary-cyan-500';
   };
   
   return (
@@ -202,7 +202,7 @@ const DashboardGrid: React.FC = () => {
           <div className="flex justify-between items-center mb-3">
             <div className="flex items-center">
               <div className="p-2 rounded-full bg-glass-highlight mr-2">
-                <Calendar className="text-cyan-primary" size={18} />
+                <Calendar className="text-primary-cyan-500" size={18} />
               </div>
               <h3 className="text-alpine-mist font-medium">Today's Plan</h3>
             </div>
@@ -212,13 +212,13 @@ const DashboardGrid: React.FC = () => {
               onClick={() => navigate('/calendar')}
               className="cursor-pointer"
             >
-              <ArrowUpRight size={16} className="text-cyan-primary" />
+              <ArrowUpRight size={16} className="text-primary-cyan-500" />
             </motion.div>
           </div>
           
           <div className="space-y-3">
             <div className="flex items-center">
-              <div className="w-1 h-10 bg-cyan-primary rounded-full mr-3"></div>
+              <div className="w-1 h-10 bg-primary-cyan-500 rounded-full mr-3"></div>
               <div className="flex-1">
                 <div className="flex justify-between">
                   <span className="text-alpine-mist">Morning Workout</span>
@@ -229,7 +229,7 @@ const DashboardGrid: React.FC = () => {
             </div>
             
             <div className="flex items-center">
-              <div className="w-1 h-10 bg-teal-primary rounded-full mr-3"></div>
+              <div className="w-1 h-10 bg-primary-teal-500 rounded-full mr-3"></div>
               <div className="flex-1">
                 <div className="flex justify-between">
                   <span className="text-alpine-mist">Lunch</span>
@@ -240,7 +240,7 @@ const DashboardGrid: React.FC = () => {
             </div>
             
             <div className="flex items-center">
-              <div className="w-1 h-10 bg-cyan-primary rounded-full mr-3"></div>
+              <div className="w-1 h-10 bg-primary-cyan-500 rounded-full mr-3"></div>
               <div className="flex-1">
                 <div className="flex justify-between">
                   <span className="text-alpine-mist">Evening Session</span>
@@ -259,7 +259,7 @@ const DashboardGrid: React.FC = () => {
           <div className="flex justify-between items-center mb-3">
             <div className="flex items-center">
               <div className="p-2 rounded-full bg-glass-highlight mr-2">
-                <Zap className="text-cyan-primary" size={18} />
+                <Zap className="text-primary-cyan-500" size={18} />
               </div>
               <h3 className="text-alpine-mist font-medium">Quick Actions</h3>
             </div>
@@ -272,7 +272,7 @@ const DashboardGrid: React.FC = () => {
               className="flex flex-col items-center justify-center h-20 transition-all hover:bg-glass-highlight"
               onClick={() => navigate('/workout')}
             >
-              <Dumbbell className="text-cyan-primary mb-2" size={24} />
+              <Dumbbell className="text-primary-cyan-500 mb-2" size={24} />
               <span className="text-alpine-mist text-sm">Start Workout</span>
             </Button>
             
@@ -282,7 +282,7 @@ const DashboardGrid: React.FC = () => {
               className="flex flex-col items-center justify-center h-20 transition-all hover:bg-glass-highlight"
               onClick={() => navigate('/food')}
             >
-              <Utensils className="text-teal-primary mb-2" size={24} />
+              <Utensils className="text-primary-teal-500 mb-2" size={24} />
               <span className="text-alpine-mist text-sm">Log Meal</span>
             </Button>
             
@@ -292,7 +292,7 @@ const DashboardGrid: React.FC = () => {
               className="flex flex-col items-center justify-center h-20 transition-all hover:bg-glass-highlight"
               onClick={() => navigate('/friends')}
             >
-              <Users className="text-cyan-primary mb-2" size={24} />
+              <Users className="text-primary-cyan-500 mb-2" size={24} />
               <span className="text-alpine-mist text-sm">Friends</span>
             </Button>
             
@@ -302,7 +302,7 @@ const DashboardGrid: React.FC = () => {
               className="flex flex-col items-center justify-center h-20 transition-all hover:bg-glass-highlight"
               onClick={() => navigate('/health/trends')}
             >
-              <BarChart3 className="text-teal-primary mb-2" size={24} />
+              <BarChart3 className="text-primary-teal-500 mb-2" size={24} />
               <span className="text-alpine-mist text-sm">Stats</span>
             </Button>
           </div>
@@ -316,11 +316,11 @@ const DashboardGrid: React.FC = () => {
           <div className="flex justify-between items-center mb-3">
             <div className="flex items-center">
               <div className="p-2 rounded-full bg-glass-highlight mr-2">
-                <Activity className="text-cyan-primary" size={18} />
+                <Activity className="text-primary-cyan-500" size={18} />
               </div>
               <h3 className="text-alpine-mist font-medium">Activity Load</h3>
             </div>
-            <ArrowUpRight size={16} className="text-cyan-primary" />
+            <ArrowUpRight size={16} className="text-primary-cyan-500" />
           </div>
           
           <div className="flex flex-col items-center justify-center">
@@ -328,7 +328,7 @@ const DashboardGrid: React.FC = () => {
             <div className="text-xs text-text-secondary mt-1">Daily Target: 400</div>
             <div className="w-full bg-glass-border h-1.5 rounded-full overflow-hidden mt-2">
               <div 
-                className="bg-gradient-to-r from-cyan-primary to-teal-primary h-full rounded-full" 
+                className="bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 h-full rounded-full" 
                 style={{ width: '85%' }}
               />
             </div>
@@ -340,11 +340,11 @@ const DashboardGrid: React.FC = () => {
           <div className="flex justify-between items-center mb-3">
             <div className="flex items-center">
               <div className="p-2 rounded-full bg-glass-highlight mr-2">
-                <Heart className="text-cyan-primary" size={18} />
+                <Heart className="text-primary-cyan-500" size={18} />
               </div>
               <h3 className="text-alpine-mist font-medium">Recovery</h3>
             </div>
-            <ArrowUpRight size={16} className="text-cyan-primary" />
+            <ArrowUpRight size={16} className="text-primary-cyan-500" />
           </div>
           
           <div className="flex flex-col items-center justify-center">
@@ -386,11 +386,11 @@ const DashboardGrid: React.FC = () => {
           <div className="flex justify-between items-center mb-3">
             <div className="flex items-center">
               <div className="p-2 rounded-full bg-glass-highlight mr-2">
-                <MessageCircle className="text-cyan-primary" size={18} />
+                <MessageCircle className="text-primary-cyan-500" size={18} />
               </div>
               <h3 className="text-alpine-mist font-medium">Daily Briefing</h3>
             </div>
-            <ChevronRight size={16} className="text-cyan-primary" />
+            <ChevronRight size={16} className="text-primary-cyan-500" />
           </div>
           
           <div className="h-full flex flex-col">
@@ -419,11 +419,11 @@ const DashboardGrid: React.FC = () => {
                   />
                   <motion.button
                     type="submit"
-                    className="w-8 h-8 rounded-full bg-cyan-primary/20 flex items-center justify-center"
+                    className="w-8 h-8 rounded-full bg-primary-cyan-500/20 flex items-center justify-center"
                     whileTap={{ scale: 0.9 }}
                     disabled={!inputValue.trim()}
                   >
-                    <Send size={14} className="text-cyan-primary" />
+                    <Send size={14} className="text-primary-cyan-500" />
                   </motion.button>
                 </motion.form>
               )}
@@ -433,7 +433,7 @@ const DashboardGrid: React.FC = () => {
               <Button
                 variant="ghost"
                 size="sm"
-                className="w-full flex items-center justify-center text-cyan-primary"
+                className="w-full flex items-center justify-center text-primary-cyan-500"
                 onClick={() => navigate('/coach')}
               >
                 <span>Full Conversation</span>
@@ -450,24 +450,24 @@ const DashboardGrid: React.FC = () => {
           <div className="flex justify-between items-center mb-3">
             <div className="flex items-center">
               <div className="p-2 rounded-full bg-glass-highlight mr-2">
-                <Target className="text-cyan-primary" size={18} />
+                <Target className="text-primary-cyan-500" size={18} />
               </div>
               <h3 className="text-alpine-mist font-medium">Goal Progress</h3>
             </div>
-            <ArrowUpRight size={16} className="text-cyan-primary" />
+            <ArrowUpRight size={16} className="text-primary-cyan-500" />
           </div>
           
           <div className="flex flex-col">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm text-alpine-mist">{activityPoints.goalName}</span>
-              <span className="text-xs bg-cyan-primary/20 text-cyan-primary px-2 py-1 rounded-full">
+              <span className="text-xs bg-primary-cyan-500/20 text-primary-cyan-500 px-2 py-1 rounded-full">
                 {getPointsRemaining()} points left
               </span>
             </div>
             
             <div className="w-full bg-glass-border h-2 rounded-full overflow-hidden mb-2">
               <div 
-                className="bg-gradient-to-r from-cyan-primary to-teal-primary h-full rounded-full" 
+                className="bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 h-full rounded-full" 
                 style={{ width: `${getProgressPercentage()}%` }}
               />
             </div>
@@ -488,7 +488,7 @@ const DashboardGrid: React.FC = () => {
                   </div>
                   <div className="w-full bg-glass-border h-1.5 rounded-full overflow-hidden">
                     <div 
-                      className="bg-gradient-to-r from-cyan-primary to-teal-primary h-full rounded-full" 
+                      className="bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 h-full rounded-full" 
                       style={{ width: `${(phase.points / phase.totalPoints) * 100}%` }}
                     />
                   </div>

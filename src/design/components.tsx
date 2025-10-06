@@ -37,7 +37,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   // Variant classes
   const variantClasses = {
-    primary: `bg-gradient-to-r from-cyan-primary to-teal-primary text-white shadow-md hover:shadow-lg`,
+    primary: `bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 text-white shadow-md hover:shadow-lg`,
     secondary: `bg-glass-background border border-glass-border text-alpine-mist hover:bg-glass-highlight`,
     outline: `border border-glass-border text-alpine-mist bg-transparent hover:bg-glass-background`,
     ghost: `text-alpine-mist hover:bg-glass-background`,
@@ -90,7 +90,7 @@ export const Card: React.FC<CardProps> = ({
     default: 'bg-bg-secondary border border-glass-border',
     glass: 'backdrop-blur-md bg-glass-background/70 border border-glass-border',
     solid: 'bg-bg-tertiary border border-glass-border',
-    highlight: 'bg-glass-background border border-cyan-primary/30',
+    highlight: 'bg-glass-background border border-primary-cyan-500/30',
   };
 
   return (

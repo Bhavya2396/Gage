@@ -108,7 +108,7 @@ const AIFormCoach: React.FC<AIFormCoachProps> = ({
     <GlassCard size="full" className={className}>
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center">
-          <div className="p-2 rounded-full bg-gradient-to-br from-cyan-primary to-teal-primary mr-3">
+          <div className="p-2 rounded-full bg-gradient-to-br from-primary-cyan-500 to-primary-teal-500 mr-3">
             <Sparkles size={16} className="text-white" />
           </div>
           <h3 className="text-base sm:text-lg font-medium text-alpine-mist">AI Form Coach</h3>
@@ -130,7 +130,7 @@ const AIFormCoach: React.FC<AIFormCoachProps> = ({
           <div className="absolute inset-0 flex items-center justify-center">
             {analyzing ? (
               <div className="flex flex-col items-center">
-                <div className="w-10 h-10 border-2 border-t-transparent border-cyan-primary rounded-full animate-spin mb-2"></div>
+                <div className="w-10 h-10 border-2 border-t-transparent border-primary-cyan-500 rounded-full animate-spin mb-2"></div>
                 <p className="text-xs text-alpine-mist">Analyzing form...</p>
               </div>
             ) : (
@@ -150,7 +150,7 @@ const AIFormCoach: React.FC<AIFormCoachProps> = ({
             <div 
               className={`max-w-[85%] p-2.5 rounded-lg ${
                 message.sender === 'user' 
-                  ? 'bg-cyan-primary/20 text-alpine-mist rounded-tr-none' 
+                  ? 'bg-primary-cyan-500/20 text-alpine-mist rounded-tr-none' 
                   : 'bg-glass-highlight text-alpine-mist rounded-tl-none'
               }`}
             >
@@ -169,7 +169,7 @@ const AIFormCoach: React.FC<AIFormCoachProps> = ({
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-cyan-primary p-2 rounded-l-lg"
+            className="bg-primary-cyan-500 p-2 rounded-l-lg"
             onClick={activateCamera}
           >
             <Camera size={18} className="text-white" />
@@ -178,7 +178,7 @@ const AIFormCoach: React.FC<AIFormCoachProps> = ({
         
         <input
           type="text"
-          className={`flex-1 bg-glass-background border border-glass-border ${!cameraActive ? 'rounded-none' : 'rounded-l-lg'} p-2 text-xs sm:text-sm text-alpine-mist focus:outline-none focus:border-cyan-primary/50`}
+          className={`flex-1 bg-glass-background border border-glass-border ${!cameraActive ? 'rounded-none' : 'rounded-l-lg'} p-2 text-xs sm:text-sm text-alpine-mist focus:outline-none focus:border-primary-cyan-500/50`}
           placeholder="Ask about your form..."
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
@@ -188,7 +188,7 @@ const AIFormCoach: React.FC<AIFormCoachProps> = ({
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="bg-cyan-primary p-2 rounded-r-lg"
+          className="bg-primary-cyan-500 p-2 rounded-r-lg"
           onClick={handleSendMessage}
         >
           <Send size={18} className="text-white" />

@@ -151,8 +151,8 @@ const MonthCalendar: React.FC<MonthCalendarProps> = ({
             key={index}
             className={`
               relative aspect-square rounded-md flex flex-col items-center justify-center
-              ${isSelectedDate(date) ? 'bg-cyan-primary/30 text-white' : ''}
-              ${isToday(date) && !isSelectedDate(date) ? 'border border-cyan-primary/50' : ''}
+              ${isSelectedDate(date) ? 'bg-primary-cyan-500/30 text-white' : ''}
+              ${isToday(date) && !isSelectedDate(date) ? 'border border-primary-cyan-500/50' : ''}
               ${!isCurrentMonth(date) ? 'text-alpine-mist/30' : 'text-alpine-mist'}
               hover:bg-glass-highlight transition-colors duration-200
             `}
@@ -166,10 +166,10 @@ const MonthCalendar: React.FC<MonthCalendarProps> = ({
             {hasEvents(date) && (
               <div className="absolute bottom-1 flex space-x-0.5">
                 {getEventCount(date) > 0 && (
-                  <div className="w-1.5 h-1.5 rounded-full bg-cyan-primary"></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary-cyan-500"></div>
                 )}
                 {getEventCount(date) > 1 && (
-                  <div className="w-1.5 h-1.5 rounded-full bg-teal-primary"></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary-teal-500"></div>
                 )}
                 {getEventCount(date) > 2 && (
                   <div className="w-1.5 h-1.5 rounded-full bg-teal-secondary"></div>

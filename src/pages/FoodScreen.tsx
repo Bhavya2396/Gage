@@ -155,7 +155,7 @@ const FoodScreen: React.FC = () => {
           {/* Nutrition Impact Card */}
           <GlassCard variant="default" size="md" className="w-full mt-6 mb-6">
             <div className="flex items-center mb-3">
-              <UtensilsCrossed className="text-cyan-primary mr-2" size={18} />
+              <UtensilsCrossed className="text-primary-cyan-500 mr-2" size={18} />
               <h3 className="text-lg font-medium text-alpine-mist">Nutrition Impact</h3>
             </div>
             
@@ -166,10 +166,10 @@ const FoodScreen: React.FC = () => {
             <div className="bg-glass-background p-3 rounded-lg">
               <div className="flex justify-between items-center">
                 <div className="flex items-center">
-                  <div className="w-2 h-2 rounded-full bg-cyan-primary mr-2"></div>
+                  <div className="w-2 h-2 rounded-full bg-primary-cyan-500 mr-2"></div>
                   <span className="text-sm text-alpine-mist">Activity Points</span>
                 </div>
-                <span className="text-xs bg-cyan-primary/20 text-cyan-primary px-2 py-1 rounded-full">
+                <span className="text-xs bg-primary-cyan-500/20 text-primary-cyan-500 px-2 py-1 rounded-full">
                   +15 points
                 </span>
               </div>

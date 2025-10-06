@@ -70,13 +70,13 @@ const EnhancedTimelineVisualizer: React.FC<EnhancedTimelineVisualizerProps> = ({
   const getEventGradient = (color: string) => {
     switch (color) {
       case 'cyan-primary':
-        return 'from-cyan-primary/30 to-cyan-primary/10';
+        return 'from-primary-cyan-500/30 to-cyan-primary/10';
       case 'teal-primary':
-        return 'from-teal-primary/30 to-teal-primary/10';
+        return 'from-teal-primary/30 to-primary-teal-500/10';
       case 'teal-secondary':
         return 'from-teal-secondary/30 to-teal-secondary/10';
       default:
-        return 'from-cyan-primary/30 to-cyan-primary/10';
+        return 'from-primary-cyan-500/30 to-cyan-primary/10';
     }
   };
   
@@ -84,13 +84,13 @@ const EnhancedTimelineVisualizer: React.FC<EnhancedTimelineVisualizerProps> = ({
   const getBorderColor = (color: string) => {
     switch (color) {
       case 'cyan-primary':
-        return 'border-cyan-primary';
+        return 'border-primary-cyan-500';
       case 'teal-primary':
-        return 'border-teal-primary';
+        return 'border-primary-teal-500';
       case 'teal-secondary':
         return 'border-teal-secondary';
       default:
-        return 'border-cyan-primary';
+        return 'border-primary-cyan-500';
     }
   };
 
@@ -98,13 +98,13 @@ const EnhancedTimelineVisualizer: React.FC<EnhancedTimelineVisualizerProps> = ({
   const getTextColor = (color: string) => {
     switch (color) {
       case 'cyan-primary':
-        return 'text-cyan-primary';
+        return 'text-primary-cyan-500';
       case 'teal-primary':
-        return 'text-teal-primary';
+        return 'text-primary-teal-500';
       case 'teal-secondary':
         return 'text-teal-secondary';
       default:
-        return 'text-cyan-primary';
+        return 'text-primary-cyan-500';
     }
   };
 
@@ -204,12 +204,12 @@ const EnhancedTimelineVisualizer: React.FC<EnhancedTimelineVisualizerProps> = ({
             
             {/* Current time indicator */}
             <div 
-              className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-primary to-teal-primary z-10"
+              className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 z-10"
               style={{ 
                 top: `${((new Date().getHours() * 60 + new Date().getMinutes()) - startTime) / totalMinutes * 100}%` 
               }}
             >
-              <div className="absolute -left-1 -top-1.5 w-4 h-4 rounded-full bg-cyan-primary shadow-glow-sm animate-pulse"></div>
+              <div className="absolute -left-1 -top-1.5 w-4 h-4 rounded-full bg-primary-cyan-500 shadow-glow-sm animate-pulse"></div>
             </div>
             
             {/* Events */}

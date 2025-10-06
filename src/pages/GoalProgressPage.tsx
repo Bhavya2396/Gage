@@ -28,30 +28,30 @@ const PhaseProgress: React.FC<{
   return (
     <div className={`p-4 rounded-lg overflow-hidden ${
       isActive 
-        ? 'bg-glass-highlight border border-cyan-primary/30' 
+        ? 'bg-glass-highlight border border-primary-cyan-500/30' 
         : isCompleted 
-          ? 'bg-glass-background bg-opacity-40 border border-teal-primary/30' 
+          ? 'bg-glass-background bg-opacity-40 border border-primary-teal-500/30' 
           : 'bg-glass-background bg-opacity-20'
     }`}>
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center">
           {isCompleted ? (
-            <CheckCircle className="text-teal-primary mr-2" size={16} />
+            <CheckCircle className="text-primary-teal-500 mr-2" size={16} />
           ) : (
-            <Flag className={`${isActive ? 'text-cyan-primary' : 'text-alpine-mist/50'} mr-2`} size={16} />
+            <Flag className={`${isActive ? 'text-primary-cyan-500' : 'text-alpine-mist/50'} mr-2`} size={16} />
           )}
           <h3 className={`text-sm font-medium ${
-            isActive ? 'text-alpine-mist' : isCompleted ? 'text-teal-primary' : 'text-alpine-mist/50'
+            isActive ? 'text-alpine-mist' : isCompleted ? 'text-primary-teal-500' : 'text-alpine-mist/50'
           }`}>
             {name}
           </h3>
         </div>
         {isCompleted ? (
-          <span className="text-xs bg-teal-primary/20 text-teal-primary px-2 py-0.5 rounded-full">
+          <span className="text-xs bg-primary-teal-500/20 text-primary-teal-500 px-2 py-0.5 rounded-full">
             Completed
           </span>
         ) : isActive ? (
-          <span className="text-xs bg-cyan-primary/20 text-cyan-primary px-2 py-0.5 rounded-full">
+          <span className="text-xs bg-primary-cyan-500/20 text-primary-cyan-500 px-2 py-0.5 rounded-full">
             Active
           </span>
         ) : (
@@ -65,8 +65,8 @@ const PhaseProgress: React.FC<{
         <div 
           className={`h-full rounded-full ${
             isCompleted 
-              ? 'bg-teal-primary' 
-              : 'bg-gradient-to-r from-cyan-primary to-teal-primary'
+              ? 'bg-primary-teal-500' 
+              : 'bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500'
           }`}
           style={{ width: `${isCompleted ? 100 : progress}%` }}
         />
@@ -129,7 +129,7 @@ const ActivityCard: React.FC<{
         </div>
         <div className="flex items-center">
           <div className="bg-glass-highlight px-2 py-1 rounded-full mr-2">
-            <span className="text-xs font-medium text-cyan-primary">+{points} pts</span>
+            <span className="text-xs font-medium text-primary-cyan-500">+{points} pts</span>
           </div>
           <button 
             onClick={() => setExpanded(!expanded)}
@@ -264,7 +264,7 @@ const GoalProgressPage: React.FC = () => {
                 <div className="absolute inset-0 flex flex-col justify-between p-4">
                   <div className="flex justify-between items-center">
                     <div className="bg-glass-background bg-opacity-50 backdrop-blur-sm px-3 py-1 rounded-full">
-                      <span className="text-sm font-medium text-cyan-primary">{overallProgress}% Complete</span>
+                      <span className="text-sm font-medium text-primary-cyan-500">{overallProgress}% Complete</span>
                     </div>
                     <div className="bg-glass-background bg-opacity-50 backdrop-blur-sm px-3 py-1 rounded-full">
                       <span className="text-sm font-medium text-alpine-mist">{pointsRemaining} pts left</span>
@@ -273,7 +273,7 @@ const GoalProgressPage: React.FC = () => {
                   
                   <div className="w-full bg-glass-border h-3 rounded-full overflow-hidden">
                     <div 
-                      className="bg-gradient-to-r from-cyan-primary to-teal-primary h-full rounded-full" 
+                      className="bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 h-full rounded-full" 
                       style={{ width: `${overallProgress}%` }}
                     />
                   </div>
@@ -284,21 +284,21 @@ const GoalProgressPage: React.FC = () => {
               <div className="grid grid-cols-3 gap-3 mb-4">
                 <div className="bg-glass-background bg-opacity-30 p-3 rounded-lg text-center overflow-hidden">
                   <div className="text-xs text-alpine-mist mb-1">Current Points</div>
-                  <div className="text-lg font-bold text-cyan-primary truncate">
+                  <div className="text-lg font-bold text-primary-cyan-500 truncate">
                     {activityPoints.currentPoints}
                   </div>
                 </div>
                 
                 <div className="bg-glass-background bg-opacity-30 p-3 rounded-lg text-center overflow-hidden">
                   <div className="text-xs text-alpine-mist mb-1">Days Active</div>
-                  <div className="text-lg font-bold text-cyan-primary truncate">
+                  <div className="text-lg font-bold text-primary-cyan-500 truncate">
                     {daysActive}
                   </div>
                 </div>
                 
                 <div className="bg-glass-background bg-opacity-30 p-3 rounded-lg text-center overflow-hidden">
                   <div className="text-xs text-alpine-mist mb-1">Est. Completion</div>
-                  <div className="text-lg font-bold text-cyan-primary truncate">
+                  <div className="text-lg font-bold text-primary-cyan-500 truncate">
                     {estimatedCompletion} days
                   </div>
                 </div>

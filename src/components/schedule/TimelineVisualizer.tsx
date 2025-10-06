@@ -65,13 +65,13 @@ const TimelineVisualizer: React.FC<TimelineVisualizerProps> = ({
   const getEventColor = (color: string) => {
     switch (color) {
       case 'cyan-primary':
-        return 'from-cyan-primary/20 to-cyan-primary/5';
+        return 'from-primary-cyan-500/20 to-cyan-primary/5';
       case 'teal-primary':
-        return 'from-teal-primary/20 to-teal-primary/5';
+        return 'from-teal-primary/20 to-primary-teal-500/5';
       case 'teal-secondary':
         return 'from-teal-secondary/20 to-teal-secondary/5';
       default:
-        return 'from-cyan-primary/20 to-cyan-primary/5';
+        return 'from-primary-cyan-500/20 to-cyan-primary/5';
     }
   };
   
@@ -79,13 +79,13 @@ const TimelineVisualizer: React.FC<TimelineVisualizerProps> = ({
   const getBorderColor = (color: string) => {
     switch (color) {
       case 'cyan-primary':
-        return 'border-cyan-primary';
+        return 'border-primary-cyan-500';
       case 'teal-primary':
-        return 'border-teal-primary';
+        return 'border-primary-teal-500';
       case 'teal-secondary':
         return 'border-teal-secondary';
       default:
-        return 'border-cyan-primary';
+        return 'border-primary-cyan-500';
     }
   };
 
@@ -117,12 +117,12 @@ const TimelineVisualizer: React.FC<TimelineVisualizerProps> = ({
       
       {/* Current time indicator */}
       <div 
-        className="absolute left-0 right-0 h-0.5 bg-cyan-primary z-10"
+        className="absolute left-0 right-0 h-0.5 bg-primary-cyan-500 z-10"
         style={{ 
           top: `${((new Date().getHours() * 60 + new Date().getMinutes()) - startTime) / totalMinutes * 100}%` 
         }}
       >
-        <div className="absolute -left-1 -top-1.5 w-4 h-4 rounded-full bg-cyan-primary"></div>
+        <div className="absolute -left-1 -top-1.5 w-4 h-4 rounded-full bg-primary-cyan-500"></div>
       </div>
       
       {/* Events */}

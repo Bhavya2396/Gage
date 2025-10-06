@@ -438,7 +438,7 @@ const DefaultExerciseVisual: React.FC<{ name: string }> = ({ name }) => {
             opacity: [0.8, 1, 0.8]
           }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="w-20 h-20 rounded-full bg-cyan-primary/20 flex items-center justify-center mx-auto mb-3"
+          className="w-20 h-20 rounded-full bg-primary-cyan-500/20 flex items-center justify-center mx-auto mb-3"
         >
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M6.5 17.5L17.5 6.5M6.5 6.5L17.5 17.5" stroke="#00CCFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

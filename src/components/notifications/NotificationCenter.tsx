@@ -56,7 +56,7 @@ export const NotificationCenter: React.FC = () => {
         return <AlertCircle size={16} className="text-red-400" />;
       case 'info':
       default:
-        return <Info size={16} className="text-cyan-primary" />;
+        return <Info size={16} className="text-primary-cyan-500" />;
     }
   };
   
@@ -95,7 +95,7 @@ export const NotificationCenter: React.FC = () => {
       >
         <Bell size={20} className="text-white" />
         {unreadCount > 0 && (
-          <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-cyan-primary text-white text-xs flex items-center justify-center">
+          <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-primary-cyan-500 text-white text-xs flex items-center justify-center">
             {unreadCount}
           </div>
         )}
@@ -114,7 +114,7 @@ export const NotificationCenter: React.FC = () => {
             {/* Header */}
             <div className="flex justify-between items-center p-3 border-b border-glass-border">
               <div className="flex items-center">
-                <Bell size={16} className="text-cyan-primary mr-2" />
+                <Bell size={16} className="text-primary-cyan-500 mr-2" />
                 <h3 className="text-white font-medium">Notifications</h3>
               </div>
               <div className="flex items-center">
@@ -176,7 +176,7 @@ export const NotificationCenter: React.FC = () => {
                               {notification.source}
                             </span>
                             {notification.actionLabel && (
-                              <div className="flex items-center text-cyan-primary text-xs">
+                              <div className="flex items-center text-primary-cyan-500 text-xs">
                                 {notification.actionLabel}
                                 <ChevronRight size={12} className="ml-0.5" />
                               </div>

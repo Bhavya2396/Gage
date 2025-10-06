@@ -86,7 +86,7 @@ const EventForm: React.FC<EventFormProps> = ({
                   name="title"
                   value={formData.title}
                   onChange={handleChange}
-                  className="w-full bg-glass-background text-alpine-mist rounded-lg px-3 py-2 outline-none border border-glass-border focus:border-cyan-primary"
+                  className="w-full bg-glass-background text-alpine-mist rounded-lg px-3 py-2 outline-none border border-glass-border focus:border-primary-cyan-500"
                   placeholder="Event title"
                   required
                 />
@@ -101,7 +101,7 @@ const EventForm: React.FC<EventFormProps> = ({
                     name="type"
                     value={formData.type}
                     onChange={handleChange}
-                    className="w-full bg-glass-background text-alpine-mist rounded-lg pl-9 pr-3 py-2 outline-none border border-glass-border focus:border-cyan-primary appearance-none"
+                    className="w-full bg-glass-background text-alpine-mist rounded-lg pl-9 pr-3 py-2 outline-none border border-glass-border focus:border-primary-cyan-500 appearance-none"
                   >
                     <option value="workout">Workout</option>
                     <option value="nutrition">Nutrition</option>
@@ -126,7 +126,7 @@ const EventForm: React.FC<EventFormProps> = ({
                       name="time"
                       value={formData.time}
                       onChange={handleChange}
-                      className="w-full bg-glass-background text-alpine-mist rounded-lg pl-9 pr-3 py-2 outline-none border border-glass-border focus:border-cyan-primary appearance-none"
+                      className="w-full bg-glass-background text-alpine-mist rounded-lg pl-9 pr-3 py-2 outline-none border border-glass-border focus:border-primary-cyan-500 appearance-none"
                     >
                       {Array.from({ length: 24 }).map((_, hour) => {
                         const isPM = hour >= 12;
@@ -160,7 +160,7 @@ const EventForm: React.FC<EventFormProps> = ({
                     min="5"
                     max="1440"
                     step="5"
-                    className="w-full bg-glass-background text-alpine-mist rounded-lg px-3 py-2 outline-none border border-glass-border focus:border-cyan-primary"
+                    className="w-full bg-glass-background text-alpine-mist rounded-lg px-3 py-2 outline-none border border-glass-border focus:border-primary-cyan-500"
                   />
                 </div>
               </div>
@@ -175,7 +175,7 @@ const EventForm: React.FC<EventFormProps> = ({
                     value={formData.details}
                     onChange={handleChange}
                     rows={3}
-                    className="w-full bg-glass-background text-alpine-mist rounded-lg pl-9 pr-3 py-2 outline-none border border-glass-border focus:border-cyan-primary"
+                    className="w-full bg-glass-background text-alpine-mist rounded-lg pl-9 pr-3 py-2 outline-none border border-glass-border focus:border-primary-cyan-500"
                     placeholder="Additional details..."
                   />
                 </div>

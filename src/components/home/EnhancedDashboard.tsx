@@ -77,22 +77,22 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
       <GlassCard 
         variant="default" 
         size="md" 
-        className={`h-full w-full cursor-pointer overflow-hidden ${isHovered ? 'border-cyan-primary/50 shadow-xl shadow-cyan-primary/20' : 'shadow-lg'}`}
+        className={`h-full w-full cursor-pointer overflow-hidden ${isHovered ? 'border-primary-cyan-500/50 shadow-xl shadow-cyan-primary/20' : 'shadow-lg'}`}
         onClick={handleClick}
       >
         <div className="flex flex-col h-full">
           {/* Card Header */}
           <div className="flex justify-between items-center mb-3 sm:mb-4">
             <div className="flex items-center">
-              <div className={`p-2.5 sm:p-3 rounded-full ${isHovered ? 'bg-gradient-to-br from-cyan-primary to-teal-primary' : 'bg-glass-highlight bg-opacity-80'} mr-3 sm:mr-4 transition-colors`}>
-                <div className={`${isHovered ? 'text-white' : 'text-cyan-primary'}`}>
+              <div className={`p-2.5 sm:p-3 rounded-full ${isHovered ? 'bg-gradient-to-br from-primary-cyan-500 to-primary-teal-500' : 'bg-glass-highlight bg-opacity-80'} mr-3 sm:mr-4 transition-colors`}>
+                <div className={`${isHovered ? 'text-white' : 'text-primary-cyan-500'}`}>
                   {icon}
                 </div>
               </div>
               <div className="flex items-center">
                 <h3 className="text-white font-medium text-base sm:text-lg">{title}</h3>
                 {badge && (
-                  <span className="ml-2 sm:ml-3 text-[10px] sm:text-xs bg-cyan-primary/30 text-white font-medium px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
+                  <span className="ml-2 sm:ml-3 text-[10px] sm:text-xs bg-primary-cyan-500/30 text-white font-medium px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
                     {badge}
                   </span>
                 )}
@@ -102,7 +102,7 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
             <motion.div
               animate={{ x: isHovered ? 0 : 5, opacity: isHovered ? 1 : 0.5 }}
               transition={{ duration: 0.2 }}
-              className={`${isHovered ? 'bg-cyan-primary text-white' : 'bg-glass-highlight text-cyan-primary'} rounded-full p-1.5 transition-colors`}
+              className={`${isHovered ? 'bg-primary-cyan-500 text-white' : 'bg-glass-highlight text-primary-cyan-500'} rounded-full p-1.5 transition-colors`}
             >
               <ArrowUpRight size={16} />
             </motion.div>
@@ -115,7 +115,7 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
           
           {/* Highlight indicator */}
           {highlight && (
-            <div className="absolute top-0 right-0 w-3 h-3 rounded-full bg-cyan-primary animate-pulse m-2 shadow-md shadow-cyan-primary/30" />
+            <div className="absolute top-0 right-0 w-3 h-3 rounded-full bg-primary-cyan-500 animate-pulse m-2 shadow-md shadow-cyan-primary/30" />
           )}
         </div>
       </GlassCard>
@@ -138,7 +138,7 @@ const HealthMetric: React.FC<HealthMetricProps> = ({
   value,
   icon,
   trend = 'stable',
-  color = 'text-cyan-primary',
+  color = 'text-primary-cyan-500',
   unit = ''
 }) => {
   const trendIcons = {
@@ -184,8 +184,8 @@ const ContextualInsight: React.FC<ContextualInsightProps> = ({
   const getBgColor = () => {
     switch(type) {
       case 'warning': return 'bg-amber-500/20';
-      case 'success': return 'bg-teal-primary/20';
-      case 'tip': return 'bg-cyan-primary/20';
+      case 'success': return 'bg-primary-teal-500/20';
+      case 'tip': return 'bg-primary-cyan-500/20';
       default: return 'bg-glass-highlight';
     }
   };
@@ -193,8 +193,8 @@ const ContextualInsight: React.FC<ContextualInsightProps> = ({
   const getIconColor = () => {
     switch(type) {
       case 'warning': return 'text-amber-500';
-      case 'success': return 'text-teal-primary';
-      case 'tip': return 'text-cyan-primary';
+      case 'success': return 'text-primary-teal-500';
+      case 'tip': return 'text-primary-cyan-500';
       default: return 'text-alpine-mist';
     }
   };
@@ -216,7 +216,7 @@ const ContextualInsight: React.FC<ContextualInsightProps> = ({
           {actionText && onAction && (
             <button 
               onClick={onAction}
-              className="text-xs font-medium flex items-center text-cyan-primary"
+              className="text-xs font-medium flex items-center text-primary-cyan-500"
             >
               {actionText}
               <ChevronRight size={14} className="ml-1" />
@@ -362,10 +362,10 @@ const EnhancedDashboard: React.FC = () => {
   // Enhance health metrics with icons
   const healthMetrics = baseHealthMetrics.map(metric => ({
     ...metric,
-    icon: metric.title === "Heart Rate" ? <Heart size={14} className="sm:size-4 text-cyan-primary" /> :
-          metric.title === "HRV" ? <Activity size={14} className="sm:size-4 text-teal-primary" /> :
-          metric.title === "Respiration" ? <Wind size={14} className="sm:size-4 text-cyan-primary" /> :
-          <Droplet size={14} className="sm:size-4 text-teal-primary" />
+    icon: metric.title === "Heart Rate" ? <Heart size={14} className="sm:size-4 text-primary-cyan-500" /> :
+          metric.title === "HRV" ? <Activity size={14} className="sm:size-4 text-primary-teal-500" /> :
+          metric.title === "Respiration" ? <Wind size={14} className="sm:size-4 text-primary-cyan-500" /> :
+          <Droplet size={14} className="sm:size-4 text-primary-teal-500" />
   }));
   
   return (
@@ -383,7 +383,7 @@ const EnhancedDashboard: React.FC = () => {
       {contextualInsights.length > 0 && (
         <div className="px-4 sm:px-6">
           <div className="mb-2 flex items-center">
-            <Lightbulb size={16} className="text-cyan-primary mr-2" />
+            <Lightbulb size={16} className="text-primary-cyan-500 mr-2" />
             <h3 className="text-white text-sm font-medium">Contextual Insights</h3>
           </div>
           <AnimatePresence>
@@ -405,19 +405,19 @@ const EnhancedDashboard: React.FC = () => {
       <div className="px-4 sm:px-6">
         <InteractiveCard
           title="Today's Schedule"
-          icon={<Calendar className="text-cyan-primary" size={16} />}
+          icon={<Calendar className="text-primary-cyan-500" size={16} />}
           onClick={() => navigate('/calendar')}
           content={
               <div className="relative">
                 {/* Timeline line */}
-                <div className="absolute left-3 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyan-primary via-teal-primary to-cyan-primary"></div>
+                <div className="absolute left-3 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-cyan-500 via-teal-primary to-cyan-primary"></div>
                 
                 {/* Timeline events */}
                 <div className="pl-8 space-y-4">
                   {/* Morning workout */}
                   <div className="relative">
                     {/* Time marker */}
-                    <div className="absolute left-[-22px] top-1/2 transform -translate-y-1/2 w-5 h-5 rounded-full bg-cyan-primary shadow-lg shadow-cyan-primary/30 flex items-center justify-center">
+                    <div className="absolute left-[-22px] top-1/2 transform -translate-y-1/2 w-5 h-5 rounded-full bg-primary-cyan-500 shadow-lg shadow-cyan-primary/30 flex items-center justify-center">
                       <div className="w-2 h-2 rounded-full bg-white"></div>
                     </div>
                     
@@ -425,10 +425,10 @@ const EnhancedDashboard: React.FC = () => {
                     <div className="bg-glass-highlight bg-opacity-70 p-3 rounded-lg shadow-md">
                       <div className="flex justify-between mb-1">
                         <span className="text-white font-medium text-sm">Morning Workout</span>
-                        <span className="text-cyan-primary text-xs font-medium">9:00 AM</span>
+                        <span className="text-primary-cyan-500 text-xs font-medium">9:00 AM</span>
                       </div>
                       <div className="flex items-center">
-                        <Dumbbell size={12} className="text-teal-primary mr-1.5" />
+                        <Dumbbell size={12} className="text-primary-teal-500 mr-1.5" />
                         <span className="text-white/80 text-xs">Full Body · 45 min</span>
                       </div>
                     </div>
@@ -436,16 +436,16 @@ const EnhancedDashboard: React.FC = () => {
                   
                   {/* Lunch */}
                   <div className="relative">
-                    <div className="absolute left-[-22px] top-1/2 transform -translate-y-1/2 w-5 h-5 rounded-full bg-teal-primary shadow-lg shadow-teal-primary/30 flex items-center justify-center">
+                    <div className="absolute left-[-22px] top-1/2 transform -translate-y-1/2 w-5 h-5 rounded-full bg-primary-teal-500 shadow-lg shadow-teal-primary/30 flex items-center justify-center">
                       <div className="w-2 h-2 rounded-full bg-white"></div>
                     </div>
                     <div className="bg-glass-highlight bg-opacity-70 p-3 rounded-lg shadow-md">
                       <div className="flex justify-between mb-1">
                         <span className="text-white font-medium text-sm">Lunch</span>
-                        <span className="text-teal-primary text-xs font-medium">12:30 PM</span>
+                        <span className="text-primary-teal-500 text-xs font-medium">12:30 PM</span>
                       </div>
                       <div className="flex items-center">
-                        <Utensils size={12} className="text-cyan-primary mr-1.5" />
+                        <Utensils size={12} className="text-primary-cyan-500 mr-1.5" />
                         <span className="text-white/80 text-xs">Protein-rich · 650 kcal</span>
                       </div>
                     </div>
@@ -453,16 +453,16 @@ const EnhancedDashboard: React.FC = () => {
                   
                   {/* Evening Session */}
                   <div className="relative">
-                    <div className="absolute left-[-22px] top-1/2 transform -translate-y-1/2 w-5 h-5 rounded-full bg-cyan-primary shadow-lg shadow-cyan-primary/30 flex items-center justify-center">
+                    <div className="absolute left-[-22px] top-1/2 transform -translate-y-1/2 w-5 h-5 rounded-full bg-primary-cyan-500 shadow-lg shadow-cyan-primary/30 flex items-center justify-center">
                       <div className="w-2 h-2 rounded-full bg-white"></div>
                     </div>
                     <div className="bg-glass-highlight bg-opacity-70 p-3 rounded-lg shadow-md">
                       <div className="flex justify-between mb-1">
                         <span className="text-white font-medium text-sm">Evening Session</span>
-                        <span className="text-cyan-primary text-xs font-medium">6:00 PM</span>
+                        <span className="text-primary-cyan-500 text-xs font-medium">6:00 PM</span>
                       </div>
                       <div className="flex items-center">
-                        <Target size={12} className="text-teal-primary mr-1.5" />
+                        <Target size={12} className="text-primary-teal-500 mr-1.5" />
                         <span className="text-white/80 text-xs">Golf Practice · 60 min</span>
                       </div>
                     </div>
@@ -477,7 +477,7 @@ const EnhancedDashboard: React.FC = () => {
       <div className="px-4 sm:px-6">
         <InteractiveCard
           title="Workout"
-          icon={<Dumbbell className="text-cyan-primary" size={16} />}
+          icon={<Dumbbell className="text-primary-cyan-500" size={16} />}
           badge="Ready"
           highlight={true}
           onClick={() => navigate('/workout')}
@@ -488,19 +488,19 @@ const EnhancedDashboard: React.FC = () => {
               {/* Phase context banner */}
               {getCurrentPhase() && (
                 <div className={`mb-3 p-2 rounded-lg text-xs ${
-                  getCurrentPhase()?.name === 'Foundation Phase' ? 'bg-cyan-primary/20' :
-                  getCurrentPhase()?.name === 'Development Phase' ? 'bg-teal-primary/20' :
+                  getCurrentPhase()?.name === 'Foundation Phase' ? 'bg-primary-cyan-500/20' :
+                  getCurrentPhase()?.name === 'Development Phase' ? 'bg-primary-teal-500/20' :
                   'bg-indigo-500/20'
                 }`}>
                   <div className="flex items-center">
                     {getCurrentPhase()?.name === 'Foundation Phase' ? (
                       <>
-                        <Brain size={14} className="mr-2 text-cyan-primary" />
+                        <Brain size={14} className="mr-2 text-primary-cyan-500" />
                         <span className="text-white">Base Camp Focus: Building foundational strength and movement patterns</span>
                       </>
                     ) : getCurrentPhase()?.name === 'Development Phase' ? (
                       <>
-                        <Target size={14} className="mr-2 text-teal-primary" />
+                        <Target size={14} className="mr-2 text-primary-teal-500" />
                         <span className="text-white">Camp 1 Focus: Progressive overload and skill development</span>
                       </>
                     ) : (
@@ -515,11 +515,11 @@ const EnhancedDashboard: React.FC = () => {
               
               <div className="flex justify-between text-xs sm:text-sm text-alpine-mist mb-3 sm:mb-4 bg-glass-background bg-opacity-30 p-1.5 sm:p-2 rounded-lg">
                 <div className="flex items-center">
-                  <Target size={14} className="mr-2 text-teal-primary" />
+                  <Target size={14} className="mr-2 text-primary-teal-500" />
                   <span>{todaysWorkout.focus}</span>
                 </div>
                 <div className="flex items-center">
-                  <Clock size={14} className="mr-2 text-cyan-primary" />
+                  <Clock size={14} className="mr-2 text-primary-cyan-500" />
                   <span>{todaysWorkout.duration}</span>
                 </div>
               </div>
@@ -536,7 +536,7 @@ const EnhancedDashboard: React.FC = () => {
               {/* Journey impact - how this workout contributes to progress */}
               <div className="mt-3 p-2 bg-glass-highlight bg-opacity-50 rounded-lg">
                 <div className="flex items-center mb-1">
-                  <Zap size={14} className="mr-2 text-cyan-primary" />
+                  <Zap size={14} className="mr-2 text-primary-cyan-500" />
                   <span className="text-white text-xs font-medium">Journey Impact</span>
                 </div>
                 <p className="text-alpine-mist text-xs">
@@ -554,7 +554,7 @@ const EnhancedDashboard: React.FC = () => {
       <div className="px-4 sm:px-6">
         <InteractiveCard
           title="Nutrition"
-          icon={<Utensils className="text-teal-primary" size={16} />}
+          icon={<Utensils className="text-primary-teal-500" size={16} />}
           onClick={() => navigate('/food')}
           content={
               <div>
@@ -598,19 +598,19 @@ const EnhancedDashboard: React.FC = () => {
                 {/* Phase-specific nutrition context */}
                 {getCurrentPhase() && (
                   <div className={`mb-3 p-2 rounded-lg text-xs ${
-                    getCurrentPhase()?.name === 'Foundation Phase' ? 'bg-cyan-primary/20' :
-                    getCurrentPhase()?.name === 'Development Phase' ? 'bg-teal-primary/20' :
+                    getCurrentPhase()?.name === 'Foundation Phase' ? 'bg-primary-cyan-500/20' :
+                    getCurrentPhase()?.name === 'Development Phase' ? 'bg-primary-teal-500/20' :
                     'bg-indigo-500/20'
                   }`}>
                     <div className="flex items-center mb-1">
                       {getCurrentPhase()?.name === 'Foundation Phase' ? (
                         <>
-                          <Utensils size={14} className="mr-2 text-cyan-primary" />
+                          <Utensils size={14} className="mr-2 text-primary-cyan-500" />
                           <span className="text-white font-medium">Base Camp Nutrition</span>
                         </>
                       ) : getCurrentPhase()?.name === 'Development Phase' ? (
                         <>
-                          <Utensils size={14} className="mr-2 text-teal-primary" />
+                          <Utensils size={14} className="mr-2 text-primary-teal-500" />
                           <span className="text-white font-medium">Camp 1 Nutrition</span>
                         </>
                       ) : (
@@ -641,7 +641,7 @@ const EnhancedDashboard: React.FC = () => {
                     <div className="relative w-full h-10 mb-2">
                       <div className="absolute inset-0 bg-glass-background bg-opacity-30 rounded-md"></div>
                       <motion.div 
-                        className="absolute left-0 top-0 bottom-0 bg-cyan-primary rounded-md"
+                        className="absolute left-0 top-0 bottom-0 bg-primary-cyan-500 rounded-md"
                         initial={{ width: 0 }}
                         animate={{ width: `${(nutritionSummary.protein.current / nutritionSummary.protein.target) * 100}%` }}
                         transition={{ duration: 1, type: 'spring' }}
@@ -663,7 +663,7 @@ const EnhancedDashboard: React.FC = () => {
                     <div className="relative w-full h-10 mb-2">
                       <div className="absolute inset-0 bg-glass-background bg-opacity-30 rounded-md"></div>
                       <motion.div 
-                        className="absolute left-0 top-0 bottom-0 bg-teal-primary rounded-md"
+                        className="absolute left-0 top-0 bottom-0 bg-primary-teal-500 rounded-md"
                         initial={{ width: 0 }}
                         animate={{ width: `${(nutritionSummary.carbs.current / nutritionSummary.carbs.target) * 100}%` }}
                         transition={{ duration: 1, type: 'spring', delay: 0.2 }}
@@ -685,7 +685,7 @@ const EnhancedDashboard: React.FC = () => {
                     <div className="relative w-full h-10 mb-2">
                       <div className="absolute inset-0 bg-glass-background bg-opacity-30 rounded-md"></div>
                       <motion.div 
-                        className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-cyan-primary/70 to-teal-primary/70 rounded-md"
+                        className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-primary-cyan-500/70 to-primary-teal-500/70 rounded-md"
                         initial={{ width: 0 }}
                         animate={{ width: `${(nutritionSummary.fat.current / nutritionSummary.fat.target) * 100}%` }}
                         transition={{ duration: 1, type: 'spring', delay: 0.4 }}
@@ -702,7 +702,7 @@ const EnhancedDashboard: React.FC = () => {
                 {/* Journey impact - how nutrition contributes to progress */}
                 <div className="mt-3 p-2 bg-glass-highlight bg-opacity-50 rounded-lg">
                   <div className="flex items-center mb-1">
-                    <Zap size={14} className="mr-2 text-cyan-primary" />
+                    <Zap size={14} className="mr-2 text-primary-cyan-500" />
                     <span className="text-white text-xs font-medium">Journey Impact</span>
                   </div>
                   <p className="text-alpine-mist text-xs">
@@ -718,7 +718,7 @@ const EnhancedDashboard: React.FC = () => {
       <div className="px-4 sm:px-6">
         <InteractiveCard
           title="Health"
-          icon={<Heart className="text-cyan-primary" size={16} />}
+          icon={<Heart className="text-primary-cyan-500" size={16} />}
           onClick={() => navigate('/health')}
           content={
               <div>
@@ -755,19 +755,19 @@ const EnhancedDashboard: React.FC = () => {
                 {/* Phase-specific health context */}
                 {getCurrentPhase() && (
                   <div className={`mb-3 p-2 rounded-lg text-xs ${
-                    getCurrentPhase()?.name === 'Foundation Phase' ? 'bg-cyan-primary/20' :
-                    getCurrentPhase()?.name === 'Development Phase' ? 'bg-teal-primary/20' :
+                    getCurrentPhase()?.name === 'Foundation Phase' ? 'bg-primary-cyan-500/20' :
+                    getCurrentPhase()?.name === 'Development Phase' ? 'bg-primary-teal-500/20' :
                     'bg-indigo-500/20'
                   }`}>
                     <div className="flex items-center mb-1">
                       {getCurrentPhase()?.name === 'Foundation Phase' ? (
                         <>
-                          <Heart size={14} className="mr-2 text-cyan-primary" />
+                          <Heart size={14} className="mr-2 text-primary-cyan-500" />
                           <span className="text-white font-medium">Base Camp Recovery</span>
                         </>
                       ) : getCurrentPhase()?.name === 'Development Phase' ? (
                         <>
-                          <Heart size={14} className="mr-2 text-teal-primary" />
+                          <Heart size={14} className="mr-2 text-primary-teal-500" />
                           <span className="text-white font-medium">Camp 1 Recovery</span>
                         </>
                       ) : (
@@ -797,7 +797,7 @@ const EnhancedDashboard: React.FC = () => {
                       <div className="mb-2 p-2 rounded-full bg-glass-background bg-opacity-30">
                         {React.cloneElement(metric.icon as React.ReactElement, { 
                           size: 20, 
-                          className: metric.trend === 'up' ? 'text-teal-primary' : 'text-cyan-primary' 
+                          className: metric.trend === 'up' ? 'text-primary-teal-500' : 'text-primary-cyan-500' 
                         })}
                       </div>
                       
@@ -806,7 +806,7 @@ const EnhancedDashboard: React.FC = () => {
                       
                       {/* Trend indicator */}
                       <div className={`mt-1 text-xs font-medium ${
-                        metric.trend === 'up' ? 'text-teal-primary' : 
+                        metric.trend === 'up' ? 'text-primary-teal-500' : 
                         metric.trend === 'down' ? 'text-red-400' : 
                         'text-white/50'
                       }`}>
@@ -821,7 +821,7 @@ const EnhancedDashboard: React.FC = () => {
                 {/* Journey impact - how health metrics relate to progress */}
                 <div className="mt-3 p-2 bg-glass-highlight bg-opacity-50 rounded-lg">
                   <div className="flex items-center mb-1">
-                    <Zap size={14} className="mr-2 text-cyan-primary" />
+                    <Zap size={14} className="mr-2 text-primary-cyan-500" />
                     <span className="text-white text-xs font-medium">Journey Impact</span>
                   </div>
                   <p className="text-alpine-mist text-xs">
@@ -840,7 +840,7 @@ const EnhancedDashboard: React.FC = () => {
       <div className="px-4 sm:px-6">
         <InteractiveCard
           title="Goal Progress"
-          icon={<Target className="text-cyan-primary" size={16} />}
+          icon={<Target className="text-primary-cyan-500" size={16} />}
           onClick={() => navigate('/goals/progress')}
           content={
               <div>
@@ -860,8 +860,8 @@ const EnhancedDashboard: React.FC = () => {
                   <div className="relative p-4">
                     {/* Journey Title */}
                     <div className="flex items-center mb-3">
-                      <div className="p-2 rounded-full bg-cyan-primary/30 mr-3">
-                        <Award size={16} className="text-cyan-primary" />
+                      <div className="p-2 rounded-full bg-primary-cyan-500/30 mr-3">
+                        <Award size={16} className="text-primary-cyan-500" />
                       </div>
                       <div>
                         <div className="text-white text-base font-medium">{activityPoints.goalName}</div>
@@ -873,13 +873,13 @@ const EnhancedDashboard: React.FC = () => {
                     <div className="mb-4">
                       <div className="flex justify-between mb-1">
                         <span className="text-white text-sm">Overall Progress</span>
-                        <span className="text-cyan-primary text-sm font-medium">{getProgressPercentage()}%</span>
+                        <span className="text-primary-cyan-500 text-sm font-medium">{getProgressPercentage()}%</span>
                       </div>
                       
                       {/* Progress bar */}
                       <div className="relative h-2 bg-glass-background bg-opacity-30 rounded-full overflow-hidden">
                         <motion.div 
-                          className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-cyan-primary to-teal-primary rounded-full"
+                          className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 rounded-full"
                           initial={{ width: 0 }}
                           animate={{ width: `${getProgressPercentage()}%` }}
                           transition={{ duration: 1, type: 'spring', bounce: 0.2 }}
@@ -899,9 +899,9 @@ const EnhancedDashboard: React.FC = () => {
                         <div className="flex justify-between mb-1">
                           <div className="flex items-center">
                             <span className="text-white text-sm">{getCurrentPhase().name}</span>
-                            <span className="ml-2 text-xs bg-cyan-primary/30 text-white px-2 py-0.5 rounded-full">Current</span>
+                            <span className="ml-2 text-xs bg-primary-cyan-500/30 text-white px-2 py-0.5 rounded-full">Current</span>
                           </div>
-                          <span className="text-cyan-primary text-sm font-medium">
+                          <span className="text-primary-cyan-500 text-sm font-medium">
                             {Math.round((getCurrentPhase().points / getCurrentPhase().totalPoints) * 100)}%
                           </span>
                         </div>
@@ -909,7 +909,7 @@ const EnhancedDashboard: React.FC = () => {
                         {/* Phase progress bar */}
                         <div className="relative h-2 bg-glass-background bg-opacity-30 rounded-full overflow-hidden">
                           <motion.div 
-                            className="absolute left-0 top-0 bottom-0 bg-cyan-primary rounded-full"
+                            className="absolute left-0 top-0 bottom-0 bg-primary-cyan-500 rounded-full"
                             initial={{ width: 0 }}
                             animate={{ width: `${(getCurrentPhase().points / getCurrentPhase().totalPoints) * 100}%` }}
                             transition={{ duration: 1, type: 'spring', bounce: 0.2, delay: 0.3 }}
@@ -929,7 +929,7 @@ const EnhancedDashboard: React.FC = () => {
                         <div className="text-white/70 text-xs">total earned</div>
                       </div>
                       
-                      <div className="bg-cyan-primary/30 text-white px-3 py-1 rounded-full text-sm font-medium">
+                      <div className="bg-primary-cyan-500/30 text-white px-3 py-1 rounded-full text-sm font-medium">
                         {getPointsRemaining()} to summit
                       </div>
                     </div>
@@ -944,25 +944,25 @@ const EnhancedDashboard: React.FC = () => {
       <div className="px-4 sm:px-6">
         <InteractiveCard
           title="AI Coach"
-          icon={<MessageCircle className="text-cyan-primary" size={16} />}
+          icon={<MessageCircle className="text-primary-cyan-500" size={16} />}
           onClick={() => navigate('/coach')}
           content={
             <div>
               <div className="grid grid-cols-2 gap-3 mb-3">
                 <div className="bg-glass-highlight bg-opacity-80 p-3 rounded-lg flex flex-col items-center justify-center aspect-square">
-                  <Dumbbell size={24} className="text-cyan-primary mb-2" />
+                  <Dumbbell size={24} className="text-primary-cyan-500 mb-2" />
                   <span className="text-white text-xs font-medium">Form Check</span>
                 </div>
                 <div className="bg-glass-highlight bg-opacity-80 p-3 rounded-lg flex flex-col items-center justify-center aspect-square">
-                  <Zap size={24} className="text-teal-primary mb-2" />
+                  <Zap size={24} className="text-primary-teal-500 mb-2" />
                   <span className="text-white text-xs font-medium">Workout Plans</span>
                 </div>
                 <div className="bg-glass-highlight bg-opacity-80 p-3 rounded-lg flex flex-col items-center justify-center aspect-square">
-                  <Utensils size={24} className="text-cyan-primary mb-2" />
+                  <Utensils size={24} className="text-primary-cyan-500 mb-2" />
                   <span className="text-white text-xs font-medium">Nutrition</span>
                 </div>
                 <div className="bg-glass-highlight bg-opacity-80 p-3 rounded-lg flex flex-col items-center justify-center aspect-square">
-                  <Heart size={24} className="text-teal-primary mb-2" />
+                  <Heart size={24} className="text-primary-teal-500 mb-2" />
                   <span className="text-white text-xs font-medium">Recovery</span>
                 </div>
               </div>
@@ -975,16 +975,16 @@ const EnhancedDashboard: React.FC = () => {
       <div className="px-4 sm:px-6">
         <InteractiveCard
           title="Friends"
-          icon={<Users className="text-teal-primary" size={16} />}
+          icon={<Users className="text-primary-teal-500" size={16} />}
           onClick={() => navigate('/friends')}
           badge="3 active"
           content={
               <div className="relative h-24 bg-glass-highlight bg-opacity-80 rounded-lg overflow-hidden">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="flex -space-x-4">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-primary/80 to-teal-primary/80 border-2 border-white/30 shadow-lg flex items-center justify-center text-sm font-medium text-white z-30">JS</div>
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-cyan-500/80 to-primary-teal-500/80 border-2 border-white/30 shadow-lg flex items-center justify-center text-sm font-medium text-white z-30">JS</div>
                     <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-primary/80 to-cyan-primary/80 border-2 border-white/30 shadow-lg flex items-center justify-center text-sm font-medium text-white z-20">KM</div>
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-primary/80 to-teal-primary/80 border-2 border-white/30 shadow-lg flex items-center justify-center text-sm font-medium text-white z-10">AR</div>
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-cyan-500/80 to-primary-teal-500/80 border-2 border-white/30 shadow-lg flex items-center justify-center text-sm font-medium text-white z-10">AR</div>
                     <div className="w-12 h-12 rounded-full bg-glass-highlight border-2 border-white/30 shadow-lg flex items-center justify-center text-sm font-medium text-white">+2</div>
                   </div>
                 </div>
@@ -1000,7 +1000,7 @@ const EnhancedDashboard: React.FC = () => {
       <div className="px-4 sm:px-6">
         <InteractiveCard
           title="Insights"
-          icon={<BarChart3 className="text-teal-primary" size={16} />}
+          icon={<BarChart3 className="text-primary-teal-500" size={16} />}
           onClick={() => navigate('/health/trends')}
           content={
             <div>
@@ -1023,13 +1023,13 @@ const EnhancedDashboard: React.FC = () => {
                   {[65, 45, 75, 60, 80, 70, 90].map((height, i) => (
                     <motion.div 
                       key={i} 
-                      className={`flex-1 rounded-t ${i === 6 ? 'bg-gradient-to-t from-cyan-primary to-teal-primary shadow-lg shadow-cyan-primary/20' : 'bg-glass-highlight bg-opacity-80'}`}
+                      className={`flex-1 rounded-t ${i === 6 ? 'bg-gradient-to-t from-primary-cyan-500 to-primary-teal-500 shadow-lg shadow-cyan-primary/20' : 'bg-glass-highlight bg-opacity-80'}`}
                       initial={{ height: 0 }}
                       animate={{ height: `${height}%` }}
                       transition={{ duration: 0.8, delay: i * 0.1, type: 'spring', stiffness: 100 }}
                     >
                       {i === 6 && (
-                        <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 text-xs font-medium text-white bg-cyan-primary px-1.5 py-0.5 rounded-sm shadow-md">
+                        <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 text-xs font-medium text-white bg-primary-cyan-500 px-1.5 py-0.5 rounded-sm shadow-md">
                           {height}%
                         </div>
                       )}
@@ -1045,7 +1045,7 @@ const EnhancedDashboard: React.FC = () => {
                   <span className="text-[10px] sm:text-xs text-white/70 font-medium">T</span>
                   <span className="text-[10px] sm:text-xs text-white/70 font-medium">F</span>
                   <span className="text-[10px] sm:text-xs text-white/70 font-medium">S</span>
-                  <span className="text-[10px] sm:text-xs text-cyan-primary font-medium">S</span>
+                  <span className="text-[10px] sm:text-xs text-primary-cyan-500 font-medium">S</span>
                 </div>
               </div>
             </div>

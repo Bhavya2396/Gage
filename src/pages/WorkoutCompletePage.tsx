@@ -108,7 +108,7 @@ const WorkoutCompletePage: React.FC = () => {
               transition={{ duration: 0.5 }}
             >
               <motion.div
-                className="text-6xl font-bold text-cyan-primary mb-2 flex items-center"
+                className="text-6xl font-bold text-primary-cyan-500 mb-2 flex items-center"
                 initial={{ y: 20 }}
                 animate={{ y: 0 }}
                 transition={{ delay: 0.3, duration: 0.5 }}
@@ -135,9 +135,9 @@ const WorkoutCompletePage: React.FC = () => {
                 animate={{ width: 200 }}
                 transition={{ delay: 0.8, duration: 1.5 }}
               >
-                <div className="h-1 bg-gradient-to-r from-cyan-primary to-teal-primary rounded-full"></div>
+                <div className="h-1 bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 rounded-full"></div>
                 <motion.div
-                  className="absolute -top-2 -right-2 w-5 h-5 bg-cyan-primary rounded-full flex items-center justify-center"
+                  className="absolute -top-2 -right-2 w-5 h-5 bg-primary-cyan-500 rounded-full flex items-center justify-center"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 2.3, duration: 0.3 }}
@@ -190,8 +190,8 @@ const WorkoutCompletePage: React.FC = () => {
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-bold text-alpine-mist">Workout Impact</h2>
                 <div className="flex items-center">
-                  <div className="w-8 h-8 rounded-full bg-cyan-primary/20 flex items-center justify-center">
-                    <Award className="text-cyan-primary" size={18} />
+                  <div className="w-8 h-8 rounded-full bg-primary-cyan-500/20 flex items-center justify-center">
+                    <Award className="text-primary-cyan-500" size={18} />
                   </div>
                 </div>
               </div>
@@ -202,24 +202,24 @@ const WorkoutCompletePage: React.FC = () => {
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
-                      <Zap className="text-cyan-primary mr-2" size={16} />
+                      <Zap className="text-primary-cyan-500 mr-2" size={16} />
                       <span className="text-sm text-alpine-mist">Exercise Completion</span>
                     </div>
-                    <span className="text-sm text-cyan-primary">+{Math.round(totalPointsGain * 0.6)} points</span>
+                    <span className="text-sm text-primary-cyan-500">+{Math.round(totalPointsGain * 0.6)} points</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
-                      <Target className="text-cyan-primary mr-2" size={16} />
+                      <Target className="text-primary-cyan-500 mr-2" size={16} />
                       <span className="text-sm text-alpine-mist">Goal Alignment</span>
                     </div>
-                    <span className="text-sm text-cyan-primary">+{Math.round(totalPointsGain * 0.3)} points</span>
+                    <span className="text-sm text-primary-cyan-500">+{Math.round(totalPointsGain * 0.3)} points</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
-                      <BarChart3 className="text-cyan-primary mr-2" size={16} />
+                      <BarChart3 className="text-primary-cyan-500 mr-2" size={16} />
                       <span className="text-sm text-alpine-mist">Performance Bonus</span>
                     </div>
-                    <span className="text-sm text-cyan-primary">+{Math.round(totalPointsGain * 0.1)} points</span>
+                    <span className="text-sm text-primary-cyan-500">+{Math.round(totalPointsGain * 0.1)} points</span>
                   </div>
                 </div>
               </div>
@@ -229,7 +229,7 @@ const WorkoutCompletePage: React.FC = () => {
                 <h3 className="text-sm text-text-secondary mb-2">Summit Progress</h3>
                 <div className="w-full bg-glass-border h-2 rounded-full overflow-hidden mb-2">
                   <div 
-                    className="bg-gradient-to-r from-cyan-primary to-teal-primary h-full rounded-full" 
+                    className="bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 h-full rounded-full" 
                     style={{ width: `${getProgressPercentage()}%` }}
                   ></div>
                 </div>

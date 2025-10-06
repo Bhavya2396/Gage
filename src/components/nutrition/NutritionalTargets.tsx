@@ -97,7 +97,7 @@ const NutritionalTargets: React.FC<NutritionalTargetsProps> = ({
               <div>
                 <p className="text-xs sm:text-sm text-alpine-mist mb-1">Daily Calories</p>
                 <div className="flex items-baseline">
-                  <span className="text-lg sm:text-xl font-medium text-cyan-primary">{calories.current}</span>
+                  <span className="text-lg sm:text-xl font-medium text-primary-cyan-500">{calories.current}</span>
                   <span className="text-xs sm:text-sm text-alpine-mist ml-1">/ {calories.target} {calories.unit || 'kcal'}</span>
                 </div>
               </div>

@@ -191,7 +191,43 @@ export const MountainBackground: React.FC<MountainBackgroundProps> = React.memo(
       
       {/* Focus interaction is still available but button removed */}
       
-      {/* Mountain plotting system removed as requested */}
+      {/* Journey Landmarks - show key milestones on the mountain based on user preference */}
+      {shouldShowFeature('showJourneyLandmarks') && (
+        <div className="absolute top-0 left-0 w-full h-[60%] pointer-events-none z-5">
+          {/* Base Camp - Foundation Phase */}
+          <JourneyLandmark 
+            name="Base Camp" 
+            description={`Foundation Phase: ${activityPoints.phases[0].points}/${activityPoints.phases[0].totalPoints} points`}
+            position={{ left: '15%', top: '85%' }} 
+            color="#00CCFF"
+            isCompleted={activityPoints.phases[0].completed}
+            isActive={getCurrentPhase()?.name === 'Foundation Phase'}
+            onClick={() => setShowJourneyTooltip(true)}
+          />
+          
+          {/* Camp 1 - Development Phase */}
+          <JourneyLandmark 
+            name="Camp 1" 
+            description={`Development Phase: ${activityPoints.phases[1].points}/${activityPoints.phases[1].totalPoints} points`}
+            position={{ left: '40%', top: '50%' }} 
+            color="#20B2AA"
+            isCompleted={activityPoints.phases[1].completed}
+            isActive={getCurrentPhase()?.name === 'Development Phase'}
+            onClick={() => setShowJourneyTooltip(true)}
+          />
+          
+          {/* Summit - Specialization Phase */}
+          <JourneyLandmark 
+            name="Summit" 
+            description={`Specialization Phase: ${activityPoints.phases[2].points}/${activityPoints.phases[2].totalPoints} points`}
+            position={{ left: '50%', top: '15%' }} 
+            color="#4F86C6"
+            isCompleted={activityPoints.phases[2].completed}
+            isActive={getCurrentPhase()?.name === 'Specialization Phase'}
+            onClick={() => setShowJourneyTooltip(true)}
+          />
+        </div>
+      )}
       
       {/* Friends Indicators with enhanced visual treatment - respects user preferences */}
       {showFriends && shouldShowFeature('showFriendProgress') && (
@@ -225,7 +261,85 @@ export const MountainBackground: React.FC<MountainBackgroundProps> = React.memo(
         </motion.div>
       )}
       
-      {/* Journey context tooltip removed as requested */}
+      {/* Journey Context Tooltip - positioned in the middle of the screen to avoid overlapping */}
+      <AnimatePresence>
+        {showJourneyTooltip && (
+          <motion.div
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 w-[85%] max-w-md"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          >
+            <div className="bg-glass-backgroundDark backdrop-blur-md border border-glass-border rounded-lg p-4 shadow-xl">
+              <div className="flex justify-between items-start mb-3">
+                <div className="flex items-center">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary-cyan-500 to-primary-teal-500 flex items-center justify-center mr-3">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M3 10L10 3M10 3H4M10 3V9M21 14L14 21M14 21H20M14 21V15" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-white font-medium text-sm">{activityPoints.goalName}</h3>
+                    <p className="text-alpine-mist text-xs">Your journey to the summit</p>
+                  </div>
+                </div>
+                <button 
+                  className="text-alpine-mist hover:text-white"
+                  onClick={() => setShowJourneyTooltip(false)}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+              
+              <div className="space-y-3 mb-3">
+                {activityPoints.phases.map((phase, index) => {
+                  const isCurrentPhase = getCurrentPhase()?.name === phase.name;
+                  const progressPercentage = Math.round((phase.points / phase.totalPoints) * 100);
+                  
+                  return (
+                    <div key={index} className={`p-3 rounded-lg ${isCurrentPhase ? 'bg-primary-cyan-500/20' : 'bg-glass-highlight bg-opacity-50'}`}>
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-white text-xs font-medium">{phase.name}</span>
+                        <span className={`text-xs ${phase.completed ? 'text-primary-teal-500' : isCurrentPhase ? 'text-primary-cyan-500' : 'text-alpine-mist'}`}>
+                          {phase.completed ? 'Completed' : `${progressPercentage}%`}
+                        </span>
+                      </div>
+                      
+                      <div className="relative h-1.5 bg-glass-background bg-opacity-30 rounded-full overflow-hidden">
+                        <div 
+                          className="absolute left-0 top-0 bottom-0 rounded-full"
+                          style={{
+                            width: `${progressPercentage}%`,
+                            backgroundColor: phase.completed ? '#4ADE80' : isCurrentPhase ? '#00CCFF' : '#94A3B8'
+                          }}
+                        />
+                      </div>
+                      
+                      {isCurrentPhase && (
+                        <div className="mt-2 text-xs text-alpine-mist">
+                          {phase.points} of {phase.totalPoints} points earned
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+              
+              <div className="text-xs text-alpine-mist border-t border-glass-border pt-3">
+                {getCurrentPhase() ? (
+                  <>Your current focus is on <span className="text-primary-cyan-500 font-medium">{getCurrentPhase()?.name}</span>. 
+                  Keep going to reach the next milestone!</>
+                ) : (
+                  <>Congratulations! You've completed all phases of your journey to the summit!</>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 });
@@ -427,12 +541,12 @@ const JourneyLandmark: React.FC<JourneyLandmarkProps> = ({
             <div className="text-alpine-mist text-[10px] leading-tight">{description}</div>
             
             {isActive && (
-              <div className="mt-1 pt-1 border-t border-glass-border text-[10px] text-cyan-primary font-medium">
+              <div className="mt-1 pt-1 border-t border-glass-border text-[10px] text-primary-cyan-500 font-medium">
                 You are here
               </div>
             )}
             {isCompleted && (
-              <div className="mt-1 pt-1 border-t border-glass-border text-[10px] text-teal-primary font-medium">
+              <div className="mt-1 pt-1 border-t border-glass-border text-[10px] text-primary-teal-500 font-medium">
                 Completed
               </div>
             )}

@@ -151,7 +151,7 @@ const AiChatbot: React.FC<AiChatbotProps> = ({ initialContext = 'fitness', onClo
       {/* Floating chat button */}
       {!isOpen && (
         <motion.button
-          className="fixed bottom-36 right-6 z-50 w-14 h-14 rounded-full bg-cyan-primary text-white shadow-lg flex items-center justify-center"
+          className="fixed bottom-36 right-6 z-50 w-14 h-14 rounded-full bg-primary-cyan-500 text-white shadow-lg flex items-center justify-center"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={toggleChat}
@@ -193,7 +193,7 @@ const AiChatbot: React.FC<AiChatbotProps> = ({ initialContext = 'fitness', onClo
                 onClick={isMinimized ? maximizeChat : undefined}
               >
                 <div className="flex items-center">
-                  <Bot className="text-cyan-primary mr-2" size={20} />
+                  <Bot className="text-primary-cyan-500 mr-2" size={20} />
                   <h3 className="text-alpine-mist font-medium">Gage AI Coach</h3>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -242,7 +242,7 @@ const AiChatbot: React.FC<AiChatbotProps> = ({ initialContext = 'fitness', onClo
                           className={cn(
                             "max-w-[80%] rounded-xl p-3",
                             message.sender === 'user' 
-                              ? "bg-cyan-primary text-white rounded-tr-none" 
+                              ? "bg-primary-cyan-500 text-white rounded-tr-none" 
                               : "bg-glass-background backdrop-blur-md border border-glass-border text-alpine-mist rounded-tl-none"
                           )}
                         >

@@ -76,7 +76,7 @@ const AINutritionAdvisor: React.FC<AINutritionAdvisorProps> = ({ className = '',
   return (
     <GlassCard size="full" className={className}>
       <div className="flex items-center mb-4">
-        <div className="p-2 rounded-full bg-gradient-to-br from-cyan-primary to-teal-primary mr-3">
+        <div className="p-2 rounded-full bg-gradient-to-br from-primary-cyan-500 to-primary-teal-500 mr-3">
           <Sparkles size={16} className="text-white" />
         </div>
         <h3 className="text-base sm:text-lg font-medium text-alpine-mist">AI Nutrition Advisor</h3>
@@ -91,7 +91,7 @@ const AINutritionAdvisor: React.FC<AINutritionAdvisorProps> = ({ className = '',
             <div 
               className={`max-w-[85%] p-3 rounded-lg ${
                 message.sender === 'user' 
-                  ? 'bg-cyan-primary/20 text-alpine-mist rounded-tr-none' 
+                  ? 'bg-primary-cyan-500/20 text-alpine-mist rounded-tr-none' 
                   : 'bg-glass-highlight text-alpine-mist rounded-tl-none'
               }`}
             >
@@ -107,9 +107,9 @@ const AINutritionAdvisor: React.FC<AINutritionAdvisorProps> = ({ className = '',
           <div className="flex justify-start mb-3">
             <div className="bg-glass-highlight p-3 rounded-lg rounded-tl-none">
               <div className="flex items-center space-x-1">
-                <div className="w-2 h-2 rounded-full bg-cyan-primary/60 animate-pulse"></div>
-                <div className="w-2 h-2 rounded-full bg-cyan-primary/60 animate-pulse delay-100"></div>
-                <div className="w-2 h-2 rounded-full bg-cyan-primary/60 animate-pulse delay-200"></div>
+                <div className="w-2 h-2 rounded-full bg-primary-cyan-500/60 animate-pulse"></div>
+                <div className="w-2 h-2 rounded-full bg-primary-cyan-500/60 animate-pulse delay-100"></div>
+                <div className="w-2 h-2 rounded-full bg-primary-cyan-500/60 animate-pulse delay-200"></div>
               </div>
             </div>
           </div>
@@ -119,7 +119,7 @@ const AINutritionAdvisor: React.FC<AINutritionAdvisorProps> = ({ className = '',
       <div className="flex items-center">
         <input
           type="text"
-          className="flex-1 bg-glass-background border border-glass-border rounded-l-lg p-2 text-sm text-alpine-mist focus:outline-none focus:border-cyan-primary/50"
+          className="flex-1 bg-glass-background border border-glass-border rounded-l-lg p-2 text-sm text-alpine-mist focus:outline-none focus:border-primary-cyan-500/50"
           placeholder="Ask about your nutrition plan..."
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
@@ -128,7 +128,7 @@ const AINutritionAdvisor: React.FC<AINutritionAdvisorProps> = ({ className = '',
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="bg-cyan-primary p-2 rounded-r-lg"
+          className="bg-primary-cyan-500 p-2 rounded-r-lg"
           onClick={handleSendMessage}
         >
           <Send size={18} className="text-white" />

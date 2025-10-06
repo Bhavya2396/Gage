@@ -87,7 +87,7 @@ export const GlassCard: React.FC<GlassCardProps> = ({
   const smoothMouseX = useSpring(mouseX, springConfig);
   const smoothMouseY = useSpring(mouseY, springConfig);
   
-  // Define variant styles
+  // Define variant styles - updated to match reference design
   const variants = {
     default: 'bg-glass-background backdrop-blur-md backdrop-saturate-110 border-glass-border',
     highlight: 'bg-glass-background backdrop-blur-md backdrop-saturate-110 border-primary-cyan-500/30',
@@ -98,7 +98,7 @@ export const GlassCard: React.FC<GlassCardProps> = ({
     elevated: 'bg-glass-background backdrop-blur-md backdrop-saturate-110 border-white/5',
     primary: 'bg-primary-cyan-900/30 backdrop-blur-lg backdrop-saturate-110 border-primary-cyan-400/20',
     teal: 'bg-glass-background backdrop-blur-md backdrop-saturate-110 border-primary-teal-500/30',
-    purple: 'bg-glass-background backdrop-blur-md backdrop-saturate-110 border-primary-purple-500/30',
+    purple: 'bg-glass-background backdrop-blur-md backdrop-saturate-110 border-primary-cyan-500/30',
   };
   
   // Padding based on size (with no padding option) - updated for more consistent spacing
@@ -146,7 +146,7 @@ export const GlassCard: React.FC<GlassCardProps> = ({
     5: shadows.elevation[5],
   };
   
-  // Glow effect intensities
+  // Glow effect intensities - updated with new colors
   const glowIntensities = {
     subtle: glowColor ? `0 0 12px ${glowColor}20` : shadows.glow.cyan.sm,
     medium: glowColor ? `0 0 18px ${glowColor}40` : shadows.glow.cyan.md,
@@ -300,7 +300,7 @@ export const GlassCard: React.FC<GlassCardProps> = ({
           <div className="mt-2">
             {/* Expand/Collapse button - updated styling */}
             <motion.button
-              className="w-full flex items-center justify-center py-1.5 mt-2 text-xs font-medium text-primary-cyan-400 hover:text-primary-cyan-300 transition-colors"
+              className="w-full flex items-center justify-center py-1.5 mt-2 text-xs font-medium text-primary-blue-400 hover:text-primary-blue-300 transition-colors"
               onClick={handleToggleExpand}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}

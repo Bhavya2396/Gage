@@ -26,21 +26,21 @@ const InsightsPage: React.FC = () => {
       current: 320, 
       target: 375, 
       unit: "points",
-      icon: <Zap size={16} className="text-cyan-primary" />
+      icon: <Zap size={16} className="text-primary-cyan-500" />
     },
     { 
       name: "Endurance", 
       current: 210, 
       target: 250, 
       unit: "points",
-      icon: <Activity size={16} className="text-teal-primary" />
+      icon: <Activity size={16} className="text-primary-teal-500" />
     },
     { 
       name: "Recovery", 
       current: 180, 
       target: 200, 
       unit: "points",
-      icon: <Calendar size={16} className="text-cyan-primary" />
+      icon: <Calendar size={16} className="text-primary-cyan-500" />
     },
   ];
 
@@ -64,7 +64,7 @@ const InsightsPage: React.FC = () => {
           <h2 className="text-lg sm:text-xl font-medium text-alpine-mist">
             {activityPoints.goalName}
           </h2>
-          <div className="text-sm bg-cyan-primary/20 text-cyan-primary px-3 py-1 rounded-full">
+          <div className="text-sm bg-primary-cyan-500/20 text-primary-cyan-500 px-3 py-1 rounded-full">
             {getProgressPercentage()}% Complete
           </div>
         </div>
@@ -77,14 +77,14 @@ const InsightsPage: React.FC = () => {
           
           <div className="w-full bg-glass-border h-2 sm:h-2.5 rounded-full overflow-hidden mb-4">
             <div 
-              className="bg-gradient-to-r from-cyan-primary to-teal-primary h-full rounded-full" 
+              className="bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 h-full rounded-full" 
               style={{ width: `${getProgressPercentage()}%` }}
             />
           </div>
           
           <div className="text-xs sm:text-sm text-alpine-mist">
-            <p>Current phase: <span className="text-cyan-primary">{phaseName}</span></p>
-            <p>Phase progress: <span className="text-cyan-primary">{phaseProgress}%</span></p>
+            <p>Current phase: <span className="text-primary-cyan-500">{phaseName}</span></p>
+            <p>Phase progress: <span className="text-primary-cyan-500">{phaseProgress}%</span></p>
           </div>
         </div>
       </GlassCard>
@@ -109,7 +109,7 @@ const InsightsPage: React.FC = () => {
               
               <div className="w-24 bg-glass-border h-1.5 sm:h-2 rounded-full overflow-hidden">
                 <div 
-                  className="bg-cyan-primary h-full rounded-full" 
+                  className="bg-primary-cyan-500 h-full rounded-full" 
                   style={{ width: `${(metric.current / metric.target) * 100}%` }}
                 />
               </div>
@@ -125,7 +125,7 @@ const InsightsPage: React.FC = () => {
           <GlassCard 
             key={index} 
             size="full" 
-            className={`${phaseName === phase.name ? 'border-cyan-primary/50' : ''}`}
+            className={`${phaseName === phase.name ? 'border-primary-cyan-500/50' : ''}`}
           >
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm sm:text-base font-medium text-alpine-mist">{phase.name}</h3>
@@ -136,7 +136,7 @@ const InsightsPage: React.FC = () => {
             
             <div className="w-full bg-glass-border h-1.5 sm:h-2 rounded-full overflow-hidden mb-2">
               <div 
-                className="bg-gradient-to-r from-cyan-primary to-teal-primary h-full rounded-full" 
+                className="bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 h-full rounded-full" 
                 style={{ width: `${(phase.points / phase.totalPoints) * 100}%` }}
               />
             </div>
@@ -150,20 +150,20 @@ const InsightsPage: React.FC = () => {
       <GlassCard size="full">
         <div className="flex items-center mb-4">
           <div className="p-2.5 rounded-full bg-glass-highlight mr-3">
-            <Target size={18} className="text-cyan-primary" />
+            <Target size={18} className="text-primary-cyan-500" />
           </div>
           <h2 className="text-lg sm:text-xl font-medium text-alpine-mist">Assessment Simulation</h2>
         </div>
         
         <p className="text-xs sm:text-sm text-alpine-mist mb-4 bg-glass-background bg-opacity-30 p-3 rounded-lg">
           Based on your current progress and activity points, we can simulate your expected performance 
-          for your goal: <span className="text-cyan-primary font-medium">{activityPoints.goalName}</span>
+          for your goal: <span className="text-primary-cyan-500 font-medium">{activityPoints.goalName}</span>
         </p>
         
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="w-full py-3 bg-gradient-to-r from-cyan-primary to-teal-primary rounded-lg text-white font-medium"
+          className="w-full py-3 bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 rounded-lg text-white font-medium"
           onClick={() => navigate('/assessment-simulation')}
         >
           Simulate Assessment Day Performance

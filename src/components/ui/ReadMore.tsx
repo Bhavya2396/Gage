@@ -115,7 +115,7 @@ export const ReadMore: React.FC<ReadMoreProps> = ({
             <button
               onClick={toggleExpand}
               className={cn(
-                'inline-flex items-center text-xs font-medium text-cyan-primary hover:text-cyan-primary/80 transition-colors',
+                'inline-flex items-center text-xs font-medium text-primary-cyan-500 hover:text-primary-cyan-500/80 transition-colors',
                 buttonClassName
               )}
             >

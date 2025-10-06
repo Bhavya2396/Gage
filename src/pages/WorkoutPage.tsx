@@ -1,266 +1,257 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import MainLayout from '@/layouts/MainLayout';
-import { ChevronLeft, Play, Pause, RotateCcw, Timer, Target, Award, CheckCircle, Dumbbell, Zap } from 'lucide-react';
+import GlassCard from '@/components/ui/GlassCard';
+import Button from '@/components/ui/Button';
+import ExerciseCard from '@/components/workout/ExerciseCard';
+import AIFormCoach from '@/components/workout/AIFormCoach';
+import { ChevronLeft, Timer, Info, Lightbulb, Target, Award, CheckCircle, Dumbbell } from 'lucide-react';
 import { useActivityPoints } from '@/contexts/ActivityPointsContext';
 
+// Workout Header Component
+const WorkoutHeader: React.FC = () => {
+  const { activityPoints, getPointsRemaining } = useActivityPoints();
+  const [showAiTip, setShowAiTip] = useState(false);
+  
+  return (
+    <GlassCard variant="default" size="md" className="w-full mb-4 sticky top-0 z-10">
+      <div className="flex justify-between items-start">
+        <div>
+          <h2 className="text-xl font-medium text-alpine-mist">Full Body Strength</h2>
+          <p className="text-alpine-mist text-sm mt-1 bg-glass-background bg-opacity-30 px-2 py-1 rounded-lg">Focus: Rotational Power Development</p>
+        </div>
+        <div className="text-right">
+          <div className="text-alpine-mist text-sm bg-glass-background bg-opacity-30 px-2 py-1 rounded-lg mb-1">Duration</div>
+          <div className="text-accent-primary font-medium text-lg">45 min</div>
+        </div>
+      </div>
+      
+      <div className="mt-3 bg-glass-background bg-opacity-50 p-3 rounded-lg border border-glass-border">
+        <div className="flex items-center justify-between text-sm">
+          <div className="flex items-center">
+            <span className="w-2 h-2 rounded-full bg-accent-primary mr-2"></span>
+            <span className="text-alpine-mist font-medium">Summit Contribution</span>
+          </div>
+          <span className="text-accent-primary font-medium">+{getPointsRemaining() > 0 ? 25 : 0} Activity Points</span>
+        </div>
+        <div className="text-sm text-alpine-mist mt-2 bg-glass-background bg-opacity-30 p-2 rounded-lg">
+          This workout directly improves your {activityPoints.goalName} metrics for your {activityPoints.targetValue}-{activityPoints.targetUnit} goal
+        </div>
+      </div>
+      
+      {/* AI Coach Tip */}
+      <div className="mt-3 relative">
+        <button
+          className="flex items-center text-sm text-alpine-mist bg-glass-background bg-opacity-30 px-3 py-2 rounded-lg"
+          onClick={() => setShowAiTip(!showAiTip)}
+        >
+          <Lightbulb size={16} className="text-primary-cyan-500 mr-2" />
+          <span>AI Coach Tip</span>
+        </button>
+        
+        <AnimatePresence>
+          {showAiTip && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="mt-2 p-3 bg-glass-highlight backdrop-blur-sm rounded-lg text-sm text-alpine-mist"
+            >
+              Based on your recovery score of 78%, focus on quality reps rather than maximal weight today. Your HRV indicates good readiness for rotational power development.
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </GlassCard>
+  );
+};
+
+// Main WorkoutPage Component
 const WorkoutPage: React.FC = () => {
   const navigate = useNavigate();
-  const { activityPoints, getPointsRemaining } = useActivityPoints();
-  const [showContent, setShowContent] = useState(false);
-  const [isWorkoutActive, setIsWorkoutActive] = useState(false);
-  const [currentExercise, setCurrentExercise] = useState(0);
-  const [timeRemaining, setTimeRemaining] = useState(45 * 60); // 45 minutes in seconds
+  const { addPoints } = useActivityPoints();
+  const [activeExerciseIndex, setActiveExerciseIndex] = useState(0);
+  const [completedExercises, setCompletedExercises] = useState<number[]>([]);
+  const [workoutComplete, setWorkoutComplete] = useState(false);
+  const [pointsEarned, setPointsEarned] = useState(0);
+  const [showFormCoach, setShowFormCoach] = useState(false);
+  const [currentExerciseName, setCurrentExerciseName] = useState('');
   
+  // Sample exercises
   const exercises = [
     {
-      name: "Dynamic Warm-up",
-      duration: 5,
-      sets: 1,
-      reps: "Dynamic",
-      focus: "Mobility & Activation",
-      description: "Prepare your body for the workout ahead"
+      id: 1,
+      name: 'Barbell Squats',
+      sets: 4,
+      reps: '8-10',
+      muscleGroup: 'Legs, Core',
+      aiTip: 'Focus on driving your knees outward to engage your glutes more effectively.',
+      pointValue: 5
     },
     {
-      name: "Rotational Medicine Ball Throws",
-      duration: 8,
+      id: 2,
+      name: 'Medicine Ball Rotational Throws',
       sets: 3,
-      reps: "8-10 each side",
-      focus: "Rotational Power",
-      description: "Develop explosive rotational strength"
+      reps: '12 each side',
+      muscleGroup: 'Core, Rotational',
+      aiTip: 'Generate power from the ground up, transferring force through your core rotation.',
+      pointValue: 4
     },
     {
-      name: "Single-Arm Kettlebell Swings",
-      duration: 10,
+      id: 3,
+      name: 'Cable Woodchoppers',
       sets: 3,
-      reps: "12-15 each arm",
-      focus: "Hip Power & Stability",
-      description: "Build hip drive and core stability"
+      reps: '12 each side',
+      muscleGroup: 'Core, Rotational',
+      aiTip: 'Keep your arms straight and rotate from your torso, not your arms.',
+      pointValue: 4
     },
     {
-      name: "Plyometric Box Jumps",
-      duration: 8,
+      id: 4,
+      name: 'Kettlebell Swings',
       sets: 3,
-      reps: "6-8",
-      focus: "Explosive Power",
-      description: "Develop vertical power and landing mechanics"
+      reps: '15',
+      muscleGroup: 'Posterior Chain, Core',
+      aiTip: 'Drive with your hips and engage your core throughout the movement.',
+      pointValue: 4
     },
     {
-      name: "Cool Down & Stretching",
-      duration: 5,
-      sets: 1,
-      reps: "Hold 30s each",
-      focus: "Recovery",
-      description: "Promote recovery and flexibility"
+      id: 5,
+      name: 'Plank with Rotation',
+      sets: 3,
+      reps: '10 each side',
+      muscleGroup: 'Core, Shoulders',
+      aiTip: 'Maintain a stable plank position as you rotate, avoiding hip sag.',
+      pointValue: 3
     }
   ];
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowContent(true);
-    }, 300);
+  
+  // Handle exercise activation
+  const handleActivateExercise = (index: number) => {
+    setActiveExerciseIndex(index);
+    setCurrentExerciseName(exercises[index].name);
+  };
+  
+  // Handle exercise completion
+  const handleCompleteExercise = (index: number) => {
+    setCompletedExercises([...completedExercises, index]);
     
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isWorkoutActive && timeRemaining > 0) {
-      interval = setInterval(() => {
-        setTimeRemaining(prev => prev - 1);
-      }, 1000);
+    // Activate next exercise if available
+    if (index < exercises.length - 1) {
+      setTimeout(() => {
+        setActiveExerciseIndex(index + 1);
+        setCurrentExerciseName(exercises[index + 1].name);
+      }, 500);
+    } else {
+      // All exercises completed
+      setTimeout(() => {
+        setWorkoutComplete(true);
+        const points = 25;
+        setPointsEarned(points);
+        addPoints(points, 'Workout', 'Full Body Strength Workout');
+      }, 500);
     }
-    return () => clearInterval(interval);
-  }, [isWorkoutActive, timeRemaining]);
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
-
-  const startWorkout = () => {
-    setIsWorkoutActive(true);
+  
+  // Handle workout completion
+  const handleFinishWorkout = () => {
+    navigate('/workout-complete', { 
+      state: { 
+        pointsEarned, 
+        workoutName: 'Full Body Strength',
+        duration: '45 min'
+      } 
+    });
   };
-
-  const pauseWorkout = () => {
-    setIsWorkoutActive(false);
+  
+  // Show AI form coach
+  const handleShowFormCoach = (exerciseName: string) => {
+    setCurrentExerciseName(exerciseName);
+    setShowFormCoach(true);
   };
-
-  const resetWorkout = () => {
-    setIsWorkoutActive(false);
-    setTimeRemaining(45 * 60);
-    setCurrentExercise(0);
-  };
-
+  
   return (
     <MainLayout>
-      {showContent && (
-        <div className="absolute inset-0 z-10 flex flex-col">
-          {/* Header */}
-          <div className="flex items-center justify-between p-6 pb-4">
-            <motion.button
-              className="flex items-center space-x-2 text-white/80 hover:text-white transition-colors"
-              onClick={() => navigate(-1)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <ChevronLeft size={20} />
-              <span>Back</span>
-            </motion.button>
-            
-            <div className="text-center">
-              <h1 className="text-2xl font-bold text-white">Full Body Strength</h1>
-              <p className="text-white/60 text-sm">Focus: Rotational Power Development</p>
-            </div>
-            
-            <div className="w-16"></div> {/* Spacer for centering */}
-          </div>
-
-          {/* Workout Timer */}
-          <div className="px-6 mb-6">
-            <motion.div
-              className="bg-black/20 backdrop-blur-md rounded-2xl p-6 border border-white/10 text-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-            >
-              <div className="flex items-center justify-center space-x-4 mb-4">
-                <Timer className="text-cyan-400" size={24} />
-                <span className="text-4xl font-bold text-white">{formatTime(timeRemaining)}</span>
-              </div>
-              
-              <div className="flex justify-center space-x-3">
-                {!isWorkoutActive ? (
-                  <motion.button
-                    className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-8 py-3 rounded-2xl font-medium flex items-center space-x-2"
-                    onClick={startWorkout}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <Play size={20} />
-                    <span>Start Workout</span>
-                  </motion.button>
-                ) : (
-                  <>
-                    <motion.button
-                      className="bg-white/10 backdrop-blur-md text-white px-6 py-3 rounded-2xl font-medium flex items-center space-x-2 border border-white/20"
-                      onClick={pauseWorkout}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <Pause size={20} />
-                      <span>Pause</span>
-                    </motion.button>
-                    <motion.button
-                      className="bg-red-500/20 backdrop-blur-md text-white px-6 py-3 rounded-2xl font-medium flex items-center space-x-2 border border-red-500/30"
-                      onClick={resetWorkout}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <RotateCcw size={20} />
-                      <span>Reset</span>
-                    </motion.button>
-                  </>
-                )}
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Current Exercise */}
-          <div className="px-6 mb-6">
-            <motion.div
-              className="bg-gradient-to-br from-cyan-500/20 to-teal-500/20 backdrop-blur-md rounded-2xl p-6 border border-cyan-500/30"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center">
-                    <Dumbbell className="text-cyan-400" size={20} />
-                  </div>
-                  <div>
-                    <h3 className="text-white font-semibold text-lg">Current Exercise</h3>
-                    <p className="text-white/60 text-sm">Exercise {currentExercise + 1} of {exercises.length}</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <span className="text-cyan-400 font-bold text-lg">{exercises[currentExercise].duration} min</span>
-                  <p className="text-white/60 text-sm">Duration</p>
-                </div>
-              </div>
-              
-              <h4 className="text-2xl font-bold text-white mb-2">{exercises[currentExercise].name}</h4>
-              <p className="text-white/80 mb-4">{exercises[currentExercise].description}</p>
-              
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-white/5 rounded-xl p-3">
-                  <div className="flex items-center space-x-2 mb-1">
-                    <Target className="text-cyan-400" size={16} />
-                    <span className="text-white/80 text-sm">Sets</span>
-                  </div>
-                  <span className="text-white font-bold text-lg">{exercises[currentExercise].sets}</span>
-                </div>
-                <div className="bg-white/5 rounded-xl p-3">
-                  <div className="flex items-center space-x-2 mb-1">
-                    <Zap className="text-teal-400" size={16} />
-                    <span className="text-white/80 text-sm">Reps</span>
-                  </div>
-                  <span className="text-white font-bold text-lg">{exercises[currentExercise].reps}</span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Exercise List */}
-          <div className="flex-1 px-6 pb-6">
-            <h3 className="text-white font-semibold text-lg mb-4">Workout Plan</h3>
-            <div className="space-y-3">
-              {exercises.map((exercise, index) => (
-                <motion.div
-                  key={index}
-                  className={`bg-black/20 backdrop-blur-md rounded-xl p-4 border ${
-                    index === currentExercise 
-                      ? 'border-cyan-500/50 bg-cyan-500/10' 
-                      : 'border-white/10'
-                  }`}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 * index, duration: 0.3 }}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                        index < currentExercise 
-                          ? 'bg-green-500/20 text-green-400' 
-                          : index === currentExercise 
-                          ? 'bg-cyan-500/20 text-cyan-400' 
-                          : 'bg-white/10 text-white/60'
-                      }`}>
-                        {index < currentExercise ? (
-                          <CheckCircle size={16} />
-                        ) : (
-                          <span className="text-sm font-bold">{index + 1}</span>
-                        )}
-                      </div>
-                      <div>
-                        <h4 className="text-white font-medium">{exercise.name}</h4>
-                        <p className="text-white/60 text-sm">{exercise.focus}</p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-white font-bold">{exercise.duration} min</span>
-                      <p className="text-white/60 text-xs">Duration</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
+      <div className="w-full max-w-md mx-auto px-4 pt-20 pb-24">
+        {/* Back Button */}
+        <div className="mb-4 flex items-center">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={() => navigate('/')}
+            icon={<ChevronLeft size={16} />}
+            className="font-medium"
+          >
+            Back
+          </Button>
+          <h1 className="text-lg font-medium text-alpine-mist bg-glass-background bg-opacity-40 px-3 py-1 rounded-lg ml-2">Workout</h1>
         </div>
-      )}
+        
+        {/* Points Display */}
+        <div className="mb-4 bg-glass-background bg-opacity-50 px-4 py-2 rounded-full flex items-center justify-center">
+          <span className="text-sm text-alpine-mist">
+            <span className="text-primary-cyan-500 font-medium">480 points</span> / 1500
+          </span>
+        </div>
+        
+        {/* Workout Header */}
+        <WorkoutHeader />
+        
+        {/* Exercise Cards */}
+        <div className="space-y-4">
+          {exercises.map((exercise, index) => (
+            <ExerciseCard
+              key={exercise.id}
+              name={exercise.name}
+              sets={exercise.sets}
+              reps={exercise.reps}
+              muscleGroup={exercise.muscleGroup}
+              aiTip={exercise.aiTip}
+              isActive={activeExerciseIndex === index}
+              isCompleted={completedExercises.includes(index)}
+              onActivate={() => handleActivateExercise(index)}
+              onComplete={() => handleCompleteExercise(index)}
+            />
+          ))}
+        </div>
+        
+        {/* Workout Complete Card */}
+        <AnimatePresence>
+          {workoutComplete && (
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 50 }}
+              className="fixed inset-x-0 bottom-0 p-4 z-40"
+            >
+              <GlassCard variant="success" size="md" className="w-full max-w-md mx-auto">
+                <div className="text-center">
+                  <h3 className="text-xl font-medium text-alpine-mist mb-2">Workout Complete!</h3>
+                  <p className="text-alpine-mist mb-4">
+                    You've earned <span className="text-primary-cyan-500 font-medium">+{pointsEarned} Activity Points</span>
+                  </p>
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    className="w-full"
+                    onClick={handleFinishWorkout}
+                  >
+                    Finish Workout
+                  </Button>
+                </div>
+              </GlassCard>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        
+        {/* AI Form Coach Modal */}
+        <AIFormCoach
+          isOpen={showFormCoach}
+          onClose={() => setShowFormCoach(false)}
+          exerciseName={currentExerciseName}
+        />
+      </div>
     </MainLayout>
   );
 };

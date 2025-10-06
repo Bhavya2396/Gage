@@ -113,7 +113,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
   return (
     <GlassCard 
       size="full" 
-      className={`${className} ${isActive ? 'border-cyan-primary' : ''} ${isCompleted ? 'border-cyan-primary/50 bg-glass-background/50' : ''}`}
+      className={`${className} ${isActive ? 'border-primary-cyan-500' : ''} ${isCompleted ? 'border-primary-cyan-500/50 bg-glass-background/50' : ''}`}
       onClick={!isActive && !isCompleted ? onActivate : undefined}
     >
       <div className="flex justify-between items-start mb-3">
@@ -125,7 +125,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
                 {muscleGroup}
               </span>
             )}
-            <span className="text-xs px-2 py-0.5 bg-cyan-primary/20 rounded-full text-cyan-primary">
+            <span className="text-xs px-2 py-0.5 bg-primary-cyan-500/20 rounded-full text-primary-cyan-500">
               {typeof reps === 'string' ? reps : `${reps} reps`} × {sets} sets
             </span>
           </div>
@@ -171,7 +171,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
           {aiTip && (
             <div className="mt-2 p-3 bg-glass-background bg-opacity-30 rounded-lg">
               <div className="flex items-start">
-                <div className="p-1.5 rounded-full bg-gradient-to-br from-cyan-primary to-teal-primary mr-2 mt-0.5">
+                <div className="p-1.5 rounded-full bg-gradient-to-br from-primary-cyan-500 to-primary-teal-500 mr-2 mt-0.5">
                   <Camera size={12} className="text-white" />
                 </div>
                 <p className="text-xs text-alpine-mist flex-1">{aiTip}</p>
@@ -189,12 +189,12 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
       
       {/* Rest Timer */}
       {restTimerActive && (
-        <div className="bg-cyan-primary/20 p-3 rounded-lg mb-4 flex items-center justify-between">
+        <div className="bg-primary-cyan-500/20 p-3 rounded-lg mb-4 flex items-center justify-between">
           <div className="flex items-center">
-            <Timer size={18} className="text-cyan-primary mr-2" />
+            <Timer size={18} className="text-primary-cyan-500 mr-2" />
             <span className="text-sm text-alpine-mist">Rest</span>
           </div>
-          <span className="text-base font-medium text-cyan-primary">{formatTime(remainingRestTime)}</span>
+          <span className="text-base font-medium text-primary-cyan-500">{formatTime(remainingRestTime)}</span>
         </div>
       )}
       
@@ -209,7 +209,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
           {exerciseSets.map((set) => (
             <motion.div 
               key={set.id}
-              className={`border ${set.completed ? 'border-cyan-primary/30' : 'border-glass-border'} 
+              className={`border ${set.completed ? 'border-primary-cyan-500/30' : 'border-glass-border'} 
                 rounded-lg p-2 flex items-center justify-between ${set.id === currentSet && !set.completed ? 'bg-glass-highlight' : 'bg-glass-background bg-opacity-30'}`}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -218,7 +218,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
               <div className="flex items-center">
                 <motion.span 
                   className={`w-5 h-5 rounded-full flex items-center justify-center mr-2 text-xs
-                  ${set.completed ? 'bg-cyan-primary text-white' : 'bg-glass-border text-alpine-mist'}`}
+                  ${set.completed ? 'bg-primary-cyan-500 text-white' : 'bg-glass-border text-alpine-mist'}`}
                   animate={set.completed ? {
                     scale: [1, 1.2, 1],
                     backgroundColor: ['rgba(0, 204, 255, 0)', 'rgba(0, 204, 255, 1)', 'rgba(0, 204, 255, 1)']
@@ -290,7 +290,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="p-1.5 bg-cyan-primary rounded-lg"
+                    className="p-1.5 bg-primary-cyan-500 rounded-lg"
                     onClick={(e) => {
                       e.stopPropagation();
                       completeSet(set.id);
@@ -301,12 +301,12 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
                 )
               ) : (
                 <motion.div 
-                  className="p-1.5 bg-cyan-primary/20 rounded-lg"
+                  className="p-1.5 bg-primary-cyan-500/20 rounded-lg"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ type: "spring", stiffness: 500, damping: 15 }}
                 >
-                  <Check size={14} className="text-cyan-primary" />
+                  <Check size={14} className="text-primary-cyan-500" />
                 </motion.div>
               )}
             </motion.div>
@@ -316,13 +316,13 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
       
       {/* Completed exercise summary */}
       {isCompleted && !isActive && (
-        <div className="mt-2 p-3 bg-cyan-primary/10 rounded-lg">
+        <div className="mt-2 p-3 bg-primary-cyan-500/10 rounded-lg">
           <div className="flex justify-between items-center">
             <div className="flex items-center">
-              <Check size={16} className="text-cyan-primary mr-2" />
+              <Check size={16} className="text-primary-cyan-500 mr-2" />
               <span className="text-sm text-alpine-mist">Completed</span>
             </div>
-            <span className="text-xs text-cyan-primary font-medium">+{sets * pointValue} points</span>
+            <span className="text-xs text-primary-cyan-500 font-medium">+{sets * pointValue} points</span>
           </div>
         </div>
       )}

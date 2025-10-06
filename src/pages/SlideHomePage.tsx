@@ -40,9 +40,9 @@ const WeatherCard: React.FC = () => {
   }, []);
 
   const weatherIcons = {
-    sunny: <Sun className="text-cyan-primary" size={24} />,
+    sunny: <Sun className="text-primary-cyan-500" size={24} />,
     cloudy: <Cloud className="text-gray-400" size={24} />,
-    rainy: <CloudRain className="text-teal-primary" size={24} />,
+    rainy: <CloudRain className="text-primary-teal-500" size={24} />,
     snowy: <Snowflake className="text-alpine-mist" size={24} />
   };
 
@@ -64,7 +64,7 @@ const WeatherCard: React.FC = () => {
         </div>
       </div>
       <div className="flex justify-center mt-2">
-                  <span className="text-xs text-cyan-primary flex items-center">
+                  <span className="text-xs text-primary-cyan-500 flex items-center">
             Switch to compact view
             <ChevronRight size={12} className="ml-1" />
           </span>
@@ -81,14 +81,14 @@ const AiBriefingCard: React.FC = () => {
         <h3 className="text-lg font-medium text-text-primary">Your Daily Briefing</h3>
       </div>
       <p className="text-text-secondary">
-        Your sleep quality was <span className="text-teal-primary">excellent</span> last night. 
-        Today is a great day for your scheduled <span className="text-cyan-primary">strength training</span>. 
-        I've adjusted your calorie target to <span className="text-cyan-primary">2,400</span> based on 
+        Your sleep quality was <span className="text-primary-teal-500">excellent</span> last night. 
+        Today is a great day for your scheduled <span className="text-primary-cyan-500">strength training</span>. 
+        I've adjusted your calorie target to <span className="text-primary-cyan-500">2,400</span> based on 
         yesterday's activity.
       </p>
       <p className="text-text-secondary mt-2">
-        Your HRV has increased by <span className="text-cyan-primary">5ms</span> since yesterday, 
-        indicating good recovery. Your training readiness is at <span className="text-cyan-primary">85%</span>.
+        Your HRV has increased by <span className="text-primary-cyan-500">5ms</span> since yesterday, 
+        indicating good recovery. Your training readiness is at <span className="text-primary-cyan-500">85%</span>.
       </p>
     </GlassCard>
   );
@@ -335,7 +335,7 @@ const MountainIndicators: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.5 }}
           >
             <div className="flex flex-col items-center">
-              <div className="w-4 h-4 rounded-full bg-cyan-primary animate-pulse shadow-lg shadow-cyan-primary/50"></div>
+              <div className="w-4 h-4 rounded-full bg-primary-cyan-500 animate-pulse shadow-lg shadow-cyan-primary/50"></div>
               <div className="mt-2 px-3 py-1 bg-glass-background backdrop-blur-md rounded-lg border border-glass-border">
                 <span className="text-xs text-alpine-mist whitespace-nowrap">You are here (1250m)</span>
               </div>
@@ -354,7 +354,7 @@ const MountainIndicators: React.FC = () => {
               <div className="mt-2 px-3 py-1 bg-glass-background backdrop-blur-md rounded-lg border border-glass-border">
                 <span className="text-xs text-alpine-mist whitespace-nowrap">Summit (10,000m)</span>
               </div>
-              <div className="w-4 h-4 rounded-full bg-teal-primary mt-2 animate-pulse shadow-lg shadow-teal-primary/50"></div>
+              <div className="w-4 h-4 rounded-full bg-primary-teal-500 mt-2 animate-pulse shadow-lg shadow-teal-primary/50"></div>
             </div>
           </motion.div>
         </>

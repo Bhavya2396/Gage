@@ -125,27 +125,27 @@ export const healthMetrics = [
     value: 68, 
     unit: "bpm", 
     trend: "stable" as const, 
-    color: "text-cyan-primary" 
+    color: "text-primary-cyan-500" 
   },
   { 
     title: "HRV", 
     value: 65, 
     unit: "ms", 
     trend: "up" as const, 
-    color: "text-teal-primary" 
+    color: "text-primary-teal-500" 
   },
   { 
     title: "Respiration", 
     value: 14, 
     unit: "bpm", 
     trend: "stable" as const, 
-    color: "text-cyan-primary" 
+    color: "text-primary-cyan-500" 
   },
   { 
     title: "Hydration", 
     value: "Good", 
     trend: "stable" as const, 
-    color: "text-teal-primary" 
+    color: "text-primary-teal-500" 
   }
 ];
 

@@ -63,7 +63,7 @@ export const DetailsDisclosure: React.FC<DetailsDisclosureProps> = ({
           animate={{ rotate: isOpen ? 90 : 0 }}
           transition={{ duration: 0.3 }}
         >
-          <ChevronRight size={size === 'sm' ? 14 : size === 'md' ? 16 : 18} className="text-cyan-primary" />
+          <ChevronRight size={size === 'sm' ? 14 : size === 'md' ? 16 : 18} className="text-primary-cyan-500" />
         </motion.div>
       );
     }
@@ -73,7 +73,7 @@ export const DetailsDisclosure: React.FC<DetailsDisclosureProps> = ({
         animate={{ rotate: isOpen ? 180 : 0 }}
         transition={{ duration: 0.3 }}
       >
-        <ChevronDown size={size === 'sm' ? 14 : size === 'md' ? 16 : 18} className="text-cyan-primary" />
+        <ChevronDown size={size === 'sm' ? 14 : size === 'md' ? 16 : 18} className="text-primary-cyan-500" />
       </motion.div>
     );
   };

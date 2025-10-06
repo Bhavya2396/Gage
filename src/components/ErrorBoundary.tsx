@@ -56,7 +56,7 @@ class ErrorBoundary extends Component<Props, State> {
             </div>
           </details>
           <button
-            className="mt-4 px-3 py-1 bg-cyan-primary text-white rounded"
+            className="mt-4 px-3 py-1 bg-primary-cyan-500 text-white rounded"
             onClick={() => window.location.reload()}
           >
             Reload App

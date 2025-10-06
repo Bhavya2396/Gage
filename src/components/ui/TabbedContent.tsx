@@ -64,15 +64,15 @@ export const TabbedContent: React.FC<TabbedContentProps> = ({
     switch (variant) {
       case 'pills':
         return isActive
-          ? 'bg-cyan-primary/20 text-cyan-primary font-medium'
+          ? 'bg-primary-cyan-500/20 text-primary-cyan-500 font-medium'
           : 'text-white/70 hover:text-white hover:bg-white/5';
       case 'underlined':
         return isActive
-          ? 'text-cyan-primary font-medium border-b-2 border-cyan-primary'
+          ? 'text-primary-cyan-500 font-medium border-b-2 border-primary-cyan-500'
           : 'text-white/70 hover:text-white border-b-2 border-transparent';
       case 'minimal':
         return isActive
-          ? 'text-cyan-primary font-medium'
+          ? 'text-primary-cyan-500 font-medium'
           : 'text-white/70 hover:text-white';
       default: // default
         return isActive
@@ -147,7 +147,7 @@ export const TabbedContent: React.FC<TabbedContentProps> = ({
               {/* Active indicator for default variant */}
               {variant === 'default' && isActive && (
                 <motion.div
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-cyan-primary"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-cyan-500"
                   layoutId="activeTabIndicator"
                   transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 />

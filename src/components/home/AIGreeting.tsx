@@ -166,14 +166,14 @@ const AIGreeting: React.FC<AIGreetingProps> = ({
   return (
     <div className="relative">
       <div className="flex items-start mb-4 sm:mb-6">
-        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-cyan-primary to-teal-primary flex items-center justify-center mr-3 sm:mr-4 mt-1 flex-shrink-0">
+        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-primary-cyan-500 to-primary-teal-500 flex items-center justify-center mr-3 sm:mr-4 mt-1 flex-shrink-0">
           <Sparkles size={14} className="sm:size-[18px] text-white" />
         </div>
           <div className="flex-1">
             <div className="bg-glass-highlight bg-opacity-80 p-3 sm:p-4 rounded-lg rounded-tl-none backdrop-blur-md shadow-lg">
               <div className="flex items-center mb-1.5 sm:mb-2">
-                <span className="text-xs sm:text-sm text-cyan-primary font-medium">GAGE AI</span>
-                <span className="ml-2 sm:ml-3 text-[10px] sm:text-xs bg-cyan-primary/30 text-cyan-primary font-medium px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">Coach</span>
+                <span className="text-xs sm:text-sm text-primary-cyan-500 font-medium">GAGE AI</span>
+                <span className="ml-2 sm:ml-3 text-[10px] sm:text-xs bg-primary-cyan-500/30 text-primary-cyan-500 font-medium px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">Coach</span>
               </div>
               <p className="text-white text-sm sm:text-base leading-relaxed">
                 {isTyping ? (
@@ -207,7 +207,7 @@ const AIGreeting: React.FC<AIGreetingProps> = ({
                     transition={{ delay: 0.5 + index * 0.1 }}
                     onClick={suggestion.action}
                   >
-                    <span className="mr-1.5 sm:mr-2 text-cyan-primary">{suggestion.icon}</span>
+                    <span className="mr-1.5 sm:mr-2 text-primary-cyan-500">{suggestion.icon}</span>
                     {suggestion.text}
                   </motion.button>
                 ))}

@@ -69,7 +69,7 @@ export const PersonalizationSettings: React.FC = () => {
       <button
         className={cn(
           "w-12 h-6 rounded-full p-1 transition-colors",
-          value ? "bg-cyan-primary" : "bg-glass-highlight"
+          value ? "bg-primary-cyan-500" : "bg-glass-highlight"
         )}
         onClick={() => onChange(!value)}
       >
@@ -93,15 +93,15 @@ export const PersonalizationSettings: React.FC = () => {
     <div 
       className={cn(
         "flex items-center p-2 rounded-lg cursor-pointer transition-colors",
-        value === currentValue ? "bg-cyan-primary/20" : "hover:bg-glass-highlight"
+        value === currentValue ? "bg-primary-cyan-500/20" : "hover:bg-glass-highlight"
       )}
       onClick={() => onChange(value)}
     >
       <div className="mr-3">
-        <div className="w-4 h-4 rounded-full border-2 border-cyan-primary flex items-center justify-center">
+        <div className="w-4 h-4 rounded-full border-2 border-primary-cyan-500 flex items-center justify-center">
           {value === currentValue && (
             <motion.div 
-              className="w-2 h-2 bg-cyan-primary rounded-full" 
+              className="w-2 h-2 bg-primary-cyan-500 rounded-full" 
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: "spring", stiffness: 500, damping: 30 }}
@@ -119,7 +119,7 @@ export const PersonalizationSettings: React.FC = () => {
   return (
     <div className="p-4">
       <div className="flex items-center mb-4">
-        <Settings size={20} className="text-cyan-primary mr-2" />
+        <Settings size={20} className="text-primary-cyan-500 mr-2" />
         <h2 className="text-white text-lg font-medium">Personalization</h2>
       </div>
       
@@ -146,7 +146,7 @@ export const PersonalizationSettings: React.FC = () => {
                               theme === preferences.colorTheme 
                                 ? "ring-2 ring-cyan-primary" 
                                 : "ring-1 ring-white/10 hover:ring-white/30",
-                              theme === 'default' && "bg-gradient-to-br from-cyan-primary/80 to-teal-primary/80",
+                              theme === 'default' && "bg-gradient-to-br from-primary-cyan-500/80 to-primary-teal-500/80",
                               theme === 'high-contrast' && "bg-gradient-to-br from-indigo-600 to-purple-700",
                               theme === 'muted' && "bg-gradient-to-br from-slate-600 to-slate-800",
                               theme === 'warm' && "bg-gradient-to-br from-amber-500 to-red-600",
@@ -268,7 +268,7 @@ export const PersonalizationSettings: React.FC = () => {
                         className={cn(
                           "py-2 rounded-lg transition-colors text-sm",
                           preferences.metricSystem === 'imperial'
-                            ? "bg-cyan-primary/20 text-cyan-primary font-medium"
+                            ? "bg-primary-cyan-500/20 text-primary-cyan-500 font-medium"
                             : "bg-glass-highlight text-white/70 hover:text-white"
                         )}
                         onClick={() => updatePreferences({ metricSystem: 'imperial' })}
@@ -280,7 +280,7 @@ export const PersonalizationSettings: React.FC = () => {
                         className={cn(
                           "py-2 rounded-lg transition-colors text-sm",
                           preferences.metricSystem === 'metric'
-                            ? "bg-cyan-primary/20 text-cyan-primary font-medium"
+                            ? "bg-primary-cyan-500/20 text-primary-cyan-500 font-medium"
                             : "bg-glass-highlight text-white/70 hover:text-white"
                         )}
                         onClick={() => updatePreferences({ metricSystem: 'metric' })}
@@ -457,7 +457,7 @@ export const PersonalizationSettings: React.FC = () => {
                           className={cn(
                             "py-2 rounded-lg transition-colors text-sm",
                             preferences.userDetails.fitnessLevel === level
-                              ? "bg-cyan-primary/20 text-cyan-primary font-medium"
+                              ? "bg-primary-cyan-500/20 text-primary-cyan-500 font-medium"
                               : "bg-glass-highlight text-white/70 hover:text-white"
                           )}
                           onClick={() => updateUserDetails({ 
@@ -479,7 +479,7 @@ export const PersonalizationSettings: React.FC = () => {
                           className={cn(
                             "py-2 rounded-lg transition-colors text-sm",
                             preferences.userDetails.preferredWorkoutTime === time
-                              ? "bg-cyan-primary/20 text-cyan-primary font-medium"
+                              ? "bg-primary-cyan-500/20 text-primary-cyan-500 font-medium"
                               : "bg-glass-highlight text-white/70 hover:text-white"
                           )}
                           onClick={() => updateUserDetails({ 
@@ -497,7 +497,7 @@ export const PersonalizationSettings: React.FC = () => {
                           className={cn(
                             "py-2 rounded-lg transition-colors text-sm",
                             preferences.userDetails.preferredWorkoutTime === time
-                              ? "bg-cyan-primary/20 text-cyan-primary font-medium"
+                              ? "bg-primary-cyan-500/20 text-primary-cyan-500 font-medium"
                               : "bg-glass-highlight text-white/70 hover:text-white"
                           )}
                           onClick={() => updateUserDetails({ 
@@ -519,7 +519,7 @@ export const PersonalizationSettings: React.FC = () => {
                           className={cn(
                             "py-2 rounded-lg transition-colors text-sm",
                             preferences.userDetails.workoutDuration === duration
-                              ? "bg-cyan-primary/20 text-cyan-primary font-medium"
+                              ? "bg-primary-cyan-500/20 text-primary-cyan-500 font-medium"
                               : "bg-glass-highlight text-white/70 hover:text-white"
                           )}
                           onClick={() => updateUserDetails({ 
@@ -541,7 +541,7 @@ export const PersonalizationSettings: React.FC = () => {
                           className={cn(
                             "py-2 rounded-lg transition-colors text-sm",
                             preferences.userDetails.fitnessGoals.includes(goal)
-                              ? "bg-cyan-primary/20 text-cyan-primary font-medium"
+                              ? "bg-primary-cyan-500/20 text-primary-cyan-500 font-medium"
                               : "bg-glass-highlight text-white/70 hover:text-white"
                           )}
                           onClick={() => {
@@ -568,7 +568,7 @@ export const PersonalizationSettings: React.FC = () => {
                           className={cn(
                             "py-2 rounded-lg transition-colors text-sm",
                             preferences.userDetails.fitnessGoals.includes(goal)
-                              ? "bg-cyan-primary/20 text-cyan-primary font-medium"
+                              ? "bg-primary-cyan-500/20 text-primary-cyan-500 font-medium"
                               : "bg-glass-highlight text-white/70 hover:text-white"
                           )}
                           onClick={() => {
@@ -615,7 +615,7 @@ export const PersonalizationSettings: React.FC = () => {
         </button>
         
         <button
-          className="flex items-center px-4 py-2 bg-cyan-primary/80 hover:bg-cyan-primary text-white rounded-lg transition-colors"
+          className="flex items-center px-4 py-2 bg-primary-cyan-500/80 hover:bg-primary-cyan-500 text-white rounded-lg transition-colors"
           onClick={handleSave}
         >
           <Save size={16} className="mr-2" />
@@ -627,7 +627,7 @@ export const PersonalizationSettings: React.FC = () => {
       <AnimatePresence>
         {showSaveConfirmation && (
           <motion.div
-            className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-teal-primary/90 text-white px-4 py-2 rounded-lg shadow-lg"
+            className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-primary-teal-500/90 text-white px-4 py-2 rounded-lg shadow-lg"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}

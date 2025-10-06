@@ -166,31 +166,31 @@ const CoachPage: React.FC = () => {
               <h3 className="text-sm font-medium text-alpine-mist mb-3">What would you like to discuss?</h3>
               <div className="grid grid-cols-2 gap-3">
                 <button 
-                  className="bg-glass-highlight p-3 rounded-lg flex flex-col items-center justify-center hover:bg-cyan-primary/20 transition-colors"
+                  className="bg-glass-highlight p-3 rounded-lg flex flex-col items-center justify-center hover:bg-primary-cyan-500/20 transition-colors"
                   onClick={() => handleTopicSelect('workout')}
                 >
-                  <Dumbbell size={24} className="text-cyan-primary mb-2" />
+                  <Dumbbell size={24} className="text-primary-cyan-500 mb-2" />
                   <span className="text-sm text-alpine-mist">Workouts</span>
                 </button>
                 <button 
-                  className="bg-glass-highlight p-3 rounded-lg flex flex-col items-center justify-center hover:bg-cyan-primary/20 transition-colors"
+                  className="bg-glass-highlight p-3 rounded-lg flex flex-col items-center justify-center hover:bg-primary-cyan-500/20 transition-colors"
                   onClick={() => handleTopicSelect('nutrition')}
                 >
-                  <Utensils size={24} className="text-cyan-primary mb-2" />
+                  <Utensils size={24} className="text-primary-cyan-500 mb-2" />
                   <span className="text-sm text-alpine-mist">Nutrition</span>
                 </button>
                 <button 
-                  className="bg-glass-highlight p-3 rounded-lg flex flex-col items-center justify-center hover:bg-cyan-primary/20 transition-colors"
+                  className="bg-glass-highlight p-3 rounded-lg flex flex-col items-center justify-center hover:bg-primary-cyan-500/20 transition-colors"
                   onClick={() => handleTopicSelect('recovery')}
                 >
-                  <Zap size={24} className="text-cyan-primary mb-2" />
+                  <Zap size={24} className="text-primary-cyan-500 mb-2" />
                   <span className="text-sm text-alpine-mist">Recovery</span>
                 </button>
                 <button 
-                  className="bg-glass-highlight p-3 rounded-lg flex flex-col items-center justify-center hover:bg-cyan-primary/20 transition-colors"
+                  className="bg-glass-highlight p-3 rounded-lg flex flex-col items-center justify-center hover:bg-primary-cyan-500/20 transition-colors"
                   onClick={() => handleTopicSelect('goals')}
                 >
-                  <Brain size={24} className="text-cyan-primary mb-2" />
+                  <Brain size={24} className="text-primary-cyan-500 mb-2" />
                   <span className="text-sm text-alpine-mist">Goals</span>
                 </button>
               </div>
@@ -205,7 +205,7 @@ const CoachPage: React.FC = () => {
                 className={`mb-4 flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {message.role === 'ai' && (
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-primary to-teal-primary flex items-center justify-center mr-2 flex-shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary-cyan-500 to-primary-teal-500 flex items-center justify-center mr-2 flex-shrink-0">
                     <Sparkles size={16} className="text-white" />
                   </div>
                 )}
@@ -213,7 +213,7 @@ const CoachPage: React.FC = () => {
                 <div 
                   className={`max-w-[75%] p-3 rounded-lg ${
                     message.role === 'user' 
-                      ? 'bg-cyan-primary/20 text-alpine-mist rounded-br-none' 
+                      ? 'bg-primary-cyan-500/20 text-alpine-mist rounded-br-none' 
                       : 'bg-glass-highlight text-alpine-mist rounded-tl-none'
                   }`}
                 >
@@ -234,7 +234,7 @@ const CoachPage: React.FC = () => {
             {/* AI typing indicator */}
             {isTyping && (
               <div className="mb-4 flex justify-start">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-primary to-teal-primary flex items-center justify-center mr-2 flex-shrink-0">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary-cyan-500 to-primary-teal-500 flex items-center justify-center mr-2 flex-shrink-0">
                   <Sparkles size={16} className="text-white" />
                 </div>
                 <div className="bg-glass-highlight p-3 rounded-lg rounded-tl-none">
@@ -257,14 +257,14 @@ const CoachPage: React.FC = () => {
               <input
                 ref={inputRef}
                 type="text"
-                className="flex-1 bg-glass-highlight border border-glass-border rounded-lg px-4 py-2 text-alpine-mist focus:outline-none focus:border-cyan-primary"
+                className="flex-1 bg-glass-highlight border border-glass-border rounded-lg px-4 py-2 text-alpine-mist focus:outline-none focus:border-primary-cyan-500"
                 placeholder="Ask your AI coach..."
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
               />
               <motion.button
                 type="submit"
-                className="w-10 h-10 rounded-full bg-cyan-primary flex items-center justify-center"
+                className="w-10 h-10 rounded-full bg-primary-cyan-500 flex items-center justify-center"
                 whileTap={{ scale: 0.9 }}
                 disabled={!inputMessage.trim() || isTyping}
               >

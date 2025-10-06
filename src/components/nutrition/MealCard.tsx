@@ -84,11 +84,11 @@ const MealCard: React.FC<MealCardProps> = ({
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className={`p-1.5 rounded-md mr-2 ${
-                completed ? 'bg-cyan-primary/20' : 'bg-glass-highlight'
+                completed ? 'bg-primary-cyan-500/20' : 'bg-glass-highlight'
               }`}
               onClick={onComplete}
             >
-              <Check size={16} className={completed ? 'text-cyan-primary' : 'text-alpine-mist'} />
+              <Check size={16} className={completed ? 'text-primary-cyan-500' : 'text-alpine-mist'} />
             </motion.button>
           )}
           
@@ -117,7 +117,7 @@ const MealCard: React.FC<MealCardProps> = ({
           {/* Visual food items representation */}
           <div className="mb-3">
             <div className="flex items-center mb-2">
-              <Utensils size={14} className="text-cyan-primary mr-1.5" />
+              <Utensils size={14} className="text-primary-cyan-500 mr-1.5" />
               <p className="text-xs sm:text-sm text-alpine-mist/80">Food Items</p>
             </div>
             
@@ -136,7 +136,7 @@ const MealCard: React.FC<MealCardProps> = ({
               
               {/* Show/hide details button */}
               <motion.button
-                className="w-full mt-2 text-xs text-cyan-primary flex items-center justify-center"
+                className="w-full mt-2 text-xs text-primary-cyan-500 flex items-center justify-center"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={(e) => {
@@ -185,7 +185,7 @@ const MealCard: React.FC<MealCardProps> = ({
             >
               <input
                 type="text"
-                className="flex-1 bg-glass-background border border-glass-border rounded-l-md p-2 text-xs sm:text-sm text-alpine-mist focus:outline-none focus:border-cyan-primary/50"
+                className="flex-1 bg-glass-background border border-glass-border rounded-l-md p-2 text-xs sm:text-sm text-alpine-mist focus:outline-none focus:border-primary-cyan-500/50"
                 placeholder="Add a note about this meal..."
                 value={footnote}
                 onChange={(e) => setFootnote(e.target.value)}
@@ -194,7 +194,7 @@ const MealCard: React.FC<MealCardProps> = ({
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-cyan-primary p-2 rounded-r-md"
+                className="bg-primary-cyan-500 p-2 rounded-r-md"
                 onClick={handleAddFootnote}
               >
                 <Plus size={14} className="text-white" />

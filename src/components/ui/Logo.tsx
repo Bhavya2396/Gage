@@ -46,9 +46,9 @@ const Logo: React.FC<LogoProps> = ({
     >
       <Mountain 
         size={iconSizes[size]} 
-        className={`mr-1.5 ${variant === 'glow' ? 'text-cyan-primary filter drop-shadow-glow' : 'text-cyan-primary'}`} 
+        className={`mr-1.5 ${variant === 'glow' ? 'text-primary-cyan-500 filter drop-shadow-glow' : 'text-primary-cyan-500'}`} 
       />
-      <span className={`font-bold ${sizeClasses[size]} bg-gradient-to-r from-cyan-primary to-teal-primary bg-clip-text text-transparent ${variant === 'glow' ? 'filter drop-shadow-glow' : ''}`}>
+      <span className={`font-bold ${sizeClasses[size]} bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500 bg-clip-text text-transparent ${variant === 'glow' ? 'filter drop-shadow-glow' : ''}`}>
         GAGE
       </span>
     </div>

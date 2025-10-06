@@ -29,7 +29,7 @@ const TimePeriodSelector: React.FC<{
           key={period}
           className={`px-3 py-1.5 text-sm rounded-full transition-all flex-shrink-0 ${
             selectedPeriod === period
-              ? 'bg-cyan-primary text-white shadow-lg shadow-cyan-primary/20'
+              ? 'bg-primary-cyan-500 text-white shadow-lg shadow-cyan-primary/20'
               : 'bg-glass-background text-alpine-mist hover:bg-glass-highlight'
           }`}
           onClick={() => onChange(period)}
@@ -340,7 +340,7 @@ const HealthTrendsPage: React.FC = () => {
     'HRV': {
       title: 'Heart Rate Variability',
       color: '#00CCFF',
-      icon: <Heart size={16} className="text-cyan-primary" />,
+      icon: <Heart size={16} className="text-primary-cyan-500" />,
       current: 68,
       previous: 63,
       unit: 'ms',
@@ -374,7 +374,7 @@ const HealthTrendsPage: React.FC = () => {
     'RHR': {
       title: 'Resting Heart Rate',
       color: '#4ADE80',
-      icon: <Activity size={16} className="text-teal-primary" />,
+      icon: <Activity size={16} className="text-primary-teal-500" />,
       current: 52,
       previous: 54,
       unit: 'bpm',
@@ -502,7 +502,7 @@ const HealthTrendsPage: React.FC = () => {
               key={key}
               className={`p-3 rounded-lg transition-all overflow-hidden ${
                 selectedMetric === key
-                  ? 'bg-glass-highlight border border-cyan-primary/30 shadow-lg shadow-cyan-primary/10'
+                  ? 'bg-glass-highlight border border-primary-cyan-500/30 shadow-lg shadow-cyan-primary/10'
                   : 'bg-glass-background hover:bg-glass-highlight'
               }`}
               onClick={() => setSelectedMetric(key)}
