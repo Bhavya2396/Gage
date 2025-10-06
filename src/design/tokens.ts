@@ -30,15 +30,15 @@ export const colors = {
     },
   },
   
-  // UI colors - Updated for maximum readability
+  // UI colors - Updated for more transparent cards with strong text shadows
   ui: {
     background: '#0F172A', // Dark blue background
-    card: 'rgba(255, 255, 255, 0.4)', // Much more opaque for better readability
-    cardDark: 'rgba(15, 23, 42, 0.95)', // Dark card for contrast
-    cardGlass: 'rgba(255, 255, 255, 0.2)', // Glass effect card
-    border: 'rgba(255, 255, 255, 0.5)', // More visible borders
-    borderLight: 'rgba(255, 255, 255, 0.6)', // Light border
-    highlight: 'rgba(0, 204, 255, 0.4)', // Cyan highlight
+    card: 'rgba(255, 255, 255, 0.2)', // More transparent for glassmorphism
+    cardDark: 'rgba(15, 23, 42, 0.8)', // Dark card for contrast
+    cardGlass: 'rgba(255, 255, 255, 0.1)', // Glass effect card
+    border: 'rgba(255, 255, 255, 0.3)', // Subtle borders
+    borderLight: 'rgba(255, 255, 255, 0.4)', // Light border
+    highlight: 'rgba(0, 204, 255, 0.3)', // Cyan highlight
     text: {
       primary: '#FFFFFF', // White text for translucent cards
       secondary: '#FFFFFF', // Pure white for better contrast
