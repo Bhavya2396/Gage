@@ -30,19 +30,19 @@ export const colors = {
     },
   },
   
-  // UI colors - Updated for better readability with translucent glassmorphism
+  // UI colors - Updated for maximum readability
   ui: {
     background: '#0F172A', // Dark blue background
-    card: 'rgba(255, 255, 255, 0.25)', // More opaque for better readability
-    cardDark: 'rgba(15, 23, 42, 0.9)', // Dark card for contrast
-    cardGlass: 'rgba(255, 255, 255, 0.15)', // Glass effect card
-    border: 'rgba(255, 255, 255, 0.3)', // More visible borders
-    borderLight: 'rgba(255, 255, 255, 0.4)', // Light border
-    highlight: 'rgba(0, 204, 255, 0.3)', // Cyan highlight
+    card: 'rgba(255, 255, 255, 0.4)', // Much more opaque for better readability
+    cardDark: 'rgba(15, 23, 42, 0.95)', // Dark card for contrast
+    cardGlass: 'rgba(255, 255, 255, 0.2)', // Glass effect card
+    border: 'rgba(255, 255, 255, 0.5)', // More visible borders
+    borderLight: 'rgba(255, 255, 255, 0.6)', // Light border
+    highlight: 'rgba(0, 204, 255, 0.4)', // Cyan highlight
     text: {
       primary: '#FFFFFF', // White text for translucent cards
-      secondary: '#F1F5F9', // Brighter light gray for better contrast
-      muted: '#CBD5E1', // Brighter medium gray
+      secondary: '#FFFFFF', // Pure white for better contrast
+      muted: '#E2E8F0', // Brighter medium gray
       white: '#FFFFFF', // White text
       accent: '#00CCFF', // Cyan accent text
     },
