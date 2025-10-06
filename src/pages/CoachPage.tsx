@@ -150,11 +150,11 @@ const CoachPage: React.FC = () => {
             size="sm" 
             onClick={() => navigate('/')}
             icon={<ChevronLeft size={16} />}
-            className="text-alpine-mist"
+            className="text-ui-text-primary"
           >
             Back
           </Button>
-          <h1 className="text-xl font-medium text-alpine-mist">AI Coach</h1>
+          <h1 className="text-sm font-bold text-ui-text-primary">AI Coach</h1>
           <div className="w-8"></div> {/* Spacer for centering */}
         </div>
         
@@ -162,70 +162,70 @@ const CoachPage: React.FC = () => {
         <GlassCard variant="default" size="lg" className="flex-1 flex flex-col overflow-hidden">
           {/* Topic selection */}
           {messages.length === 1 && !selectedTopic && (
-            <div className="p-4 border-b border-glass-border">
-              <h3 className="text-sm font-medium text-alpine-mist mb-3">What would you like to discuss?</h3>
-              <div className="grid grid-cols-2 gap-3">
+            <div className="p-3 border-b border-ui-border">
+              <h3 className="text-xs font-bold text-ui-text-primary mb-3">What would you like to discuss?</h3>
+              <div className="grid grid-cols-2 gap-2">
                 <button 
-                  className="bg-glass-highlight p-3 rounded-lg flex flex-col items-center justify-center hover:bg-primary-cyan-500/20 transition-colors"
+                  className="bg-white/5 p-2 rounded-lg flex flex-col items-center justify-center hover:bg-primary-cyan-500/20 transition-colors"
                   onClick={() => handleTopicSelect('workout')}
                 >
-                  <Dumbbell size={24} className="text-primary-cyan-500 mb-2" />
-                  <span className="text-sm text-alpine-mist">Workouts</span>
+                  <Dumbbell size={16} className="text-primary-cyan-500 mb-1" />
+                  <span className="text-xs text-ui-text-primary">Workouts</span>
                 </button>
                 <button 
-                  className="bg-glass-highlight p-3 rounded-lg flex flex-col items-center justify-center hover:bg-primary-cyan-500/20 transition-colors"
+                  className="bg-white/5 p-2 rounded-lg flex flex-col items-center justify-center hover:bg-primary-cyan-500/20 transition-colors"
                   onClick={() => handleTopicSelect('nutrition')}
                 >
-                  <Utensils size={24} className="text-primary-cyan-500 mb-2" />
-                  <span className="text-sm text-alpine-mist">Nutrition</span>
+                  <Utensils size={16} className="text-primary-cyan-500 mb-1" />
+                  <span className="text-xs text-ui-text-primary">Nutrition</span>
                 </button>
                 <button 
-                  className="bg-glass-highlight p-3 rounded-lg flex flex-col items-center justify-center hover:bg-primary-cyan-500/20 transition-colors"
+                  className="bg-white/5 p-2 rounded-lg flex flex-col items-center justify-center hover:bg-primary-cyan-500/20 transition-colors"
                   onClick={() => handleTopicSelect('recovery')}
                 >
-                  <Zap size={24} className="text-primary-cyan-500 mb-2" />
-                  <span className="text-sm text-alpine-mist">Recovery</span>
+                  <Zap size={16} className="text-primary-cyan-500 mb-1" />
+                  <span className="text-xs text-ui-text-primary">Recovery</span>
                 </button>
                 <button 
-                  className="bg-glass-highlight p-3 rounded-lg flex flex-col items-center justify-center hover:bg-primary-cyan-500/20 transition-colors"
+                  className="bg-white/5 p-2 rounded-lg flex flex-col items-center justify-center hover:bg-primary-cyan-500/20 transition-colors"
                   onClick={() => handleTopicSelect('goals')}
                 >
-                  <Brain size={24} className="text-primary-cyan-500 mb-2" />
-                  <span className="text-sm text-alpine-mist">Goals</span>
+                  <Brain size={16} className="text-primary-cyan-500 mb-1" />
+                  <span className="text-xs text-ui-text-primary">Goals</span>
                 </button>
               </div>
             </div>
           )}
           
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4">
+          <div className="flex-1 overflow-y-auto p-3">
             {messages.map((message, index) => (
               <div 
                 key={index} 
-                className={`mb-4 flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                className={`mb-3 flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {message.role === 'ai' && (
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary-cyan-500 to-primary-teal-500 flex items-center justify-center mr-2 flex-shrink-0">
-                    <Sparkles size={16} className="text-white" />
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary-cyan-500 to-primary-teal-500 flex items-center justify-center mr-2 flex-shrink-0">
+                    <Sparkles size={12} className="text-white" />
                   </div>
                 )}
                 
                 <div 
-                  className={`max-w-[75%] p-3 rounded-lg ${
+                  className={`max-w-[75%] p-2 rounded-lg ${
                     message.role === 'user' 
-                      ? 'bg-primary-cyan-500/20 text-alpine-mist rounded-br-none' 
-                      : 'bg-glass-highlight text-alpine-mist rounded-tl-none'
+                      ? 'bg-primary-cyan-500/20 text-ui-text-primary rounded-br-none' 
+                      : 'bg-white/5 text-ui-text-primary rounded-tl-none'
                   }`}
                 >
-                  <div className="text-sm">{message.content}</div>
-                  <div className="text-xs text-alpine-mist/70 mt-1 text-right">
+                  <div className="text-xs">{message.content}</div>
+                  <div className="text-xs text-ui-text-muted mt-1 text-right">
                     {formatTime(message.timestamp)}
                   </div>
                 </div>
                 
                 {message.role === 'user' && (
-                  <div className="w-8 h-8 rounded-full bg-glass-highlight flex items-center justify-center ml-2 flex-shrink-0">
-                    <User size={16} className="text-alpine-mist" />
+                  <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center ml-2 flex-shrink-0">
+                    <User size={12} className="text-ui-text-primary" />
                   </div>
                 )}
               </div>
@@ -233,15 +233,15 @@ const CoachPage: React.FC = () => {
             
             {/* AI typing indicator */}
             {isTyping && (
-              <div className="mb-4 flex justify-start">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary-cyan-500 to-primary-teal-500 flex items-center justify-center mr-2 flex-shrink-0">
-                  <Sparkles size={16} className="text-white" />
+              <div className="mb-3 flex justify-start">
+                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary-cyan-500 to-primary-teal-500 flex items-center justify-center mr-2 flex-shrink-0">
+                  <Sparkles size={12} className="text-white" />
                 </div>
-                <div className="bg-glass-highlight p-3 rounded-lg rounded-tl-none">
+                <div className="bg-white/5 p-2 rounded-lg rounded-tl-none">
                   <div className="flex space-x-1">
-                    <div className="w-2 h-2 rounded-full bg-alpine-mist/70 animate-bounce"></div>
-                    <div className="w-2 h-2 rounded-full bg-alpine-mist/70 animate-bounce delay-75"></div>
-                    <div className="w-2 h-2 rounded-full bg-alpine-mist/70 animate-bounce delay-150"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-ui-text-muted animate-bounce"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-ui-text-muted animate-bounce delay-75"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-ui-text-muted animate-bounce delay-150"></div>
                   </div>
                 </div>
               </div>
@@ -252,23 +252,23 @@ const CoachPage: React.FC = () => {
           </div>
           
           {/* Input area */}
-          <div className="p-4 border-t border-glass-border">
+          <div className="p-3 border-t border-ui-border">
             <form onSubmit={handleSubmit} className="flex items-center space-x-2">
               <input
                 ref={inputRef}
                 type="text"
-                className="flex-1 bg-glass-highlight border border-glass-border rounded-lg px-4 py-2 text-alpine-mist focus:outline-none focus:border-primary-cyan-500"
+                className="flex-1 bg-white/5 border border-ui-border rounded-lg px-3 py-2 text-xs text-ui-text-primary focus:outline-none focus:border-primary-cyan-500"
                 placeholder="Ask your AI coach..."
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
               />
               <motion.button
                 type="submit"
-                className="w-10 h-10 rounded-full bg-primary-cyan-500 flex items-center justify-center"
+                className="w-8 h-8 rounded-full bg-primary-cyan-500 flex items-center justify-center"
                 whileTap={{ scale: 0.9 }}
                 disabled={!inputMessage.trim() || isTyping}
               >
-                <Send size={18} className="text-white" />
+                <Send size={14} className="text-white" />
               </motion.button>
             </form>
           </div>
