@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import MainLayout from '@/layouts/MainLayout';
 import GlassCard from '@/components/ui/GlassCard';
 import Button from '@/components/ui/Button';
-import { ChevronLeft, Heart, Activity, Wind, Droplet, Thermometer } from 'lucide-react';
-import HealthCard from '@/components/health/HealthCard';
+import { ChevronLeft, Heart } from 'lucide-react';
 import RecoveryScoreCard from '@/components/health/RecoveryScoreCard';
+import HealthMetricsGrid from '@/components/health/HealthMetricsGrid';
 import { getRecoveryColor } from '@/lib/utils';
 
 const HealthDashboardPage: React.FC = () => {
@@ -127,42 +127,25 @@ const HealthDashboardPage: React.FC = () => {
             variants={itemVariants} 
             {...sharedElementTransition}
           >
-            <RecoveryScoreCard {...recoveryData} />
+            <RecoveryScoreCard score={78} />
           </motion.div>
-          
-          <div className="grid grid-cols-1 gap-6">
-            {healthMetrics.map((metric, index) => (
-              <motion.div key={metric.title} variants={itemVariants}>
-                <HealthCard {...metric} />
-              </motion.div>
-            ))}
-          </div>
           
           <motion.div variants={itemVariants}>
             <GlassCard variant="default" size="md" className="w-full">
-              <div className="flex justify-between items-center">
-                <h3 className="text-lg font-medium text-alpine-mist">Health Trends</h3>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => navigate('/health/trends')}
-                  className="text-alpine-mist hover:bg-primary-cyan-500/20 hover:border-primary-cyan-500/40"
-                >
-                  View All
-                </Button>
-              </div>
-              <div className="bg-glass-background bg-opacity-30 p-3 rounded-lg mt-3">
-                <div className="flex items-center mb-2">
-                  <div className="w-full h-2 bg-glass-border rounded-full overflow-hidden mr-2">
-                    <div className="h-full bg-gradient-to-r from-primary-cyan-500 to-primary-teal-500" style={{ width: '68%' }}></div>
-                  </div>
-                  <span className="text-xs text-primary-cyan-500 whitespace-nowrap">+15%</span>
+              <div className="flex items-center mb-4">
+                <div className="mr-3 p-2 rounded-full bg-white/10">
+                  <Heart className="text-primary-cyan-400" size={20} />
                 </div>
-                <p className="text-alpine-mist text-sm">
-                  Your health metrics are trending positively. Sleep quality has improved significantly over the last month.
-                </p>
+                <h3 className="text-lg font-bold text-white">Base Camp Recovery</h3>
               </div>
+              <p className="text-white/70 text-sm">
+                Focus on establishing healthy recovery patterns to build a strong foundation.
+              </p>
             </GlassCard>
+          </motion.div>
+          
+          <motion.div variants={itemVariants}>
+            <HealthMetricsGrid />
           </motion.div>
         </motion.div>
       </div>
